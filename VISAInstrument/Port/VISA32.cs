@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Runtime.InteropServices;
 
-namespace VISAInstrument
+namespace VISAInstrument.Port
 {
     class VISA32
     {
