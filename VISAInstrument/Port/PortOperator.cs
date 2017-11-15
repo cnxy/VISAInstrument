@@ -15,6 +15,8 @@ namespace VISAInstrument.Port
 
     class RS232PortOperator:PortOperatorBase,IPortType
     {
+        public int BaudRate { private set; get; }
+
         public Parity Parity { private set; get; }
 
         public StopBits StopBits { private set; get; }
@@ -25,10 +27,10 @@ namespace VISAInstrument.Port
 
         public FlowControl FlowControl { set; get; } = FlowControl.None;
 
-        public RS232PortOperator(string address,Parity parity,StopBits stopBits,int dataBits) : base(address)
+        public RS232PortOperator(string address,int baudRate,Parity parity,StopBits stopBits,int dataBits) : base(address)
         {
-            if (!address.ToUpper().Contains("ASRL"))
-                throw new ArgumentException($"该地址不含ASRL字样");
+            if (!address.ToUpper().Contains("ASRL")) throw new ArgumentException($"该地址不含ASRL字样");
+            BaudRate = baudRate;
             Parity = parity;
             if (stopBits == StopBits.None) throw new NotSupportedException($"不支持停止位为：{stopBits.ToString()}");
             StopBits = stopBits;
@@ -40,6 +42,8 @@ namespace VISAInstrument.Port
         {
             base.Open();
             int result = 0;
+            result = VISA32.viSetAttribute(VI, VISA32.VI_ATTR_ASRL_BAUD, BaudRate);
+            PortUltility.ThrowIfResultExcepiton(result);
             switch (Parity)
             {
                 case Parity.None:

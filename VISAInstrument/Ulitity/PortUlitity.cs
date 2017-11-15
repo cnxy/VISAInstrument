@@ -55,7 +55,7 @@ namespace VISAInstrument.Port
 
         public static void ThrowIfResultExcepiton(int result)
         {
-            if (result != 0)
+            if (result != 0 && result !=VISA32.VI_ERROR_RSRC_NFOUND)
                 throw new ResultException($"无效的结果编号：{result}");
         }
     }
