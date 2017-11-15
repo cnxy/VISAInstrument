@@ -11,7 +11,6 @@ using VISAInstrument.Extension;
 using VISAInstrument.Properties;
 using System.IO.Ports;
 
-
 namespace VISAInstrument
 {
     public partial class FrmMain : Form
@@ -55,7 +54,6 @@ namespace VISAInstrument
             cboDataBits.DataSource = dataBits;
             cboFlowControl.DataSource = Enum.GetValues(typeof(FlowControl));
             cboCommand.SelectedIndex = 0;
-
         }
         PortOperatorBase portOperatorBase;
         private void btnWrite_Click(object sender, EventArgs e)
@@ -122,8 +120,6 @@ namespace VISAInstrument
             return hasAddress;
         }
 
-
-
         private void DisplayToTextBox(string content)
         {
             txtDisplay.Text += $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}: {content}\r\n";
@@ -143,8 +139,6 @@ namespace VISAInstrument
             cboGPIB.ShowAndDisplay(PortUltility.FindAddresses(PortType.GPIB));
             cboLAN.ShowAndDisplay(PortUltility.FindAddresses(PortType.LAN));
         }
-
-        bool hasAddress = false;
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
@@ -177,11 +171,5 @@ namespace VISAInstrument
             flowLayoutPanel3.Enabled = !enable;
             groupBoxDisplay.Enabled = !enable;
         }
-
-
     }
-
-
-
-
 }

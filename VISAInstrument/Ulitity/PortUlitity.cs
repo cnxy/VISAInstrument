@@ -15,7 +15,6 @@ namespace VISAInstrument.Port
 
     class PortUltility
     {
-
         private static string ToStringFromPortType(PortType portType)
         {
             switch (portType)

@@ -6,8 +6,6 @@ using System.IO.Ports;
 
 namespace VISAInstrument.Port
 {
-
-
     enum FlowControl
     {
         None, XOnXOff,RtsCts,DtrDst
@@ -133,8 +131,8 @@ namespace VISAInstrument.Port
 
         public int Timeout { set; get; } = 2000;
 
-
         public event EventHandler<PortEventArgs> PortOpenning;
+
         public event EventHandler<PortEventArgs> PortClosing;
 
         protected virtual void OnPortOpenning(PortEventArgs e)
@@ -221,6 +219,4 @@ namespace VISAInstrument.Port
     {
         PortType PortType {  get; }
     }
-
-
 }
