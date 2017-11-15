@@ -30,12 +30,12 @@
         {
             this.SuspendLayout();
             // 
-            // Form1
+            // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(480, 391);
-            this.Name = "Form1";
+            this.ClientSize = new System.Drawing.Size(540, 339);
+            this.Name = "FrmMain";
             this.Text = "VISA仪器控制";
             this.ResumeLayout(false);
 
