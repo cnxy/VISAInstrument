@@ -33,7 +33,7 @@ namespace VISAInstrument.Port
             List<string> list = new List<string>();
             int result = VISA32.viOpenDefaultRM(out int sesn);
             StringBuilder desc = new StringBuilder();
-            result = VISA32.viFindRsrc(sesn, $"{ToStringFromPortType(portType)}?*", out int vi, out int retCount, desc);
+            result = VISA32.viFindRsrc(sesn, $"{ToStringFromPortType(portType)}?*INSTR", out int vi, out int retCount, desc);
             ThrowIfResultExcepiton(result);
             for (int i = 0; i < retCount; i++)
             {

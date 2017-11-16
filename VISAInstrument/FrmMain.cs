@@ -10,6 +10,7 @@ using VISAInstrument.Port;
 using VISAInstrument.Extension;
 using VISAInstrument.Properties;
 using System.IO.Ports;
+using System.Diagnostics;
 
 namespace VISAInstrument
 {
@@ -27,7 +28,7 @@ namespace VISAInstrument
                 this.tableLayoutPanel.RowStyles[2].Height = 0;
                 return;
             }
-            this.tableLayoutPanel.RowStyles[2].Height = 63F;
+            this.tableLayoutPanel.RowStyles[2].Height = 35F;
         }
 
         private void DoSomethingForRadioButton(params Action[] actionOfRbt)
@@ -41,6 +42,7 @@ namespace VISAInstrument
 
         int[] baudRate = { 256000, 128000, 115200, 57600, 56000, 43000, 38400, 28800, 19200, 9600, 4800, 2400, 1200, 600, 300, 110 };
         int[] dataBits = { 8, 7, 6 };
+        string[] commmands = { "*IDN?","*TST?", "*RST", "*CLS", "*ESE", "*ESE?", "*ESR?", "*OPC", "*OPC?", "*PSC", "*PSC?", "*SRE", "*SRE?", "*STB?", "*SAV", "*RCL","*TRG" };
         private void FrmMain_Load(object sender, EventArgs e)
         {
             rbtRS232.Checked = true;
@@ -53,7 +55,8 @@ namespace VISAInstrument
             cboStopBits.SelectedIndex = 1;
             cboDataBits.DataSource = dataBits;
             cboFlowControl.DataSource = Enum.GetValues(typeof(FlowControl));
-            cboCommand.SelectedIndex = 0;
+            cboCommand.DataSource = commmands.OrderBy(n=>n).ToArray();
+            cboCommand.SelectedIndex =4 ;
         }
         PortOperatorBase portOperatorBase;
         private void btnWrite_Click(object sender, EventArgs e)
@@ -63,7 +66,14 @@ namespace VISAInstrument
                 MessageBox.Show("命令不能为空！");
                 return;
             }
-            portOperatorBase.WriteLine(cboCommand.Text);
+            try
+            {
+                portOperatorBase.WriteLine(cboCommand.Text);
+            }
+            catch
+            {
+                MessageBox.Show($"写入命令\"{cboCommand.Text}\"失败！");
+            }
         }
 
         private void btnRead_Click(object sender, EventArgs e)
@@ -129,15 +139,22 @@ namespace VISAInstrument
 
         private void ClearIfTextBoxOverFlow()
         {
-            if (txtDisplay.Text.Length > 20480) txtDisplay.Text = "";
+            if (txtDisplay.Text.Length > 20480) txtDisplay.Clear();
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            cboRS232.ShowAndDisplay(PortUltility.FindAddresses(PortType.RS232));
-            cboUSB.ShowAndDisplay(PortUltility.FindAddresses(PortType.USB));
-            cboGPIB.ShowAndDisplay(PortUltility.FindAddresses(PortType.GPIB));
-            cboLAN.ShowAndDisplay(PortUltility.FindAddresses(PortType.LAN));
+            try
+            {
+                cboRS232.ShowAndDisplay(PortUltility.FindAddresses(PortType.RS232));
+                cboUSB.ShowAndDisplay(PortUltility.FindAddresses(PortType.USB));
+                cboGPIB.ShowAndDisplay(PortUltility.FindAddresses(PortType.GPIB));
+                cboLAN.ShowAndDisplay(PortUltility.FindAddresses(PortType.LAN));
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -146,18 +163,22 @@ namespace VISAInstrument
             {
                 if (NewPortInstance())
                 {
-                    btnOpen.Text = Resources.CloseString;
-                    EnableControl(false);
-                    portOperatorBase.Open();
+                    try
+                    {
+                        portOperatorBase.Open();
+                        btnOpen.Text = Resources.CloseString;
+                        EnableControl(false);
+                    }
+                    catch { }
                 }
             }
             else
             {
-                btnOpen.Text = Resources.OpenString;
-                EnableControl(true);
                 try
                 {
                     portOperatorBase.Close();
+                    btnOpen.Text = Resources.OpenString;
+                    EnableControl(true);
                 }
                 catch { }
             }
@@ -170,6 +191,49 @@ namespace VISAInstrument
             btnRefresh.Enabled = enable;
             flowLayoutPanel3.Enabled = !enable;
             groupBoxDisplay.Enabled = !enable;
+        }
+
+        private void 清除ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Clear();
+        }
+
+        private void contextMenuStrip_Opening(object sender, CancelEventArgs e)
+        {
+            if(txtDisplay.Text.Length != 0 )
+            {
+                EnableContextMenuStrip(true);
+            }
+            else
+            {
+                EnableContextMenuStrip(false);
+            }
+        }
+
+        private void EnableContextMenuStrip(bool enable)
+        {
+            contextMenuStrip.Enabled = enable;
+        }
+
+        private void 全选ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Focus();
+            txtDisplay.SelectAll();
+        }
+
+        private void 复制ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(txtDisplay.SelectedText);
+        }
+
+        private void githubToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/cnxy");
+        }
+
+        private void blogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://www.cnc6.cn");
         }
     }
 }
