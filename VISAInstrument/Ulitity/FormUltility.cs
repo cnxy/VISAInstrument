@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Windows.Forms;
 
 namespace VISAInstrument.Extension
@@ -31,5 +28,19 @@ namespace VISAInstrument.Extension
             comboBox.SetFirstItem();
         }
 
+        public static void AddItem(this ComboBox comboBox, string content)
+        {
+            foreach (var item in comboBox.Items)
+            {
+                if ((string)item == content)
+                {
+                    return;
+                }
+            }
+            string[] commands = (string[])comboBox.DataSource;
+            commands = commands.Concat(new string[] { content }).ToArray();
+            comboBox.DataSource = commands;
+            comboBox.Text = content;
+        }
     }
 }

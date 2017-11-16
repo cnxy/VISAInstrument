@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using System.IO.Ports;
+using System.Diagnostics;
 using VISAInstrument.Port;
 using VISAInstrument.Extension;
 using VISAInstrument.Properties;
-using System.IO.Ports;
-using System.Diagnostics;
 
 namespace VISAInstrument
 {
@@ -68,13 +65,16 @@ namespace VISAInstrument
             }
             try
             {
+                DisplayToTextBox($"Write: {cboCommand.Text}");
                 portOperatorBase.WriteLine(cboCommand.Text);
+                cboCommand.AddItem(cboCommand.Text);
             }
             catch
             {
                 MessageBox.Show($"写入命令\"{cboCommand.Text}\"失败！");
             }
         }
+
 
         private void btnRead_Click(object sender, EventArgs e)
         {
@@ -88,7 +88,7 @@ namespace VISAInstrument
             {
                 result = ex.Message;
             }
-            DisplayToTextBox(result);
+            DisplayToTextBox($"Read:  {result}");
         }
 
         private void btnQuery_Click(object sender, EventArgs e)
@@ -132,7 +132,7 @@ namespace VISAInstrument
 
         private void DisplayToTextBox(string content)
         {
-            txtDisplay.Text += $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}: {content}\r\n";
+            txtDisplay.Text += $"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}   {content}\r\n";
             txtDisplay.SelectionStart = txtDisplay.Text.Length - 1;
             txtDisplay.ScrollToCaret();
         }
@@ -234,6 +234,15 @@ namespace VISAInstrument
         private void blogToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("http://www.cnc6.cn");
+        }
+
+        private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                portOperatorBase?.Close();
+            }
+            catch { }
         }
     }
 }

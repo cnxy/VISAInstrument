@@ -463,39 +463,39 @@
             this.toolStripMenuItem2,
             this.byCNXYToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(153, 126);
+            this.contextMenuStrip.Size = new System.Drawing.Size(128, 104);
             this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
             // 
             // 清除ToolStripMenuItem
             // 
             this.清除ToolStripMenuItem.Name = "清除ToolStripMenuItem";
-            this.清除ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.清除ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.清除ToolStripMenuItem.Text = "清除";
             this.清除ToolStripMenuItem.Click += new System.EventHandler(this.清除ToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(124, 6);
             // 
             // 全选ToolStripMenuItem
             // 
             this.全选ToolStripMenuItem.Name = "全选ToolStripMenuItem";
-            this.全选ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.全选ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.全选ToolStripMenuItem.Text = "全选";
             this.全选ToolStripMenuItem.Click += new System.EventHandler(this.全选ToolStripMenuItem_Click);
             // 
             // 复制ToolStripMenuItem
             // 
             this.复制ToolStripMenuItem.Name = "复制ToolStripMenuItem";
-            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.复制ToolStripMenuItem.Text = "复制";
             this.复制ToolStripMenuItem.Click += new System.EventHandler(this.复制ToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(124, 6);
             // 
             // byCNXYToolStripMenuItem
             // 
@@ -503,7 +503,7 @@
             this.githubToolStripMenuItem,
             this.blogToolStripMenuItem});
             this.byCNXYToolStripMenuItem.Name = "byCNXYToolStripMenuItem";
-            this.byCNXYToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.byCNXYToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.byCNXYToolStripMenuItem.Text = "By CNXY";
             // 
             // githubToolStripMenuItem
@@ -533,6 +533,7 @@
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VISA仪器控制";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.tableLayoutPanel.ResumeLayout(false);
             this.groupBoxDisplay.ResumeLayout(false);

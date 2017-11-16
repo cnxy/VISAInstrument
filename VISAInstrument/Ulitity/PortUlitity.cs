@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace VISAInstrument.Port
 {
-    /// <summary>
-    /// 所操作的端口类型
-    /// </summary>
     enum PortType
     {
         RS232, USB, GPIB, LAN,None
