@@ -3,6 +3,10 @@
 必须安装VISA运行时，下载链接如下：
 http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/zhs/pg/1/sn/catnav:du/q/VISA/
 
+或者到
+https://github.com/cnxy/VISAInstrument/releases/tag/1.0.0.0
+下载"visa441runtime.zip"以便安装VISA运行时
+
 ## RS232
 支持常见的RS232串口编程，一般地址为“ASRL1::INSTR”
 
