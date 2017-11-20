@@ -43,6 +43,23 @@ namespace VISAInstrument.Port
             return list.ToArray();
         }
 
+        public static string[] FindRS232Type(string[] addresses)
+        {
+            int result = VISA32.viOpenDefaultRM(out int sesn);
+            List<string> list = new List<string>();
+            StringBuilder stringBuilder = new StringBuilder();
+            for(int i=0;i<addresses.Length;i++)
+            {
+                result = VISA32.viOpen(sesn, addresses[i], 0, 2000, out int vi);
+                result = VISA32.viGetAttribute(vi, VISA32.VI_ATTR_INTF_INST_NAME, stringBuilder);
+                result = VISA32.viClose(vi);
+                list.Add(stringBuilder.ToString());
+                
+            }
+            return list.ToArray();
+        }
+
+
         public static string[] FindAddresses()
         {
            return FindAddresses(PortType.None);

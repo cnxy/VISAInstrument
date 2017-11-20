@@ -104,7 +104,7 @@ namespace VISAInstrument
                 () =>
                 {
                     if (cboRS232.SelectedIndex == -1) return;
-                    portOperatorBase = new RS232PortOperator(cboRS232.SelectedItem.ToString(),
+                    portOperatorBase = new RS232PortOperator(((Pair<string,string>)cboRS232.SelectedItem).Value.ToString(),
                         (int)cboBaudRate.SelectedItem, (Parity)cboParity.SelectedItem,
                         (StopBits)cboStopBits.SelectedItem, (int)cboDataBits.SelectedItem);
                     hasAddress = true;
@@ -146,7 +146,8 @@ namespace VISAInstrument
         {
             try
             {
-                cboRS232.ShowAndDisplay(PortUltility.FindAddresses(PortType.RS232));
+                string[] rs232Address = PortUltility.FindAddresses(PortType.RS232);
+                cboRS232.ShowAndDisplay(rs232Address, PortUltility.FindRS232Type(rs232Address));
                 cboUSB.ShowAndDisplay(PortUltility.FindAddresses(PortType.USB));
                 cboGPIB.ShowAndDisplay(PortUltility.FindAddresses(PortType.GPIB));
                 cboLAN.ShowAndDisplay(PortUltility.FindAddresses(PortType.LAN));
