@@ -13,6 +13,7 @@ namespace VISAInstrument
 {
     public partial class FrmMain : Form
     {
+        public bool CancelDisplayForm { private set; get; }
         public FrmMain()
         {
             InitializeComponent();
@@ -52,8 +53,9 @@ namespace VISAInstrument
             cboStopBits.SelectedIndex = 1;
             cboDataBits.DataSource = dataBits;
             cboFlowControl.DataSource = Enum.GetValues(typeof(FlowControl));
-            cboCommand.DataSource = commmands.OrderBy(n=>n).ToArray();
-            cboCommand.SelectedIndex =4 ;
+            cboCommand.DataSource = commmands.OrderBy(n => n).ToArray();
+            cboCommand.SelectedIndex = 4;
+            if (CancelDisplayForm) Close();
         }
         PortOperatorBase portOperatorBase;
         private void btnWrite_Click(object sender, EventArgs e)
@@ -154,7 +156,20 @@ namespace VISAInstrument
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                if(ex is ResultException || ex is DllNotFoundException)
+
+                {
+                    DialogResult result = MessageBox.Show("加载VISA32错误，请保证已经安装VISA32运行时！\r\n\r\n点击“是”从弹出的网址进行下载并安装。", "运行时错误", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (result == DialogResult.Yes)
+                    {
+                        Process.Start("https://github.com/cnxy/VISAInstrument/releases/download/1.0.0.0/visa441runtime.zip");
+                    }
+                    CancelDisplayForm = true;
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
