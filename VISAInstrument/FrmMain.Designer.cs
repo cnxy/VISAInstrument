@@ -31,17 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBoxDisplay = new System.Windows.Forms.GroupBox();
-            this.txtDisplay = new System.Windows.Forms.TextBox();
-            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.清除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.全选ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.复制ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.byCNXYToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.githubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.blogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.rbtRS232 = new System.Windows.Forms.RadioButton();
             this.cboRS232 = new System.Windows.Forms.ComboBox();
@@ -51,12 +40,6 @@
             this.cboGPIB = new System.Windows.Forms.ComboBox();
             this.rbtLAN = new System.Windows.Forms.RadioButton();
             this.cboLAN = new System.Windows.Forms.ComboBox();
-            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-            this.lblCommand = new System.Windows.Forms.Label();
-            this.cboCommand = new System.Windows.Forms.ComboBox();
-            this.btnWrite = new System.Windows.Forms.Button();
-            this.btnRead = new System.Windows.Forms.Button();
-            this.btnQuery = new System.Windows.Forms.Button();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.lblBaudRate = new System.Windows.Forms.Label();
             this.cboBaudRate = new System.Windows.Forms.ComboBox();
@@ -71,17 +54,34 @@
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
+            this.groupBoxDisplay = new System.Windows.Forms.GroupBox();
+            this.txtDisplay = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.清除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.全选ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.复制ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.byCNXYToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.githubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.blogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblCommand = new System.Windows.Forms.Label();
+            this.cboCommand = new System.Windows.Forms.ComboBox();
+            this.btnWrite = new System.Windows.Forms.Button();
+            this.btnRead = new System.Windows.Forms.Button();
+            this.btnQuery = new System.Windows.Forms.Button();
             this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
             this.lblIP = new System.Windows.Forms.Label();
             this.txtIPAddress = new System.Windows.Forms.TextBox();
             this.btnCheckIP = new System.Windows.Forms.Button();
             this.tableLayoutPanel.SuspendLayout();
-            this.groupBoxDisplay.SuspendLayout();
-            this.contextMenuStrip.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.flowLayoutPanel3.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
+            this.groupBoxDisplay.SuspendLayout();
+            this.contextMenuStrip.SuspendLayout();
+            this.flowLayoutPanel3.SuspendLayout();
             this.flowLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -108,96 +108,6 @@
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(748, 463);
             this.tableLayoutPanel.TabIndex = 0;
-            // 
-            // groupBoxDisplay
-            // 
-            this.tableLayoutPanel.SetColumnSpan(this.groupBoxDisplay, 2);
-            this.groupBoxDisplay.Controls.Add(this.txtDisplay);
-            this.groupBoxDisplay.Location = new System.Drawing.Point(3, 188);
-            this.groupBoxDisplay.Name = "groupBoxDisplay";
-            this.groupBoxDisplay.Size = new System.Drawing.Size(742, 272);
-            this.groupBoxDisplay.TabIndex = 2;
-            this.groupBoxDisplay.TabStop = false;
-            this.groupBoxDisplay.Text = "显示";
-            // 
-            // txtDisplay
-            // 
-            this.txtDisplay.ContextMenuStrip = this.contextMenuStrip;
-            this.txtDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtDisplay.Location = new System.Drawing.Point(3, 17);
-            this.txtDisplay.Multiline = true;
-            this.txtDisplay.Name = "txtDisplay";
-            this.txtDisplay.ReadOnly = true;
-            this.txtDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtDisplay.Size = new System.Drawing.Size(736, 252);
-            this.txtDisplay.TabIndex = 0;
-            // 
-            // contextMenuStrip
-            // 
-            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.清除ToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.全选ToolStripMenuItem,
-            this.复制ToolStripMenuItem,
-            this.toolStripMenuItem2,
-            this.byCNXYToolStripMenuItem});
-            this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(128, 104);
-            this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
-            // 
-            // 清除ToolStripMenuItem
-            // 
-            this.清除ToolStripMenuItem.Name = "清除ToolStripMenuItem";
-            this.清除ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.清除ToolStripMenuItem.Text = "清除";
-            this.清除ToolStripMenuItem.Click += new System.EventHandler(this.清除ToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(124, 6);
-            // 
-            // 全选ToolStripMenuItem
-            // 
-            this.全选ToolStripMenuItem.Name = "全选ToolStripMenuItem";
-            this.全选ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.全选ToolStripMenuItem.Text = "全选";
-            this.全选ToolStripMenuItem.Click += new System.EventHandler(this.全选ToolStripMenuItem_Click);
-            // 
-            // 复制ToolStripMenuItem
-            // 
-            this.复制ToolStripMenuItem.Name = "复制ToolStripMenuItem";
-            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.复制ToolStripMenuItem.Text = "复制";
-            this.复制ToolStripMenuItem.Click += new System.EventHandler(this.复制ToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(124, 6);
-            // 
-            // byCNXYToolStripMenuItem
-            // 
-            this.byCNXYToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.githubToolStripMenuItem,
-            this.blogToolStripMenuItem});
-            this.byCNXYToolStripMenuItem.Name = "byCNXYToolStripMenuItem";
-            this.byCNXYToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.byCNXYToolStripMenuItem.Text = "By CNXY";
-            // 
-            // githubToolStripMenuItem
-            // 
-            this.githubToolStripMenuItem.Name = "githubToolStripMenuItem";
-            this.githubToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
-            this.githubToolStripMenuItem.Text = "Github";
-            this.githubToolStripMenuItem.Click += new System.EventHandler(this.githubToolStripMenuItem_Click);
-            // 
-            // blogToolStripMenuItem
-            // 
-            this.blogToolStripMenuItem.Name = "blogToolStripMenuItem";
-            this.blogToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
-            this.blogToolStripMenuItem.Text = "Blog";
-            this.blogToolStripMenuItem.Click += new System.EventHandler(this.blogToolStripMenuItem_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -302,73 +212,6 @@
             this.cboLAN.Name = "cboLAN";
             this.cboLAN.Size = new System.Drawing.Size(261, 20);
             this.cboLAN.TabIndex = 9;
-            // 
-            // flowLayoutPanel3
-            // 
-            this.tableLayoutPanel.SetColumnSpan(this.flowLayoutPanel3, 2);
-            this.flowLayoutPanel3.Controls.Add(this.lblCommand);
-            this.flowLayoutPanel3.Controls.Add(this.cboCommand);
-            this.flowLayoutPanel3.Controls.Add(this.btnWrite);
-            this.flowLayoutPanel3.Controls.Add(this.btnRead);
-            this.flowLayoutPanel3.Controls.Add(this.btnQuery);
-            this.flowLayoutPanel3.Enabled = false;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 148);
-            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(742, 29);
-            this.flowLayoutPanel3.TabIndex = 1;
-            // 
-            // lblCommand
-            // 
-            this.lblCommand.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lblCommand.AutoSize = true;
-            this.lblCommand.Location = new System.Drawing.Point(15, 8);
-            this.lblCommand.Margin = new System.Windows.Forms.Padding(15, 0, 3, 0);
-            this.lblCommand.Name = "lblCommand";
-            this.lblCommand.Size = new System.Drawing.Size(29, 12);
-            this.lblCommand.TabIndex = 0;
-            this.lblCommand.Text = "命令";
-            // 
-            // cboCommand
-            // 
-            this.cboCommand.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.cboCommand.FormattingEnabled = true;
-            this.cboCommand.Location = new System.Drawing.Point(50, 4);
-            this.cboCommand.Name = "cboCommand";
-            this.cboCommand.Size = new System.Drawing.Size(277, 20);
-            this.cboCommand.TabIndex = 1;
-            // 
-            // btnWrite
-            // 
-            this.btnWrite.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnWrite.Location = new System.Drawing.Point(333, 3);
-            this.btnWrite.Name = "btnWrite";
-            this.btnWrite.Size = new System.Drawing.Size(53, 23);
-            this.btnWrite.TabIndex = 2;
-            this.btnWrite.Text = "写入";
-            this.btnWrite.UseVisualStyleBackColor = true;
-            this.btnWrite.Click += new System.EventHandler(this.btnWrite_Click);
-            // 
-            // btnRead
-            // 
-            this.btnRead.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnRead.Location = new System.Drawing.Point(392, 3);
-            this.btnRead.Name = "btnRead";
-            this.btnRead.Size = new System.Drawing.Size(53, 23);
-            this.btnRead.TabIndex = 3;
-            this.btnRead.Text = "读取";
-            this.btnRead.UseVisualStyleBackColor = true;
-            this.btnRead.Click += new System.EventHandler(this.btnRead_Click);
-            // 
-            // btnQuery
-            // 
-            this.btnQuery.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnQuery.Location = new System.Drawing.Point(451, 3);
-            this.btnQuery.Name = "btnQuery";
-            this.btnQuery.Size = new System.Drawing.Size(53, 23);
-            this.btnQuery.TabIndex = 4;
-            this.btnQuery.Text = "询问";
-            this.btnQuery.UseVisualStyleBackColor = true;
-            this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
             // 
             // flowLayoutPanel2
             // 
@@ -525,6 +368,163 @@
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
+            // groupBoxDisplay
+            // 
+            this.tableLayoutPanel.SetColumnSpan(this.groupBoxDisplay, 2);
+            this.groupBoxDisplay.Controls.Add(this.txtDisplay);
+            this.groupBoxDisplay.Location = new System.Drawing.Point(3, 188);
+            this.groupBoxDisplay.Name = "groupBoxDisplay";
+            this.groupBoxDisplay.Size = new System.Drawing.Size(742, 272);
+            this.groupBoxDisplay.TabIndex = 2;
+            this.groupBoxDisplay.TabStop = false;
+            this.groupBoxDisplay.Text = "显示";
+            // 
+            // txtDisplay
+            // 
+            this.txtDisplay.ContextMenuStrip = this.contextMenuStrip;
+            this.txtDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtDisplay.Location = new System.Drawing.Point(3, 17);
+            this.txtDisplay.Multiline = true;
+            this.txtDisplay.Name = "txtDisplay";
+            this.txtDisplay.ReadOnly = true;
+            this.txtDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtDisplay.Size = new System.Drawing.Size(736, 252);
+            this.txtDisplay.TabIndex = 0;
+            // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.清除ToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.全选ToolStripMenuItem,
+            this.复制ToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.byCNXYToolStripMenuItem});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(128, 104);
+            this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
+            // 
+            // 清除ToolStripMenuItem
+            // 
+            this.清除ToolStripMenuItem.Name = "清除ToolStripMenuItem";
+            this.清除ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.清除ToolStripMenuItem.Text = "清除";
+            this.清除ToolStripMenuItem.Click += new System.EventHandler(this.清除ToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(124, 6);
+            // 
+            // 全选ToolStripMenuItem
+            // 
+            this.全选ToolStripMenuItem.Name = "全选ToolStripMenuItem";
+            this.全选ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.全选ToolStripMenuItem.Text = "全选";
+            this.全选ToolStripMenuItem.Click += new System.EventHandler(this.全选ToolStripMenuItem_Click);
+            // 
+            // 复制ToolStripMenuItem
+            // 
+            this.复制ToolStripMenuItem.Name = "复制ToolStripMenuItem";
+            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.复制ToolStripMenuItem.Text = "复制";
+            this.复制ToolStripMenuItem.Click += new System.EventHandler(this.复制ToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(124, 6);
+            // 
+            // byCNXYToolStripMenuItem
+            // 
+            this.byCNXYToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.githubToolStripMenuItem,
+            this.blogToolStripMenuItem});
+            this.byCNXYToolStripMenuItem.Name = "byCNXYToolStripMenuItem";
+            this.byCNXYToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.byCNXYToolStripMenuItem.Text = "By CNXY";
+            // 
+            // githubToolStripMenuItem
+            // 
+            this.githubToolStripMenuItem.Name = "githubToolStripMenuItem";
+            this.githubToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.githubToolStripMenuItem.Text = "Github";
+            this.githubToolStripMenuItem.Click += new System.EventHandler(this.githubToolStripMenuItem_Click);
+            // 
+            // blogToolStripMenuItem
+            // 
+            this.blogToolStripMenuItem.Name = "blogToolStripMenuItem";
+            this.blogToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.blogToolStripMenuItem.Text = "Blog";
+            this.blogToolStripMenuItem.Click += new System.EventHandler(this.blogToolStripMenuItem_Click);
+            // 
+            // flowLayoutPanel3
+            // 
+            this.tableLayoutPanel.SetColumnSpan(this.flowLayoutPanel3, 2);
+            this.flowLayoutPanel3.Controls.Add(this.lblCommand);
+            this.flowLayoutPanel3.Controls.Add(this.cboCommand);
+            this.flowLayoutPanel3.Controls.Add(this.btnWrite);
+            this.flowLayoutPanel3.Controls.Add(this.btnRead);
+            this.flowLayoutPanel3.Controls.Add(this.btnQuery);
+            this.flowLayoutPanel3.Enabled = false;
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 148);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(742, 29);
+            this.flowLayoutPanel3.TabIndex = 1;
+            // 
+            // lblCommand
+            // 
+            this.lblCommand.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblCommand.AutoSize = true;
+            this.lblCommand.Location = new System.Drawing.Point(15, 8);
+            this.lblCommand.Margin = new System.Windows.Forms.Padding(15, 0, 3, 0);
+            this.lblCommand.Name = "lblCommand";
+            this.lblCommand.Size = new System.Drawing.Size(29, 12);
+            this.lblCommand.TabIndex = 0;
+            this.lblCommand.Text = "命令";
+            // 
+            // cboCommand
+            // 
+            this.cboCommand.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.cboCommand.FormattingEnabled = true;
+            this.cboCommand.Location = new System.Drawing.Point(50, 4);
+            this.cboCommand.Name = "cboCommand";
+            this.cboCommand.Size = new System.Drawing.Size(277, 20);
+            this.cboCommand.TabIndex = 1;
+            // 
+            // btnWrite
+            // 
+            this.btnWrite.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnWrite.Location = new System.Drawing.Point(333, 3);
+            this.btnWrite.Name = "btnWrite";
+            this.btnWrite.Size = new System.Drawing.Size(53, 23);
+            this.btnWrite.TabIndex = 2;
+            this.btnWrite.Text = "写入";
+            this.btnWrite.UseVisualStyleBackColor = true;
+            this.btnWrite.Click += new System.EventHandler(this.btnWrite_Click);
+            // 
+            // btnRead
+            // 
+            this.btnRead.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnRead.Location = new System.Drawing.Point(392, 3);
+            this.btnRead.Name = "btnRead";
+            this.btnRead.Size = new System.Drawing.Size(53, 23);
+            this.btnRead.TabIndex = 3;
+            this.btnRead.Text = "读取";
+            this.btnRead.UseVisualStyleBackColor = true;
+            this.btnRead.Click += new System.EventHandler(this.btnRead_Click);
+            // 
+            // btnQuery
+            // 
+            this.btnQuery.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnQuery.Location = new System.Drawing.Point(451, 3);
+            this.btnQuery.Name = "btnQuery";
+            this.btnQuery.Size = new System.Drawing.Size(53, 23);
+            this.btnQuery.TabIndex = 4;
+            this.btnQuery.Text = "询问";
+            this.btnQuery.UseVisualStyleBackColor = true;
+            this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
+            // 
             // flowLayoutPanel5
             // 
             this.tableLayoutPanel.SetColumnSpan(this.flowLayoutPanel5, 2);
@@ -552,13 +552,13 @@
             this.txtIPAddress.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.txtIPAddress.Location = new System.Drawing.Point(50, 4);
             this.txtIPAddress.Name = "txtIPAddress";
-            this.txtIPAddress.Size = new System.Drawing.Size(265, 21);
+            this.txtIPAddress.Size = new System.Drawing.Size(277, 21);
             this.txtIPAddress.TabIndex = 1;
             // 
             // btnCheckIP
             // 
             this.btnCheckIP.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnCheckIP.Location = new System.Drawing.Point(321, 3);
+            this.btnCheckIP.Location = new System.Drawing.Point(333, 3);
             this.btnCheckIP.Name = "btnCheckIP";
             this.btnCheckIP.Size = new System.Drawing.Size(53, 23);
             this.btnCheckIP.TabIndex = 2;
@@ -582,16 +582,16 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.tableLayoutPanel.ResumeLayout(false);
-            this.groupBoxDisplay.ResumeLayout(false);
-            this.groupBoxDisplay.PerformLayout();
-            this.contextMenuStrip.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
-            this.flowLayoutPanel3.ResumeLayout(false);
-            this.flowLayoutPanel3.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
             this.flowLayoutPanel4.ResumeLayout(false);
+            this.groupBoxDisplay.ResumeLayout(false);
+            this.groupBoxDisplay.PerformLayout();
+            this.contextMenuStrip.ResumeLayout(false);
+            this.flowLayoutPanel3.ResumeLayout(false);
+            this.flowLayoutPanel3.PerformLayout();
             this.flowLayoutPanel5.ResumeLayout(false);
             this.flowLayoutPanel5.PerformLayout();
             this.ResumeLayout(false);

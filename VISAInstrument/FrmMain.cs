@@ -277,12 +277,6 @@ namespace VISAInstrument
                 txtIPAddress.SetSelect();
                 return;
             }
-            if (!PortUltility.OpenIPAddress(txtIPAddress.Text, out string fullAddress))
-            {
-                MessageBox.Show("没有检测到有效的仪器IP地址，请重新输入！");
-                txtIPAddress.SetSelect();
-                return;
-            }
             foreach (var item in cboLAN.Items)
             {
                 if (((string)item).Contains(txtIPAddress.Text))
@@ -291,6 +285,12 @@ namespace VISAInstrument
                     txtIPAddress.SetSelect();
                     return;
                 }
+            }
+            if (!PortUltility.OpenIPAddress(txtIPAddress.Text, out string fullAddress))
+            {
+                MessageBox.Show("没有检测到有效的仪器IP地址，请重新输入！");
+                txtIPAddress.SetSelect();
+                return;
             }
             cboLAN.Items.Add(fullAddress);
             cboLAN.Text = cboLAN.Items[cboLAN.Items.Count-1].ToString();
