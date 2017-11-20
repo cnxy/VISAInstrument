@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("VISAInstrument")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("http://www.cnc6.cn")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("by CNXY")]
 [assembly: AssemblyProduct("VISAInstrument")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright © CNXY  2017")]
+[assembly: AssemblyTrademark("CNXY")]
 [assembly: AssemblyCulture("")]
 
 // 将 ComVisible 设置为 false 会使此程序集中的类型

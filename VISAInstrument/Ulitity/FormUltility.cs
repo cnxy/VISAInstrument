@@ -68,6 +68,14 @@ namespace VISAInstrument.Extension
         }
     }
 
+    static class TextBoxEx
+    {
+        public static void SetSelect(this TextBoxBase textBox)
+        {
+            textBox.Focus();
+            textBox.SelectAll();
+        }
+    }
     class Pair
     {
         public static string ValueName => "Value";

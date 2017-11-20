@@ -71,6 +71,10 @@
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
+            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblIP = new System.Windows.Forms.Label();
+            this.txtIPAddress = new System.Windows.Forms.TextBox();
+            this.btnCheckIP = new System.Windows.Forms.Button();
             this.tableLayoutPanel.SuspendLayout();
             this.groupBoxDisplay.SuspendLayout();
             this.contextMenuStrip.SuspendLayout();
@@ -78,6 +82,7 @@
             this.flowLayoutPanel3.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
+            this.flowLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel
@@ -85,19 +90,21 @@
             this.tableLayoutPanel.ColumnCount = 2;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 648F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel.Controls.Add(this.groupBoxDisplay, 0, 4);
             this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel1, 0, 1);
-            this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel3, 0, 3);
             this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel2, 0, 2);
             this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel4, 1, 1);
+            this.tableLayoutPanel.Controls.Add(this.groupBoxDisplay, 0, 5);
+            this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel3, 0, 4);
+            this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel5, 0, 3);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
-            this.tableLayoutPanel.RowCount = 5;
+            this.tableLayoutPanel.RowCount = 6;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(748, 463);
             this.tableLayoutPanel.TabIndex = 0;
@@ -106,11 +113,9 @@
             // 
             this.tableLayoutPanel.SetColumnSpan(this.groupBoxDisplay, 2);
             this.groupBoxDisplay.Controls.Add(this.txtDisplay);
-            this.groupBoxDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxDisplay.Enabled = false;
-            this.groupBoxDisplay.Location = new System.Drawing.Point(3, 148);
+            this.groupBoxDisplay.Location = new System.Drawing.Point(3, 188);
             this.groupBoxDisplay.Name = "groupBoxDisplay";
-            this.groupBoxDisplay.Size = new System.Drawing.Size(742, 312);
+            this.groupBoxDisplay.Size = new System.Drawing.Size(742, 272);
             this.groupBoxDisplay.TabIndex = 2;
             this.groupBoxDisplay.TabStop = false;
             this.groupBoxDisplay.Text = "显示";
@@ -124,7 +129,7 @@
             this.txtDisplay.Name = "txtDisplay";
             this.txtDisplay.ReadOnly = true;
             this.txtDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtDisplay.Size = new System.Drawing.Size(736, 292);
+            this.txtDisplay.Size = new System.Drawing.Size(736, 252);
             this.txtDisplay.TabIndex = 0;
             // 
             // contextMenuStrip
@@ -306,9 +311,8 @@
             this.flowLayoutPanel3.Controls.Add(this.btnWrite);
             this.flowLayoutPanel3.Controls.Add(this.btnRead);
             this.flowLayoutPanel3.Controls.Add(this.btnQuery);
-            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel3.Enabled = false;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 113);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 148);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             this.flowLayoutPanel3.Size = new System.Drawing.Size(742, 29);
             this.flowLayoutPanel3.TabIndex = 1;
@@ -317,7 +321,8 @@
             // 
             this.lblCommand.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCommand.AutoSize = true;
-            this.lblCommand.Location = new System.Drawing.Point(3, 8);
+            this.lblCommand.Location = new System.Drawing.Point(15, 8);
+            this.lblCommand.Margin = new System.Windows.Forms.Padding(15, 0, 3, 0);
             this.lblCommand.Name = "lblCommand";
             this.lblCommand.Size = new System.Drawing.Size(29, 12);
             this.lblCommand.TabIndex = 0;
@@ -327,7 +332,7 @@
             // 
             this.cboCommand.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.cboCommand.FormattingEnabled = true;
-            this.cboCommand.Location = new System.Drawing.Point(38, 4);
+            this.cboCommand.Location = new System.Drawing.Point(50, 4);
             this.cboCommand.Name = "cboCommand";
             this.cboCommand.Size = new System.Drawing.Size(277, 20);
             this.cboCommand.TabIndex = 1;
@@ -335,7 +340,7 @@
             // btnWrite
             // 
             this.btnWrite.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnWrite.Location = new System.Drawing.Point(321, 3);
+            this.btnWrite.Location = new System.Drawing.Point(333, 3);
             this.btnWrite.Name = "btnWrite";
             this.btnWrite.Size = new System.Drawing.Size(53, 23);
             this.btnWrite.TabIndex = 2;
@@ -346,7 +351,7 @@
             // btnRead
             // 
             this.btnRead.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnRead.Location = new System.Drawing.Point(380, 3);
+            this.btnRead.Location = new System.Drawing.Point(392, 3);
             this.btnRead.Name = "btnRead";
             this.btnRead.Size = new System.Drawing.Size(53, 23);
             this.btnRead.TabIndex = 3;
@@ -357,7 +362,7 @@
             // btnQuery
             // 
             this.btnQuery.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnQuery.Location = new System.Drawing.Point(439, 3);
+            this.btnQuery.Location = new System.Drawing.Point(451, 3);
             this.btnQuery.Name = "btnQuery";
             this.btnQuery.Size = new System.Drawing.Size(53, 23);
             this.btnQuery.TabIndex = 4;
@@ -520,6 +525,47 @@
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
+            // flowLayoutPanel5
+            // 
+            this.tableLayoutPanel.SetColumnSpan(this.flowLayoutPanel5, 2);
+            this.flowLayoutPanel5.Controls.Add(this.lblIP);
+            this.flowLayoutPanel5.Controls.Add(this.txtIPAddress);
+            this.flowLayoutPanel5.Controls.Add(this.btnCheckIP);
+            this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 113);
+            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(742, 29);
+            this.flowLayoutPanel5.TabIndex = 6;
+            // 
+            // lblIP
+            // 
+            this.lblIP.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblIP.AutoSize = true;
+            this.lblIP.Location = new System.Drawing.Point(3, 8);
+            this.lblIP.Name = "lblIP";
+            this.lblIP.Size = new System.Drawing.Size(41, 12);
+            this.lblIP.TabIndex = 0;
+            this.lblIP.Text = "IP地址";
+            // 
+            // txtIPAddress
+            // 
+            this.txtIPAddress.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.txtIPAddress.Location = new System.Drawing.Point(50, 4);
+            this.txtIPAddress.Name = "txtIPAddress";
+            this.txtIPAddress.Size = new System.Drawing.Size(265, 21);
+            this.txtIPAddress.TabIndex = 1;
+            // 
+            // btnCheckIP
+            // 
+            this.btnCheckIP.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnCheckIP.Location = new System.Drawing.Point(321, 3);
+            this.btnCheckIP.Name = "btnCheckIP";
+            this.btnCheckIP.Size = new System.Drawing.Size(53, 23);
+            this.btnCheckIP.TabIndex = 2;
+            this.btnCheckIP.Text = "检测";
+            this.btnCheckIP.UseVisualStyleBackColor = true;
+            this.btnCheckIP.Click += new System.EventHandler(this.btnCheckIP_Click);
+            // 
             // FrmMain
             // 
             this.AcceptButton = this.btnWrite;
@@ -546,6 +592,8 @@
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
             this.flowLayoutPanel4.ResumeLayout(false);
+            this.flowLayoutPanel5.ResumeLayout(false);
+            this.flowLayoutPanel5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -593,6 +641,10 @@
         private System.Windows.Forms.ToolStripMenuItem byCNXYToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem githubToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem blogToolStripMenuItem;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
+        private System.Windows.Forms.Label lblIP;
+        private System.Windows.Forms.TextBox txtIPAddress;
+        private System.Windows.Forms.Button btnCheckIP;
     }
 }
 

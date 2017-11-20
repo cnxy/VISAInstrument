@@ -21,12 +21,20 @@ namespace VISAInstrument
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
         {
-            if(rbtRS232 != sender as RadioButton)
+            if(rbtRS232 == sender as RadioButton)
             {
-                this.tableLayoutPanel.RowStyles[2].Height = 0;
+                this.tableLayoutPanel.RowStyles[2].Height = 35F;
+                this.tableLayoutPanel.RowStyles[3].Height = 0F;
                 return;
             }
-            this.tableLayoutPanel.RowStyles[2].Height = 35F;
+            if (rbtLAN == sender as RadioButton)
+            {
+                this.tableLayoutPanel.RowStyles[2].Height = 0F;
+                this.tableLayoutPanel.RowStyles[3].Height = 35F;
+                return;
+            }
+            this.tableLayoutPanel.RowStyles[2].Height = 0F;
+            this.tableLayoutPanel.RowStyles[3].Height = 0F;
         }
 
         private void DoSomethingForRadioButton(params Action[] actionOfRbt)
@@ -205,8 +213,8 @@ namespace VISAInstrument
             flowLayoutPanel1.Enabled = enable;
             flowLayoutPanel2.Enabled = enable;
             btnRefresh.Enabled = enable;
+            flowLayoutPanel5.Enabled = enable;
             flowLayoutPanel3.Enabled = !enable;
-            groupBoxDisplay.Enabled = !enable;
         }
 
         private void 清除ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -259,6 +267,34 @@ namespace VISAInstrument
                 portOperatorBase?.Close();
             }
             catch { }
+        }
+        public const string IPRegex = @"^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$";
+        private void btnCheckIP_Click(object sender, EventArgs e)
+        {
+            if (!txtIPAddress.Text.IsMatch(IPRegex))
+            {
+                MessageBox.Show("不是正确的IP地址，请重新输入！");
+                txtIPAddress.SetSelect();
+                return;
+            }
+            if (!PortUltility.OpenIPAddress(txtIPAddress.Text, out string fullAddress))
+            {
+                MessageBox.Show("没有检测到有效的仪器IP地址，请重新输入！");
+                txtIPAddress.SetSelect();
+                return;
+            }
+            foreach (var item in cboLAN.Items)
+            {
+                if (((string)item).Contains(txtIPAddress.Text))
+                {
+                    MessageBox.Show("LAN地址已经包含该IP，请重新输入！");
+                    txtIPAddress.SetSelect();
+                    return;
+                }
+            }
+            cboLAN.Items.Add(fullAddress);
+            cboLAN.Text = cboLAN.Items[cboLAN.Items.Count-1].ToString();
+            MessageBox.Show("检测成功！");
         }
     }
 }

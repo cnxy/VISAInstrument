@@ -53,6 +53,7 @@
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Port\PortOperator.cs" />
+    <Compile Include="Ulitity\RegexUtility.cs" />
     <Compile Include="Ulitity\PortUlitity.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

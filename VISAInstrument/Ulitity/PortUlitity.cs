@@ -59,6 +59,15 @@ namespace VISAInstrument.Port
             return list.ToArray();
         }
 
+        public static bool OpenIPAddress(string address,out string fullAddress)
+        {
+            string addressTemp = $"TCPIP0::{address}::INSTR";
+            fullAddress = addressTemp;
+            int result = VISA32.viOpenDefaultRM(out int sesn);
+            result = VISA32.viOpen(sesn, addressTemp, 0,2000,out int vi);
+            VISA32.viClose(vi);
+            return result == 0;
+        }
 
         public static string[] FindAddresses()
         {
