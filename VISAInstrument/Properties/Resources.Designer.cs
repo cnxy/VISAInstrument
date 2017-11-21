@@ -61,6 +61,15 @@ namespace VISAInstrument.Properties {
         }
         
         /// <summary>
+        ///   查找类似 http://www.cnc6.cn 的本地化字符串。
+        /// </summary>
+        internal static string BlogURL {
+            get {
+                return ResourceManager.GetString("BlogURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 关闭 的本地化字符串。
         /// </summary>
         internal static string CloseString {
@@ -70,11 +79,119 @@ namespace VISAInstrument.Properties {
         }
         
         /// <summary>
+        ///   查找类似 命令不能为空！ 的本地化字符串。
+        /// </summary>
+        internal static string CommandNotEmpty {
+            get {
+                return ResourceManager.GetString("CommandNotEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 检测成功！ 的本地化字符串。
+        /// </summary>
+        internal static string DetectOK {
+            get {
+                return ResourceManager.GetString("DetectOK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 https://github.com/cnxy 的本地化字符串。
+        /// </summary>
+        internal static string GithubURL {
+            get {
+                return ResourceManager.GetString("GithubURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 LAN地址已经包含该IP，请重新输入！ 的本地化字符串。
+        /// </summary>
+        internal static string LANContainIP {
+            get {
+                return ResourceManager.GetString("LANContainIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 VISAInstrument 的本地化字符串。
+        /// </summary>
+        internal static string MutexName {
+            get {
+                return ResourceManager.GetString("MutexName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 不是正确的IP地址，请重新输入！ 的本地化字符串。
+        /// </summary>
+        internal static string NotCorrectIP {
+            get {
+                return ResourceManager.GetString("NotCorrectIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 没有检测到有效的仪器IP地址，请重新输入！ 的本地化字符串。
+        /// </summary>
+        internal static string NotDetectIP {
+            get {
+                return ResourceManager.GetString("NotDetectIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 打开 的本地化字符串。
         /// </summary>
         internal static string OpenString {
             get {
                 return ResourceManager.GetString("OpenString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 程序已经在运行！ 的本地化字符串。
+        /// </summary>
+        internal static string Running {
+            get {
+                return ResourceManager.GetString("Running", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 运行时错误 的本地化字符串。
+        /// </summary>
+        internal static string RuntimeError {
+            get {
+                return ResourceManager.GetString("RuntimeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 加载VISA32错误，请保证已经安装VISA32运行时！ 的本地化字符串。
+        /// </summary>
+        internal static string VISA32Error {
+            get {
+                return ResourceManager.GetString("VISA32Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 https://github.com/cnxy/VISAInstrument/releases/download/1.0.0.0/visa441runtime.zip 的本地化字符串。
+        /// </summary>
+        internal static string VISA32URL {
+            get {
+                return ResourceManager.GetString("VISA32URL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 点击“是”从弹出的网址进行下载并安装。 的本地化字符串。
+        /// </summary>
+        internal static string VISADownLoad {
+            get {
+                return ResourceManager.GetString("VISADownLoad", resourceCulture);
             }
         }
     }

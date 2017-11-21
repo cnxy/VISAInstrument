@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Forms;
+using VISAInstrument.Properties;
 
 namespace VISAInstrument
 {
@@ -12,10 +13,10 @@ namespace VISAInstrument
         [STAThread]
         static void Main()
         {
-            Mutex mutex = new Mutex(false, "VISAInstrument", out bool result);
+            Mutex mutex = new Mutex(false, Resources.MutexName, out bool result);
             if(!result)
             {
-                MessageBox.Show("程序已经在运行！");
+                MessageBox.Show(Resources.Running);
                 return;
             }
             Application.EnableVisualStyles();

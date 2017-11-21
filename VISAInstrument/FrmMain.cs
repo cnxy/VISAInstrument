@@ -70,7 +70,7 @@ namespace VISAInstrument
         {
             if(string.IsNullOrEmpty(cboCommand.Text))
             {
-                MessageBox.Show("命令不能为空！");
+                MessageBox.Show(Resources.CommandNotEmpty);
                 return;
             }
             try
@@ -167,10 +167,10 @@ namespace VISAInstrument
                 if(ex is ResultException || ex is DllNotFoundException)
 
                 {
-                    DialogResult result = MessageBox.Show("加载VISA32错误，请保证已经安装VISA32运行时！\r\n\r\n点击“是”从弹出的网址进行下载并安装。", "运行时错误", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    DialogResult result = MessageBox.Show($"{Resources.VISA32Error}\r\n\r{Resources.VISADownLoad}", Resources.RuntimeError, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (result == DialogResult.Yes)
                     {
-                        Process.Start("https://github.com/cnxy/VISAInstrument/releases/download/1.0.0.0/visa441runtime.zip");
+                        Process.Start(Resources.VISA32URL);
                     }
                     CancelDisplayForm = true;
                 }
@@ -252,12 +252,12 @@ namespace VISAInstrument
 
         private void githubToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/cnxy");
+            Process.Start(Resources.GithubURL);
         }
 
         private void blogToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("http://www.cnc6.cn");
+            Process.Start(Resources.BlogURL);
         }
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -273,7 +273,7 @@ namespace VISAInstrument
         {
             if (!txtIPAddress.Text.IsMatch(IPRegex))
             {
-                MessageBox.Show("不是正确的IP地址，请重新输入！");
+                MessageBox.Show(Resources.NotCorrectIP);
                 txtIPAddress.SetSelect();
                 return;
             }
@@ -281,20 +281,20 @@ namespace VISAInstrument
             {
                 if (((string)item).Contains(txtIPAddress.Text))
                 {
-                    MessageBox.Show("LAN地址已经包含该IP，请重新输入！");
+                    MessageBox.Show(Resources.LANContainIP);
                     txtIPAddress.SetSelect();
                     return;
                 }
             }
             if (!PortUltility.OpenIPAddress(txtIPAddress.Text, out string fullAddress))
             {
-                MessageBox.Show("没有检测到有效的仪器IP地址，请重新输入！");
+                MessageBox.Show(Resources.NotDetectIP);
                 txtIPAddress.SetSelect();
                 return;
             }
             cboLAN.Items.Add(fullAddress);
             cboLAN.Text = cboLAN.Items[cboLAN.Items.Count-1].ToString();
-            MessageBox.Show("检测成功！");
+            MessageBox.Show(Resources.DetectOK);
         }
     }
 }
