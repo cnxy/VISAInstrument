@@ -137,6 +137,7 @@ namespace VISAInstrument
                     portOperatorBase = new LANPortOperator(cboLAN.SelectedItem.ToString());
                     hasAddress = true;
                 });
+            portOperatorBase.Timeout = (int)nudTimeout.Value;
             return hasAddress;
         }
 

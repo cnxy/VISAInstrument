@@ -75,6 +75,9 @@
             this.lblIP = new System.Windows.Forms.Label();
             this.txtIPAddress = new System.Windows.Forms.TextBox();
             this.btnCheckIP = new System.Windows.Forms.Button();
+            this.lblOverTime = new System.Windows.Forms.Label();
+            this.nudTimeout = new System.Windows.Forms.NumericUpDown();
+            this.lblTimeout = new System.Windows.Forms.Label();
             this.tableLayoutPanel.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -83,6 +86,7 @@
             this.contextMenuStrip.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             this.flowLayoutPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel
@@ -466,6 +470,9 @@
             this.flowLayoutPanel3.Controls.Add(this.btnWrite);
             this.flowLayoutPanel3.Controls.Add(this.btnRead);
             this.flowLayoutPanel3.Controls.Add(this.btnQuery);
+            this.flowLayoutPanel3.Controls.Add(this.lblOverTime);
+            this.flowLayoutPanel3.Controls.Add(this.nudTimeout);
+            this.flowLayoutPanel3.Controls.Add(this.lblTimeout);
             this.flowLayoutPanel3.Enabled = false;
             this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 148);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
@@ -566,6 +573,51 @@
             this.btnCheckIP.UseVisualStyleBackColor = true;
             this.btnCheckIP.Click += new System.EventHandler(this.btnCheckIP_Click);
             // 
+            // lblOverTime
+            // 
+            this.lblOverTime.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblOverTime.AutoSize = true;
+            this.lblOverTime.Location = new System.Drawing.Point(537, 8);
+            this.lblOverTime.Margin = new System.Windows.Forms.Padding(30, 0, 3, 0);
+            this.lblOverTime.Name = "lblOverTime";
+            this.lblOverTime.Size = new System.Drawing.Size(29, 12);
+            this.lblOverTime.TabIndex = 5;
+            this.lblOverTime.Text = "超时";
+            // 
+            // nudTimeout
+            // 
+            this.nudTimeout.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.nudTimeout.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nudTimeout.Location = new System.Drawing.Point(572, 4);
+            this.nudTimeout.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudTimeout.Name = "nudTimeout";
+            this.nudTimeout.Size = new System.Drawing.Size(75, 21);
+            this.nudTimeout.TabIndex = 6;
+            this.nudTimeout.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nudTimeout.Value = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+            // 
+            // lblTimeout
+            // 
+            this.lblTimeout.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblTimeout.AutoSize = true;
+            this.lblTimeout.Location = new System.Drawing.Point(653, 8);
+            this.lblTimeout.Name = "lblTimeout";
+            this.lblTimeout.Size = new System.Drawing.Size(17, 12);
+            this.lblTimeout.TabIndex = 7;
+            this.lblTimeout.Text = "ms";
+            // 
             // FrmMain
             // 
             this.AcceptButton = this.btnWrite;
@@ -594,6 +646,7 @@
             this.flowLayoutPanel3.PerformLayout();
             this.flowLayoutPanel5.ResumeLayout(false);
             this.flowLayoutPanel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -645,6 +698,9 @@
         private System.Windows.Forms.Label lblIP;
         private System.Windows.Forms.TextBox txtIPAddress;
         private System.Windows.Forms.Button btnCheckIP;
+        private System.Windows.Forms.Label lblOverTime;
+        private System.Windows.Forms.NumericUpDown nudTimeout;
+        private System.Windows.Forms.Label lblTimeout;
     }
 }
 
