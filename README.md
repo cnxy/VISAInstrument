@@ -5,7 +5,7 @@ http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/zhs/pg/1/sn/catnav:
 
 或者到
 https://github.com/cnxy/VISAInstrument/releases/tag/1.0.0.0
-下载"visa441runtime.zip"以便安装VISA运行时，
+下载"NIVISA1600runtime.exe"以便安装VISA运行时，
 如想安装最新版本，请从第一个链接下载
 
 ## RS232
@@ -19,7 +19,7 @@ https://github.com/cnxy/VISAInstrument/releases/tag/1.0.0.0
 此处要求安装GPIB卡驱动程序，推荐使用NI-GPIB卡（需要驱动程序，驱动程序可以从NI官方网站下载）
 
 ## LAN
-支持常见的USB接口编程，一般地址类似为“TCPIP0::34465A-01899::inst0::INSTR”或“TCPIP0::192.168.0.26::inst0::INSTR”
+支持常见的USB接口编程，一般地址类似为“TCPIP0::34465A-01899::inst0::INSTR”或“TCPIP0::192.168.0.26::INSTR”
 
 ### 运行界面
 ![image](https://github.com/cnxy/VISAInstrument/blob/master/VISAInstrument/pic.png)
