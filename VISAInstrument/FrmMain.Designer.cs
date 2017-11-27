@@ -71,13 +71,13 @@
             this.btnWrite = new System.Windows.Forms.Button();
             this.btnRead = new System.Windows.Forms.Button();
             this.btnQuery = new System.Windows.Forms.Button();
+            this.lblOverTime = new System.Windows.Forms.Label();
+            this.nudTimeout = new System.Windows.Forms.NumericUpDown();
+            this.lblTimeout = new System.Windows.Forms.Label();
             this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
             this.lblIP = new System.Windows.Forms.Label();
             this.txtIPAddress = new System.Windows.Forms.TextBox();
             this.btnCheckIP = new System.Windows.Forms.Button();
-            this.lblOverTime = new System.Windows.Forms.Label();
-            this.nudTimeout = new System.Windows.Forms.NumericUpDown();
-            this.lblTimeout = new System.Windows.Forms.Label();
             this.tableLayoutPanel.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -85,15 +85,15 @@
             this.groupBoxDisplay.SuspendLayout();
             this.contextMenuStrip.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
-            this.flowLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).BeginInit();
+            this.flowLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel
             // 
             this.tableLayoutPanel.ColumnCount = 2;
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 648F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 661F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 67F));
             this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel1, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel2, 0, 2);
             this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel4, 1, 1);
@@ -110,7 +110,7 @@
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(748, 463);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(786, 485);
             this.tableLayoutPanel.TabIndex = 0;
             // 
             // flowLayoutPanel1
@@ -126,7 +126,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 13);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(642, 54);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(655, 54);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // rbtRS232
@@ -233,7 +233,7 @@
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 73);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(742, 29);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(780, 29);
             this.flowLayoutPanel2.TabIndex = 3;
             // 
             // lblBaudRate
@@ -345,9 +345,9 @@
             this.flowLayoutPanel4.Controls.Add(this.btnRefresh);
             this.flowLayoutPanel4.Controls.Add(this.btnOpen);
             this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(651, 13);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(664, 13);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(94, 54);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(119, 54);
             this.flowLayoutPanel4.TabIndex = 5;
             // 
             // btnRefresh
@@ -376,9 +376,10 @@
             // 
             this.tableLayoutPanel.SetColumnSpan(this.groupBoxDisplay, 2);
             this.groupBoxDisplay.Controls.Add(this.txtDisplay);
+            this.groupBoxDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBoxDisplay.Location = new System.Drawing.Point(3, 183);
             this.groupBoxDisplay.Name = "groupBoxDisplay";
-            this.groupBoxDisplay.Size = new System.Drawing.Size(742, 272);
+            this.groupBoxDisplay.Size = new System.Drawing.Size(780, 299);
             this.groupBoxDisplay.TabIndex = 2;
             this.groupBoxDisplay.TabStop = false;
             this.groupBoxDisplay.Text = "显示";
@@ -392,7 +393,7 @@
             this.txtDisplay.Name = "txtDisplay";
             this.txtDisplay.ReadOnly = true;
             this.txtDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtDisplay.Size = new System.Drawing.Size(736, 252);
+            this.txtDisplay.Size = new System.Drawing.Size(774, 279);
             this.txtDisplay.TabIndex = 0;
             // 
             // contextMenuStrip
@@ -531,47 +532,6 @@
             this.btnQuery.UseVisualStyleBackColor = true;
             this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
             // 
-            // flowLayoutPanel5
-            // 
-            this.tableLayoutPanel.SetColumnSpan(this.flowLayoutPanel5, 2);
-            this.flowLayoutPanel5.Controls.Add(this.lblIP);
-            this.flowLayoutPanel5.Controls.Add(this.txtIPAddress);
-            this.flowLayoutPanel5.Controls.Add(this.btnCheckIP);
-            this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 108);
-            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(742, 29);
-            this.flowLayoutPanel5.TabIndex = 6;
-            // 
-            // lblIP
-            // 
-            this.lblIP.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lblIP.AutoSize = true;
-            this.lblIP.Location = new System.Drawing.Point(3, 8);
-            this.lblIP.Name = "lblIP";
-            this.lblIP.Size = new System.Drawing.Size(41, 12);
-            this.lblIP.TabIndex = 0;
-            this.lblIP.Text = "IP地址";
-            // 
-            // txtIPAddress
-            // 
-            this.txtIPAddress.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txtIPAddress.Location = new System.Drawing.Point(50, 4);
-            this.txtIPAddress.Name = "txtIPAddress";
-            this.txtIPAddress.Size = new System.Drawing.Size(277, 21);
-            this.txtIPAddress.TabIndex = 1;
-            // 
-            // btnCheckIP
-            // 
-            this.btnCheckIP.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnCheckIP.Location = new System.Drawing.Point(333, 3);
-            this.btnCheckIP.Name = "btnCheckIP";
-            this.btnCheckIP.Size = new System.Drawing.Size(53, 23);
-            this.btnCheckIP.TabIndex = 2;
-            this.btnCheckIP.Text = "检测";
-            this.btnCheckIP.UseVisualStyleBackColor = true;
-            this.btnCheckIP.Click += new System.EventHandler(this.btnCheckIP_Click);
-            // 
             // lblOverTime
             // 
             this.lblOverTime.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -617,12 +577,53 @@
             this.lblTimeout.TabIndex = 7;
             this.lblTimeout.Text = "ms";
             // 
+            // flowLayoutPanel5
+            // 
+            this.tableLayoutPanel.SetColumnSpan(this.flowLayoutPanel5, 2);
+            this.flowLayoutPanel5.Controls.Add(this.lblIP);
+            this.flowLayoutPanel5.Controls.Add(this.txtIPAddress);
+            this.flowLayoutPanel5.Controls.Add(this.btnCheckIP);
+            this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 108);
+            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(780, 29);
+            this.flowLayoutPanel5.TabIndex = 6;
+            // 
+            // lblIP
+            // 
+            this.lblIP.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblIP.AutoSize = true;
+            this.lblIP.Location = new System.Drawing.Point(3, 8);
+            this.lblIP.Name = "lblIP";
+            this.lblIP.Size = new System.Drawing.Size(41, 12);
+            this.lblIP.TabIndex = 0;
+            this.lblIP.Text = "IP地址";
+            // 
+            // txtIPAddress
+            // 
+            this.txtIPAddress.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.txtIPAddress.Location = new System.Drawing.Point(50, 4);
+            this.txtIPAddress.Name = "txtIPAddress";
+            this.txtIPAddress.Size = new System.Drawing.Size(277, 21);
+            this.txtIPAddress.TabIndex = 1;
+            // 
+            // btnCheckIP
+            // 
+            this.btnCheckIP.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnCheckIP.Location = new System.Drawing.Point(333, 3);
+            this.btnCheckIP.Name = "btnCheckIP";
+            this.btnCheckIP.Size = new System.Drawing.Size(53, 23);
+            this.btnCheckIP.TabIndex = 2;
+            this.btnCheckIP.Text = "检测";
+            this.btnCheckIP.UseVisualStyleBackColor = true;
+            this.btnCheckIP.Click += new System.EventHandler(this.btnCheckIP_Click);
+            // 
             // FrmMain
             // 
             this.AcceptButton = this.btnWrite;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(748, 463);
+            this.ClientSize = new System.Drawing.Size(786, 485);
             this.Controls.Add(this.tableLayoutPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -643,9 +644,9 @@
             this.contextMenuStrip.ResumeLayout(false);
             this.flowLayoutPanel3.ResumeLayout(false);
             this.flowLayoutPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).EndInit();
             this.flowLayoutPanel5.ResumeLayout(false);
             this.flowLayoutPanel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).EndInit();
             this.ResumeLayout(false);
 
         }

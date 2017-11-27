@@ -159,7 +159,8 @@ namespace VISAInstrument.Port
             if(!e.Cancel)
             {
                 result = VISA32.viOpenDefaultRM(out sesn);
-                result = VISA32.viOpen(sesn, Address, 0, Timeout, out vi);
+                result = VISA32.viOpen(sesn, Address, 0, 2000, out vi);
+                result = VISA32.viSetAttribute(vi, VISA32.VI_ATTR_TMO_VALUE, Timeout);
                 VI = vi;
                 PortUltility.ThrowIfResultExcepiton(result);
                 this.IsPortOpen = true;

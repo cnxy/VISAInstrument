@@ -74,16 +74,18 @@ namespace VISAInstrument
                 MessageBox.Show(Resources.CommandNotEmpty);
                 return;
             }
+            string content = cboCommand.Text;
+            Stopwatch stopwatch = Stopwatch.StartNew();
             try
             {
-                DisplayToTextBox($"Write: {cboCommand.Text}");
                 portOperatorBase.WriteLine(cboCommand.Text);
                 cboCommand.AddItem(cboCommand.Text);
             }
             catch
             {
-                MessageBox.Show($"写入命令\"{cboCommand.Text}\"失败！");
+                content =  $"写入命令\"{cboCommand.Text}\"失败！";
             }
+            DisplayToTextBox($"[Time:{stopwatch.ElapsedMilliseconds}ms] Write: {content}");
         }
 
 
@@ -91,6 +93,7 @@ namespace VISAInstrument
         {
             ClearIfTextBoxOverFlow();
             string result;
+            Stopwatch stopwatch = Stopwatch.StartNew();
             try
             {
                 result = portOperatorBase.ReadLine();
@@ -99,7 +102,7 @@ namespace VISAInstrument
             {
                 result = ex.Message;
             }
-            DisplayToTextBox($"Read:  {result}");
+            DisplayToTextBox($"[Time:{stopwatch.ElapsedMilliseconds}ms] Read:  {result}");
         }
 
         private void btnQuery_Click(object sender, EventArgs e)
@@ -144,7 +147,7 @@ namespace VISAInstrument
 
         private void DisplayToTextBox(string content)
         {
-            txtDisplay.Text += $"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}   {content}\r\n";
+            txtDisplay.Text += $"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} {content}\r\n";
             txtDisplay.SelectionStart = txtDisplay.Text.Length - 1;
             txtDisplay.ScrollToCaret();
         }
@@ -203,10 +206,10 @@ namespace VISAInstrument
                 try
                 {
                     portOperatorBase.Close();
-                    btnOpen.Text = Resources.OpenString;
-                    EnableControl(true);
                 }
                 catch { }
+                btnOpen.Text = Resources.OpenString;
+                EnableControl(true);
             }
         }
 
