@@ -63,6 +63,7 @@ namespace VISAInstrument
             cboFlowControl.DataSource = Enum.GetValues(typeof(FlowControl));
             cboCommand.DataSource = commmands.OrderBy(n => n).ToArray();
             cboCommand.SelectedIndex = 4;
+            EnableControl(true);
             if (CancelDisplayForm) Close();
         }
         PortOperatorBase portOperatorBase;
@@ -215,7 +216,14 @@ namespace VISAInstrument
             flowLayoutPanel2.Enabled = enable;
             btnRefresh.Enabled = enable;
             flowLayoutPanel5.Enabled = enable;
-            flowLayoutPanel3.Enabled = !enable;
+            lblCommand.Enabled = !enable;
+            cboCommand.Enabled = !enable;
+            btnWrite.Enabled = !enable;
+            btnRead.Enabled = !enable;
+            btnQuery.Enabled = !enable;
+            lblOverTime.Enabled = enable;
+            lblTimeout.Enabled = enable;
+            nudTimeout.Enabled = enable;
         }
 
         private void 清除ToolStripMenuItem_Click(object sender, EventArgs e)
