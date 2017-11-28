@@ -48,14 +48,15 @@ namespace VISAInstrument.Port
         {
             int result = VISA32.viOpenDefaultRM(out int sesn);
             List<string> list = new List<string>();
-            StringBuilder stringBuilder = new StringBuilder();
-            for(int i=0;i<addresses.Length;i++)
+            StringBuilder sb1 = new StringBuilder();
+            StringBuilder sb2 = new StringBuilder();
+            StringBuilder sb3 = new StringBuilder();
+            short intfType = 0;
+            short intfNum = 0;
+            for (int i = 0; i < addresses.Length; i++)
             {
-                result = VISA32.viOpen(sesn, addresses[i], 0, 2000, out int vi);
-                result = VISA32.viGetAttribute(vi, VISA32.VI_ATTR_INTF_INST_NAME, stringBuilder);
-                result = VISA32.viClose(vi);
-                list.Add(stringBuilder.ToString());
-                
+                result = VISA32.viParseRsrcEx(sesn, addresses[i], ref intfType, ref intfNum, sb1, sb2, sb3);
+                list.Add(sb3.ToString());
             }
             return list.ToArray();
         }
