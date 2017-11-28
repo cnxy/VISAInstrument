@@ -35,7 +35,18 @@ namespace VISAInstrument.Extension
         public static void SetFirstItem<Tvalue, Tdisplay>(this ComboBox comboBox)
         {
             if (comboBox.Items.Count != 0)
-                comboBox.Text = ((Pair<Tvalue,Tdisplay>)comboBox.Items[0]).Display.ToString();
+            {
+                string item = ((Pair<Tvalue, Tdisplay>)comboBox.Items[0]).Display.ToString();
+                if(!string.IsNullOrEmpty(item))
+                {
+                    comboBox.Text = item;
+                }
+                else
+                {
+                    comboBox.Text = ((Pair<Tvalue, Tdisplay>)comboBox.Items[comboBox.Items.Count-1]).Display.ToString();
+                }
+            }
+                
         }
 
         public static void ShowAndDisplay(this ComboBox comboBox, params string[] content)

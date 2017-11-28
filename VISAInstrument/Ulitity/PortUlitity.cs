@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
@@ -40,7 +41,7 @@ namespace VISAInstrument.Port
                     ThrowIfResultExcepiton(result);
                 }
             }
-            return list.ToArray();
+            return list.ToArray().Where(n=>!n.Contains("//")).ToArray();
         }
 
         public static string[] FindRS232Type(string[] addresses)
