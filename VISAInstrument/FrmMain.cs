@@ -5,9 +5,11 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using VISAInstrument.Port;
 using VISAInstrument.Extension;
 using VISAInstrument.Properties;
+
 
 namespace VISAInstrument
 {
@@ -161,11 +163,20 @@ namespace VISAInstrument
         {
             try
             {
-                string[] rs232Address = PortUltility.FindAddresses(PortType.RS232);
-                cboRS232.ShowAndDisplay(rs232Address, PortUltility.FindRS232Type(rs232Address));
-                cboUSB.ShowAndDisplay(PortUltility.FindAddresses(PortType.USB));
-                cboGPIB.ShowAndDisplay(PortUltility.FindAddresses(PortType.GPIB));
-                cboLAN.ShowAndDisplay(PortUltility.FindAddresses(PortType.LAN));
+                Task.Factory.StartNew(() =>
+                {
+                    InvokeToForm(() => { btnRefresh.Enabled = false;btnOpen.Enabled = false; });
+                    string[] content1 = PortUltility.FindAddresses(PortType.RS232);
+                    string[] content2 = PortUltility.FindRS232Type(content1);
+                    InvokeToForm(() => cboRS232.ShowAndDisplay(content1, content2));
+                    content1 = PortUltility.FindAddresses(PortType.USB);
+                    InvokeToForm(() => cboUSB.ShowAndDisplay(content1));
+                    content1 = PortUltility.FindAddresses(PortType.GPIB);
+                    InvokeToForm(() => cboGPIB.ShowAndDisplay(content1));
+                    content1 = PortUltility.FindAddresses(PortType.LAN);
+                    InvokeToForm(() => cboLAN.ShowAndDisplay(content1));
+                    InvokeToForm(() => { btnRefresh.Enabled = true; btnOpen.Enabled = true; });
+                });
             }
             catch(Exception ex)
             {
@@ -183,7 +194,15 @@ namespace VISAInstrument
                 {
                     MessageBox.Show(ex.Message);
                 }
+                btnRefresh.Enabled = true;
+                btnOpen.Enabled = true;
             }
+        }
+
+
+        private void InvokeToForm(Action action)
+        {
+            this.Invoke(action);
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
