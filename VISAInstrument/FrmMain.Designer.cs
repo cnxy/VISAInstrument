@@ -61,10 +61,6 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.全选ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.复制ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.byCNXYToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.githubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.blogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.lblCommand = new System.Windows.Forms.Label();
             this.cboCommand = new System.Windows.Forms.ComboBox();
@@ -78,6 +74,13 @@
             this.lblIP = new System.Windows.Forms.Label();
             this.txtIPAddress = new System.Windows.Forms.TextBox();
             this.btnCheckIP = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.githubToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.blogToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.byCNXYToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.时间ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -87,29 +90,32 @@
             this.flowLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).BeginInit();
             this.flowLayoutPanel5.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel
             // 
             this.tableLayoutPanel.ColumnCount = 2;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 661F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 67F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 125F));
             this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel1, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel2, 0, 2);
             this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel4, 1, 1);
             this.tableLayoutPanel.Controls.Add(this.groupBoxDisplay, 0, 5);
             this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel3, 0, 4);
             this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel5, 0, 3);
+            this.tableLayoutPanel.Controls.Add(this.menuStrip1, 0, 6);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
-            this.tableLayoutPanel.RowCount = 6;
+            this.tableLayoutPanel.RowCount = 7;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(786, 485);
             this.tableLayoutPanel.TabIndex = 0;
             // 
@@ -379,7 +385,7 @@
             this.groupBoxDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBoxDisplay.Location = new System.Drawing.Point(3, 183);
             this.groupBoxDisplay.Name = "groupBoxDisplay";
-            this.groupBoxDisplay.Size = new System.Drawing.Size(780, 299);
+            this.groupBoxDisplay.Size = new System.Drawing.Size(780, 274);
             this.groupBoxDisplay.TabIndex = 2;
             this.groupBoxDisplay.TabStop = false;
             this.groupBoxDisplay.Text = "显示";
@@ -393,7 +399,7 @@
             this.txtDisplay.Name = "txtDisplay";
             this.txtDisplay.ReadOnly = true;
             this.txtDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtDisplay.Size = new System.Drawing.Size(774, 279);
+            this.txtDisplay.Size = new System.Drawing.Size(774, 254);
             this.txtDisplay.TabIndex = 0;
             // 
             // contextMenuStrip
@@ -402,66 +408,36 @@
             this.清除ToolStripMenuItem,
             this.toolStripMenuItem1,
             this.全选ToolStripMenuItem,
-            this.复制ToolStripMenuItem,
-            this.toolStripMenuItem2,
-            this.byCNXYToolStripMenuItem});
+            this.复制ToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(128, 104);
+            this.contextMenuStrip.Size = new System.Drawing.Size(101, 76);
             this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
             // 
             // 清除ToolStripMenuItem
             // 
             this.清除ToolStripMenuItem.Name = "清除ToolStripMenuItem";
-            this.清除ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.清除ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.清除ToolStripMenuItem.Text = "清除";
             this.清除ToolStripMenuItem.Click += new System.EventHandler(this.清除ToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(124, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(97, 6);
             // 
             // 全选ToolStripMenuItem
             // 
             this.全选ToolStripMenuItem.Name = "全选ToolStripMenuItem";
-            this.全选ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.全选ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.全选ToolStripMenuItem.Text = "全选";
             this.全选ToolStripMenuItem.Click += new System.EventHandler(this.全选ToolStripMenuItem_Click);
             // 
             // 复制ToolStripMenuItem
             // 
             this.复制ToolStripMenuItem.Name = "复制ToolStripMenuItem";
-            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.复制ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.复制ToolStripMenuItem.Text = "复制";
             this.复制ToolStripMenuItem.Click += new System.EventHandler(this.复制ToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(124, 6);
-            // 
-            // byCNXYToolStripMenuItem
-            // 
-            this.byCNXYToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.githubToolStripMenuItem,
-            this.blogToolStripMenuItem});
-            this.byCNXYToolStripMenuItem.Name = "byCNXYToolStripMenuItem";
-            this.byCNXYToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.byCNXYToolStripMenuItem.Text = "By CNXY";
-            // 
-            // githubToolStripMenuItem
-            // 
-            this.githubToolStripMenuItem.Name = "githubToolStripMenuItem";
-            this.githubToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
-            this.githubToolStripMenuItem.Text = "Github";
-            this.githubToolStripMenuItem.Click += new System.EventHandler(this.githubToolStripMenuItem_Click);
-            // 
-            // blogToolStripMenuItem
-            // 
-            this.blogToolStripMenuItem.Name = "blogToolStripMenuItem";
-            this.blogToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
-            this.blogToolStripMenuItem.Text = "Blog";
-            this.blogToolStripMenuItem.Click += new System.EventHandler(this.blogToolStripMenuItem_Click);
             // 
             // flowLayoutPanel3
             // 
@@ -618,9 +594,68 @@
             this.btnCheckIP.UseVisualStyleBackColor = true;
             this.btnCheckIP.Click += new System.EventHandler(this.btnCheckIP_Click);
             // 
+            // menuStrip1
+            // 
+            this.tableLayoutPanel.SetColumnSpan(this.menuStrip1, 2);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.关于ToolStripMenuItem,
+            this.时间ToolStripMenuItem});
+            this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.menuStrip1.Location = new System.Drawing.Point(0, 460);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(786, 25);
+            this.menuStrip1.TabIndex = 7;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // 关于ToolStripMenuItem
+            // 
+            this.关于ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.githubToolStripMenuItem1,
+            this.blogToolStripMenuItem1,
+            this.toolStripMenuItem3,
+            this.byCNXYToolStripMenuItem1});
+            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.关于ToolStripMenuItem.Text = "关于";
+            // 
+            // githubToolStripMenuItem1
+            // 
+            this.githubToolStripMenuItem1.Name = "githubToolStripMenuItem1";
+            this.githubToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.githubToolStripMenuItem1.Text = "Github";
+            this.githubToolStripMenuItem1.Click += new System.EventHandler(this.githubToolStripMenuItem1_Click);
+            // 
+            // blogToolStripMenuItem1
+            // 
+            this.blogToolStripMenuItem1.Name = "blogToolStripMenuItem1";
+            this.blogToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.blogToolStripMenuItem1.Text = "Blog";
+            this.blogToolStripMenuItem1.Click += new System.EventHandler(this.blogToolStripMenuItem1_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(149, 6);
+            // 
+            // byCNXYToolStripMenuItem1
+            // 
+            this.byCNXYToolStripMenuItem1.Name = "byCNXYToolStripMenuItem1";
+            this.byCNXYToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.byCNXYToolStripMenuItem1.Text = "By CNXY";
+            this.byCNXYToolStripMenuItem1.Click += new System.EventHandler(this.byCNXYToolStripMenuItem1_Click);
+            // 
+            // 时间ToolStripMenuItem
+            // 
+            this.时间ToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.时间ToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.时间ToolStripMenuItem.Name = "时间ToolStripMenuItem";
+            this.时间ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.时间ToolStripMenuItem.Text = "时间";
+            this.时间ToolStripMenuItem.Click += new System.EventHandler(this.时间ToolStripMenuItem_Click);
+            // 
             // FrmMain
             // 
-            this.AcceptButton = this.btnWrite;
+            this.AcceptButton = this.btnOpen;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(786, 485);
@@ -634,6 +669,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.tableLayoutPanel.ResumeLayout(false);
+            this.tableLayoutPanel.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
@@ -647,6 +683,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).EndInit();
             this.flowLayoutPanel5.ResumeLayout(false);
             this.flowLayoutPanel5.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -690,10 +728,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem 全选ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 复制ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem byCNXYToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem githubToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem blogToolStripMenuItem;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
         private System.Windows.Forms.Label lblIP;
         private System.Windows.Forms.TextBox txtIPAddress;
@@ -701,6 +735,13 @@
         private System.Windows.Forms.Label lblOverTime;
         private System.Windows.Forms.NumericUpDown nudTimeout;
         private System.Windows.Forms.Label lblTimeout;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem githubToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem blogToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem byCNXYToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem 时间ToolStripMenuItem;
     }
 }
 

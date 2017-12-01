@@ -130,7 +130,7 @@
     <value>检测成功！</value>
   </data>
   <data name="GithubURL" xml:space="preserve">
-    <value>https://github.com/cnxy</value>
+    <value>https://github.com/cnxy/VISAInstrument</value>
   </data>
   <data name="LANContainIP" xml:space="preserve">
     <value>LAN地址已经包含该IP，请重新输入！</value>

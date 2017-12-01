@@ -97,7 +97,7 @@ namespace VISAInstrument.Properties {
         }
         
         /// <summary>
-        ///   查找类似 https://github.com/cnxy 的本地化字符串。
+        ///   查找类似 https://github.com/cnxy/VISAInstrument 的本地化字符串。
         /// </summary>
         internal static string GithubURL {
             get {

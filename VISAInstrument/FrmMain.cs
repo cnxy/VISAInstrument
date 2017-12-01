@@ -10,6 +10,7 @@ using VISAInstrument.Extension;
 using VISAInstrument.Properties;
 using Ivi.Visa;
 using NationalInstruments.Visa;
+using System.Threading;
 
 
 namespace VISAInstrument
@@ -54,6 +55,9 @@ namespace VISAInstrument
         string[] commmands = { "*IDN?","*TST?", "*RST", "*CLS", "*ESE", "*ESE?", "*ESR?", "*OPC", "*OPC?", "*PSC", "*PSC?", "*SRE", "*SRE?", "*STB?", "*SAV", "*RCL","*TRG" };
         private void FrmMain_Load(object sender, EventArgs e)
         {
+            cts = new CancellationTokenSource();
+            ShowTime();
+            关于ToolStripMenuItem.Text = $"{Application.ProductName}({Application.ProductVersion})";
             rbtRS232.Checked = true;
             btnRefresh.PerformClick();
             btnOpen.Text = Resources.OpenString;
@@ -61,7 +65,7 @@ namespace VISAInstrument
             cboBaudRate.SelectedIndex = 9;
             cboParity.DataSource = Enum.GetValues(typeof(SerialParity));
             cboStopBits.DataSource = Enum.GetValues(typeof(SerialStopBitsMode));
-            cboStopBits.SelectedIndex = 1;
+            cboStopBits.SelectedIndex = 0;
             cboDataBits.DataSource = dataBits;
             cboFlowControl.DataSource = Enum.GetValues(typeof(SerialFlowControlModes));
             cboCommand.DataSource = commmands.OrderBy(n => n).ToArray();
@@ -69,6 +73,22 @@ namespace VISAInstrument
             EnableControl(true);
             if (CancelDisplayForm) Close();
         }
+
+        CancellationTokenSource cts;
+        private void ShowTime()
+        {
+            Task.Factory.StartNew(() => 
+            {
+                string now;
+                while(!cts.IsCancellationRequested)
+                {
+                    now = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}";
+                    InvokeToForm(() => 时间ToolStripMenuItem.Text = now);
+                    Thread.Sleep(500);
+                }
+            });
+        }
+
         PortOperatorBase portOperatorBase;
         private void btnWrite_Click(object sender, EventArgs e)
         {
@@ -100,6 +120,10 @@ namespace VISAInstrument
             try
             {
                 result = portOperatorBase.ReadLine();
+            }
+            catch(IOTimeoutException)
+            {
+                result = "读取时间超时";
             }
             catch (Exception ex)
             {
@@ -189,11 +213,13 @@ namespace VISAInstrument
             if (txtDisplay.Text.Length > 20480) txtDisplay.Clear();
         }
 
+        Task t = null;
+
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             try
             {
-                Task.Factory.StartNew(() =>
+                t = Task.Factory.StartNew(() =>
                 {
                     InvokeToForm(() => { btnRefresh.Enabled = false;btnOpen.Enabled = false; });
                     string[] content1 = PortUltility.FindAddresses(PortType.RS232);
@@ -232,7 +258,11 @@ namespace VISAInstrument
 
         private void InvokeToForm(Action action)
         {
-            this.Invoke(action);
+            try
+            {
+                this.Invoke(action);
+            }
+            catch { }
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -311,18 +341,15 @@ namespace VISAInstrument
             Clipboard.SetText(txtDisplay.SelectedText);
         }
 
-        private void githubToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(Resources.GithubURL);
-        }
-
-        private void blogToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(Resources.BlogURL);
-        }
-
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if(t != null && !t.IsCompleted)
+            {
+                MessageBox.Show("正在加载仪器资源，请等待加载完毕后再关闭此程序！");
+                e.Cancel = true;
+                return;
+            }
+            cts.Cancel();
             try
             {
                 portOperatorBase?.Close();
@@ -356,6 +383,31 @@ namespace VISAInstrument
             cboLAN.Items.Add(fullAddress);
             cboLAN.Text = cboLAN.Items[cboLAN.Items.Count-1].ToString();
             MessageBox.Show(Resources.DetectOK);
+        }
+
+        private void githubToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Process.Start(Resources.GithubURL);
+        }
+
+        private void blogToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Process.Start(Resources.BlogURL);
+        }
+
+        private void byCNXYToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Process.Start("mailto:cnc46@qq.com");
+        }
+
+        private void 时间ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string system32 = Environment.GetFolderPath(Environment.SpecialFolder.System);
+                Process.Start($@"{system32}\rundll32.exe", "shell32.dll,Control_RunDLL timedate.cpl,,0");
+            }
+            catch { }
         }
     }
 }
