@@ -296,14 +296,14 @@
             this.cboStopBits.Location = new System.Drawing.Point(354, 3);
             this.cboStopBits.Margin = new System.Windows.Forms.Padding(3, 3, 17, 3);
             this.cboStopBits.Name = "cboStopBits";
-            this.cboStopBits.Size = new System.Drawing.Size(99, 20);
+            this.cboStopBits.Size = new System.Drawing.Size(115, 20);
             this.cboStopBits.TabIndex = 3;
             // 
             // lblDataBits
             // 
             this.lblDataBits.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblDataBits.AutoSize = true;
-            this.lblDataBits.Location = new System.Drawing.Point(473, 7);
+            this.lblDataBits.Location = new System.Drawing.Point(489, 7);
             this.lblDataBits.Name = "lblDataBits";
             this.lblDataBits.Size = new System.Drawing.Size(41, 12);
             this.lblDataBits.TabIndex = 0;
@@ -314,7 +314,7 @@
             this.cboDataBits.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.cboDataBits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDataBits.FormattingEnabled = true;
-            this.cboDataBits.Location = new System.Drawing.Point(520, 3);
+            this.cboDataBits.Location = new System.Drawing.Point(536, 3);
             this.cboDataBits.Margin = new System.Windows.Forms.Padding(3, 3, 17, 3);
             this.cboDataBits.Name = "cboDataBits";
             this.cboDataBits.Size = new System.Drawing.Size(73, 20);
@@ -324,7 +324,7 @@
             // 
             this.lblFlowControl.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblFlowControl.AutoSize = true;
-            this.lblFlowControl.Location = new System.Drawing.Point(613, 7);
+            this.lblFlowControl.Location = new System.Drawing.Point(629, 7);
             this.lblFlowControl.Name = "lblFlowControl";
             this.lblFlowControl.Size = new System.Drawing.Size(41, 12);
             this.lblFlowControl.TabIndex = 0;
@@ -335,7 +335,7 @@
             this.cboFlowControl.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.cboFlowControl.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboFlowControl.FormattingEnabled = true;
-            this.cboFlowControl.Location = new System.Drawing.Point(660, 3);
+            this.cboFlowControl.Location = new System.Drawing.Point(676, 3);
             this.cboFlowControl.Name = "cboFlowControl";
             this.cboFlowControl.Size = new System.Drawing.Size(73, 20);
             this.cboFlowControl.TabIndex = 5;

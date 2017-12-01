@@ -3,12 +3,13 @@ using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using System.IO.Ports;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using VISAInstrument.Port;
 using VISAInstrument.Extension;
 using VISAInstrument.Properties;
+using Ivi.Visa;
+using NationalInstruments.Visa;
 
 
 namespace VISAInstrument
@@ -58,11 +59,11 @@ namespace VISAInstrument
             btnOpen.Text = Resources.OpenString;
             cboBaudRate.DataSource = baudRate;
             cboBaudRate.SelectedIndex = 9;
-            cboParity.DataSource = Enum.GetValues(typeof(Parity));
-            cboStopBits.DataSource = Enum.GetValues(typeof(StopBits));
+            cboParity.DataSource = Enum.GetValues(typeof(SerialParity));
+            cboStopBits.DataSource = Enum.GetValues(typeof(SerialStopBitsMode));
             cboStopBits.SelectedIndex = 1;
             cboDataBits.DataSource = dataBits;
-            cboFlowControl.DataSource = Enum.GetValues(typeof(FlowControl));
+            cboFlowControl.DataSource = Enum.GetValues(typeof(SerialFlowControlModes));
             cboCommand.DataSource = commmands.OrderBy(n => n).ToArray();
             cboCommand.SelectedIndex = 4;
             EnableControl(true);
@@ -116,34 +117,63 @@ namespace VISAInstrument
         private bool NewPortInstance()
         {
             bool hasAddress = false;
+            bool hasException = false;
             DoSomethingForRadioButton(
                 () =>
                 {
                     if (cboRS232.SelectedIndex == -1) return;
-                    portOperatorBase = new RS232PortOperator(((Pair<string,string>)cboRS232.SelectedItem).Value.ToString(),
-                        (int)cboBaudRate.SelectedItem, (Parity)cboParity.SelectedItem,
-                        (StopBits)cboStopBits.SelectedItem, (int)cboDataBits.SelectedItem);
-                    hasAddress = true;
+                    try
+                    {
+                        portOperatorBase = new RS232PortOperator(((Pair<string, string>)cboRS232.SelectedItem).Value.ToString(),
+                                               (int)cboBaudRate.SelectedItem, (SerialParity)cboParity.SelectedItem,
+                                               (SerialStopBitsMode)cboStopBits.SelectedItem, (int)cboDataBits.SelectedItem);
+                        hasAddress = true;
+                    }
+                    catch
+                    {
+                        hasException = true;
+                    }
                 },
                 () =>
                 {
                     if (cboUSB.SelectedIndex == -1) return;
-                    portOperatorBase = new USBPortOperator(cboUSB.SelectedItem.ToString());
-                    hasAddress = true;
+                    try
+                    {
+                        portOperatorBase = new USBPortOperator(cboUSB.SelectedItem.ToString());
+                        hasAddress = true;
+                    }
+                    catch
+                    {
+                        hasException = true;
+                    }
                 },
                 () =>
                 {
                     if (cboGPIB.SelectedIndex == -1) return;
-                    portOperatorBase = new GPIBPortOperator(cboGPIB.SelectedItem.ToString());
-                    hasAddress = true;
+                    try
+                    {
+                        portOperatorBase = new GPIBPortOperator(cboGPIB.SelectedItem.ToString());
+                        hasAddress = true;
+                    }
+                    catch
+                    {
+                        hasException = true;
+                    }
                 },
                 () =>
                 {
                     if (cboLAN.SelectedIndex == -1) return;
-                    portOperatorBase = new LANPortOperator(cboLAN.SelectedItem.ToString());
-                    hasAddress = true;
+                    try
+                    {
+                        portOperatorBase = new LANPortOperator(cboLAN.SelectedItem.ToString());
+                        hasAddress = true;
+                    }
+                    catch
+                    {
+                        hasException = true;
+                    }
                 });
-            portOperatorBase.Timeout = (int)nudTimeout.Value;
+            if(!hasException) portOperatorBase.Timeout = (int)nudTimeout.Value;
             return hasAddress;
         }
 

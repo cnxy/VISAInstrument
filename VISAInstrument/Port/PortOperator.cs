@@ -2,90 +2,84 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.IO.Ports;
+using Ivi.Visa;
+using NationalInstruments.Visa;
+
 
 namespace VISAInstrument.Port
 {
-    enum FlowControl
-    {
-        None, XOnXOff,RtsCts,DtrDst
-    }
 
     class RS232PortOperator:PortOperatorBase,IPortType
     {
         public int BaudRate { private set; get; }
 
-        public Parity Parity { private set; get; }
+        public SerialParity Parity { private set; get; }
 
-        public StopBits StopBits { private set; get; }
+        public SerialStopBitsMode StopBits { private set; get; }
 
         public int DataBits { private set; get; }
 
         public PortType PortType { get => PortType.RS232; }
 
-        public FlowControl FlowControl { set; get; } = FlowControl.None;
+        public SerialFlowControlModes FlowControl { set; get; } = SerialFlowControlModes.None;
 
-        public RS232PortOperator(string address,int baudRate,Parity parity,StopBits stopBits,int dataBits) : base(address)
+        SerialSession serialSession;
+
+        public RS232PortOperator(string address,int baudRate,SerialParity parity, SerialStopBitsMode stopBits,int dataBits) : base(new SerialSession(address), address)
         {
             if (!address.ToUpper().Contains("ASRL")) throw new ArgumentException($"该地址不含ASRL字样");
             BaudRate = baudRate;
             Parity = parity;
-            if (stopBits == StopBits.None) throw new NotSupportedException($"不支持停止位为：{stopBits.ToString()}");
             StopBits = stopBits;
             if(dataBits<5 || dataBits>8) throw new NotSupportedException($"不支持数据位为：{dataBits.ToString()}");
             DataBits = dataBits;
+            serialSession = (SerialSession)Session;
         }
 
         public override void Open()
         {
             base.Open();
-            int result = 0;
-            result = VISA32.viSetAttribute(VI, VISA32.VI_ATTR_ASRL_BAUD, BaudRate);
-            PortUltility.ThrowIfResultExcepiton(result);
+            serialSession.BaudRate = BaudRate;
             switch (Parity)
             {
-                case Parity.None:
-                    result = VISA32.viSetAttribute(VI, VISA32.VI_ATTR_ASRL_PARITY, VISA32.VI_ASRL_PAR_NONE);break;
-                case Parity.Odd:
-                    result = VISA32.viSetAttribute(VI, VISA32.VI_ATTR_ASRL_PARITY, VISA32.VI_ASRL_PAR_ODD); break;
-                case Parity.Even:
-                    result = VISA32.viSetAttribute(VI, VISA32.VI_ATTR_ASRL_PARITY, VISA32.VI_ASRL_PAR_EVEN); break;
-                case Parity.Mark:
-                    result = VISA32.viSetAttribute(VI, VISA32.VI_ATTR_ASRL_PARITY, VISA32.VI_ASRL_PAR_MARK); break;
-                case Parity.Space:
-                    result = VISA32.viSetAttribute(VI, VISA32.VI_ATTR_ASRL_PARITY, VISA32.VI_ASRL_PAR_SPACE); break;
+                case SerialParity.None:
+                    serialSession.Parity = SerialParity.None;break;
+                case SerialParity.Odd:
+                    serialSession.Parity = SerialParity.Odd; break;
+                case SerialParity.Even:
+                    serialSession.Parity = SerialParity.Even; break;
+                case SerialParity.Mark:
+                    serialSession.Parity = SerialParity.Mark; break;
+                case SerialParity.Space:
+                    serialSession.Parity = SerialParity.Space; break;
             }
-            PortUltility.ThrowIfResultExcepiton(result);
             switch(StopBits)
             {
-                case StopBits.One:
-                    result = VISA32.viSetAttribute(VI, VISA32.VI_ATTR_ASRL_STOP_BITS, VISA32.VI_ASRL_STOP_ONE); break;
-                case StopBits.OnePointFive:
-                    result = VISA32.viSetAttribute(VI, VISA32.VI_ATTR_ASRL_STOP_BITS, VISA32.VI_ASRL_STOP_ONE5); break;
-                case StopBits.Two:
-                    result = VISA32.viSetAttribute(VI, VISA32.VI_ATTR_ASRL_STOP_BITS, VISA32.VI_ASRL_STOP_TWO); break;
+                case SerialStopBitsMode.One:
+                    serialSession.StopBits = SerialStopBitsMode.One;break;
+                case SerialStopBitsMode.OneAndOneHalf:
+                    serialSession.StopBits = SerialStopBitsMode.OneAndOneHalf; break;
+                case SerialStopBitsMode.Two:
+                    serialSession.StopBits = SerialStopBitsMode.Two; break;
             }
-            PortUltility.ThrowIfResultExcepiton(result);
-            result = VISA32.viSetAttribute(VI, VISA32.VI_ATTR_ASRL_DATA_BITS, DataBits);
-            PortUltility.ThrowIfResultExcepiton(result);
+            serialSession.DataBits = (short)DataBits;
             switch (FlowControl)
             {
-                case FlowControl.None:
-                    result = VISA32.viSetAttribute(VI, VISA32.VI_ATTR_ASRL_FLOW_CNTRL, VISA32.VI_ASRL_FLOW_NONE); break;
-                case FlowControl.XOnXOff:
-                    result = VISA32.viSetAttribute(VI, VISA32.VI_ATTR_ASRL_FLOW_CNTRL, VISA32.VI_ASRL_FLOW_XON_XOFF); break;
-                case FlowControl.RtsCts:
-                    result = VISA32.viSetAttribute(VI, VISA32.VI_ATTR_ASRL_FLOW_CNTRL, VISA32.VI_ASRL_FLOW_RTS_CTS); break;
-                case FlowControl.DtrDst:
-                    result = VISA32.viSetAttribute(VI, VISA32.VI_ATTR_ASRL_FLOW_CNTRL, VISA32.VI_ASRL_FLOW_DTR_DSR); break;
+                case SerialFlowControlModes.None:
+                    serialSession.FlowControl = SerialFlowControlModes.None;break;
+                case SerialFlowControlModes.XOnXOff:
+                    serialSession.FlowControl = SerialFlowControlModes.XOnXOff; break;
+                case SerialFlowControlModes.RtsCts:
+                    serialSession.FlowControl = SerialFlowControlModes.RtsCts; break;
+                case SerialFlowControlModes.DtrDsr:
+                    serialSession.FlowControl = SerialFlowControlModes.DtrDsr; break;
             }
-            PortUltility.ThrowIfResultExcepiton(result);
         }
     }
 
     class USBPortOperator : PortOperatorBase, IPortType
     {
-        public USBPortOperator(string address) : base(address)
+        public USBPortOperator(string address) : base(new UsbSession(address), address)
         {
             if (!address.ToUpper().Contains("USB"))
                 throw new ArgumentException($"该地址不含USB字样");
@@ -95,7 +89,7 @@ namespace VISAInstrument.Port
 
     class GPIBPortOperator : PortOperatorBase, IPortType
     {
-        public GPIBPortOperator(string address) : base(address)
+        public GPIBPortOperator(string address) : base(new GpibSession(address), address)
         {
             if (!address.ToUpper().Contains("GPIB"))
                 throw new ArgumentException($"该地址不含GPIB字样");
@@ -105,7 +99,7 @@ namespace VISAInstrument.Port
 
     class LANPortOperator : PortOperatorBase, IPortType
     {
-        public LANPortOperator(string address) : base(address)
+        public LANPortOperator(string address) : base(new TcpipSession(address),address)
         {
             if (!address.ToUpper().Contains("TCPIP"))
                 throw new ArgumentException($"该地址不含TCPIP字样");
@@ -125,9 +119,16 @@ namespace VISAInstrument.Port
 
     abstract class PortOperatorBase:IPortOperator
     {
-        public string Address { private set; get; }
+        public string Address { set; get; }
 
-        public PortOperatorBase(string address) => Address = address;
+        public PortOperatorBase(IMessageBasedSession session)
+        {
+            Session = session;
+        }
+        public PortOperatorBase(IMessageBasedSession session,string address):this(session)
+        {
+            Address = address;
+        }
 
         public int Timeout { set; get; } = 2000;
 
@@ -145,24 +146,17 @@ namespace VISAInstrument.Port
             PortClosing?.Invoke(this, e);
         }
 
-        int result;
-        int sesn;
-        protected int vi;
-
-        protected int VI { private set; get; }
-
         public bool IsPortOpen { private set; get; } = false;
+
+        protected IMessageBasedSession Session { private set; get; }
+
         public virtual void Open()
         {
             PortEventArgs e = new PortEventArgs(Address);
             OnPortOpenning(e);
             if(!e.Cancel)
             {
-                result = VISA32.viOpenDefaultRM(out sesn);
-                result = VISA32.viOpen(sesn, Address, 0, 2000, out vi);
-                result = VISA32.viSetAttribute(vi, VISA32.VI_ATTR_TMO_VALUE, Timeout);
-                VI = vi;
-                PortUltility.ThrowIfResultExcepiton(result);
+                Session.TimeoutMilliseconds = Timeout;
                 this.IsPortOpen = true;
             }
         }
@@ -173,17 +167,14 @@ namespace VISAInstrument.Port
             OnPortClosing(e);
             if (!e.Cancel)
             {
-                result = VISA32.viClose(vi);
-                PortUltility.ThrowIfResultExcepiton(result);
+                Session.Dispose();
                 this.IsPortOpen = false;
             }
         }
 
         public virtual void Write(string command)
         {
-            byte[] commandBytes = Encoding.ASCII.GetBytes(command);
-            result = VISA32.viWrite(vi, commandBytes, commandBytes.Length, out int retCount);
-            PortUltility.ThrowIfResultExcepiton(result);
+            Session.RawIO.Write(command);
         }
 
         public virtual void WriteLine(string command)
@@ -195,10 +186,7 @@ namespace VISAInstrument.Port
 
         public virtual string Read()
         {
-            byte[] resultBytes = new byte[READ_BUFFER_COUNT];
-            result = VISA32.viRead(vi, resultBytes, READ_BUFFER_COUNT, out int retCount);
-            PortUltility.ThrowIfResultExcepiton(result);
-            return retCount != 0 ? Encoding.ASCII.GetString(resultBytes.Take(retCount).ToArray()):null;
+            return Encoding.UTF8.GetString(Session.RawIO.Read());
         }
 
         public virtual string ReadLine()
