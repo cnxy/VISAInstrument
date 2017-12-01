@@ -5,7 +5,7 @@ http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/zhs/pg/1/sn/catnav:
 
 或者到
 https://github.com/cnxy/VISAInstrument/releases/tag/1.0.0.0
-下载"NIVISA1600runtime.exe"以便安装VISA运行时，
+下载"NIVISA1700runtime.exe"以便安装VISA运行时，
 如想安装最新版本，请从第一个链接下载
 
 ## RS232
