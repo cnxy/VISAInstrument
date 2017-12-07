@@ -220,9 +220,10 @@ namespace VISAInstrument
         {
             try
             {
+                string title = Text;
                 t = Task.Factory.StartNew(() =>
                 {
-                    InvokeToForm(() => { btnRefresh.Enabled = false;btnOpen.Enabled = false; });
+                    InvokeToForm(() => { btnRefresh.Enabled = false;btnOpen.Enabled = false; Text += "【正在加载资源中...请稍候...】"; });
                     string[] content1 = PortUltility.FindAddresses(PortType.RS232);
                     string[] content2 = PortUltility.FindRS232Type(content1);
                     List<string> list1 = new List<string>();
@@ -242,7 +243,7 @@ namespace VISAInstrument
                     InvokeToForm(() => cboGPIB.ShowAndDisplay(content1));
                     content1 = PortUltility.FindAddresses(PortType.LAN);
                     InvokeToForm(() => cboLAN.ShowAndDisplay(content1));
-                    InvokeToForm(() => { btnRefresh.Enabled = true; btnOpen.Enabled = true; });
+                    InvokeToForm(() => { btnRefresh.Enabled = true; btnOpen.Enabled = true; Text = title; });
                 });
             }
             catch(Exception ex)
