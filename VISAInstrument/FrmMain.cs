@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -224,6 +225,16 @@ namespace VISAInstrument
                     InvokeToForm(() => { btnRefresh.Enabled = false;btnOpen.Enabled = false; });
                     string[] content1 = PortUltility.FindAddresses(PortType.RS232);
                     string[] content2 = PortUltility.FindRS232Type(content1);
+                    List<string> list1 = new List<string>();
+                    List<string> list2 = new List<string>();
+                    for(int i=0;i<content2.Length;i++)
+                    {
+                        if (content2[i].Contains("LPT")) continue;
+                        list1.Add(content1[i]);
+                        list2.Add(content2[i]);
+                    }
+                    content1 = list1.ToArray();
+                    content2 = list2.ToArray();
                     InvokeToForm(() => cboRS232.ShowAndDisplay(content1, content2));
                     content1 = PortUltility.FindAddresses(PortType.USB);
                     InvokeToForm(() => cboUSB.ShowAndDisplay(content1));
