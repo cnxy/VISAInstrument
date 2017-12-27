@@ -3,9 +3,11 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using VISAInstrument.Ulitity;
 using VISAInstrument.Port;
 using VISAInstrument.Extension;
 using VISAInstrument.Properties;
@@ -53,7 +55,9 @@ namespace VISAInstrument
 
         int[] baudRate = { 256000, 128000, 115200, 57600, 56000, 43000, 38400, 28800, 19200, 9600, 4800, 2400, 1200, 600, 300, 110 };
         int[] dataBits = { 8, 7, 6 };
-        string[] commmands = { "*IDN?","*TST?", "*RST", "*CLS", "*ESE", "*ESE?", "*ESR?", "*OPC", "*OPC?", "*PSC", "*PSC?", "*SRE", "*SRE?", "*STB?", "*SAV", "*RCL","*TRG" };
+        string[] asciiCommands = { "*IDN?","*TST?", "*RST", "*CLS", "*ESE", "*ESE?", "*ESR?", "*OPC", "*OPC?", "*PSC", "*PSC?", "*SRE", "*SRE?", "*STB?", "*SAV", "*RCL","*TRG" };
+        string[] hexCommands;
+        bool isAsciiCommand = true;
         private void FrmMain_Load(object sender, EventArgs e)
         {
             cts = new CancellationTokenSource();
@@ -69,7 +73,11 @@ namespace VISAInstrument
             cboStopBits.SelectedIndex = 0;
             cboDataBits.DataSource = dataBits;
             cboFlowControl.DataSource = Enum.GetValues(typeof(SerialFlowControlModes));
-            cboCommand.DataSource = commmands.OrderBy(n => n).ToArray();
+            //Ascii
+            asciiCommands = asciiCommands.OrderBy(n => n).ToArray();
+            cboCommand.DataSource = asciiCommands;
+            //Hex
+            hexCommands = asciiCommands.ToHexString();
             cboCommand.SelectedIndex = 4;
             EnableControl(true);
             if (CancelDisplayForm) Close();
@@ -91,25 +99,45 @@ namespace VISAInstrument
         }
 
         PortOperatorBase portOperatorBase;
+        bool isWritingError = false;
         private void btnWrite_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(cboCommand.Text))
+            isWritingError = false;
+            if (string.IsNullOrEmpty(cboCommand.Text))
             {
                 MessageBox.Show(Resources.CommandNotEmpty);
                 return;
             }
-            string content = cboCommand.Text;
+            string content;
+            if(isAsciiCommand)
+            {
+                content = cboCommand.Text;
+            }
+            else
+            {
+                try
+                {
+                    content = cboCommand.Text.ToAsciiString();
+                }
+                catch(Exception ex)
+                {
+                    isWritingError = true;
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+            }
+
             Stopwatch stopwatch = Stopwatch.StartNew();
             try
             {
-                portOperatorBase.WriteLine(cboCommand.Text);
+                portOperatorBase.WriteLine(content);
                 cboCommand.AddItem(cboCommand.Text);
             }
             catch
             {
                 content =  $"写入命令\"{cboCommand.Text}\"失败！";
             }
-            DisplayToTextBox($"[Time:{stopwatch.ElapsedMilliseconds}ms] Write: {content}");
+            DisplayToTextBox($"[Time:{stopwatch.ElapsedMilliseconds}ms] Write: {cboCommand.Text}");
         }
 
 
@@ -120,7 +148,14 @@ namespace VISAInstrument
             Stopwatch stopwatch = Stopwatch.StartNew();
             try
             {
-                result = portOperatorBase.ReadLine();
+                if(isAsciiCommand)
+                {
+                    result = portOperatorBase.ReadLine();
+                }
+                else
+                {
+                    result = portOperatorBase.ReadLine().ToHexString();
+                }
             }
             catch(IOTimeoutException)
             {
@@ -136,7 +171,7 @@ namespace VISAInstrument
         private void btnQuery_Click(object sender, EventArgs e)
         {
             btnWrite.PerformClick();
-            btnRead.PerformClick();
+            if(!isWritingError) btnRead.PerformClick();
         }
 
         private bool NewPortInstance()
@@ -423,6 +458,74 @@ namespace VISAInstrument
                 Process.Start($@"{system32}\rundll32.exe", "shell32.dll,Control_RunDLL timedate.cpl,,0");
             }
             catch { }
+        }
+
+        private void enableAsciiOrHexMenuItem(bool isAsciiChecked)
+        {
+            aSCIIToolStripMenuItem.Checked = isAsciiChecked;
+            hexToolStripMenuItem.Checked = !isAsciiChecked;
+            isAsciiCommand = isAsciiChecked;
+        }
+
+        //ASCII
+        private void aSCIIToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            enableAsciiOrHexMenuItem(true);
+            cboCommand.DataSource = asciiCommands;
+            cboCommand.SelectedIndex = 4;
+            
+        }
+        //Hex
+        private void hexToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            enableAsciiOrHexMenuItem(false);
+            cboCommand.DataSource = hexCommands;
+            cboCommand.SelectedIndex = 4;
+        }
+
+        private void 全选ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            cboCommand.SelectAll();
+        }
+
+        private void 复制ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(cboCommand.SelectedText);
+        }
+
+        private void 粘贴ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cboCommand.Text = Clipboard.GetText();
+            Clipboard.Clear();
+        }
+
+        private void cmsCommand_Opening(object sender, CancelEventArgs e)
+        {
+            if(string.IsNullOrEmpty(cboCommand.Text.Trim()))
+            {
+                全选ToolStripMenuItem1.Enabled = false;
+                复制ToolStripMenuItem1.Enabled = false;
+            }
+            else
+            {
+                全选ToolStripMenuItem1.Enabled = true;
+                if(string.IsNullOrEmpty(cboCommand.SelectedText))
+                {
+                    复制ToolStripMenuItem1.Enabled = false;
+                }
+                else
+                {
+                    复制ToolStripMenuItem1.Enabled = true;
+                }
+            }
+            if(string.IsNullOrEmpty(Clipboard.GetText()))
+            {
+                粘贴ToolStripMenuItem.Enabled = false;
+            }
+            else
+            {
+                粘贴ToolStripMenuItem.Enabled = true;
+            }
         }
     }
 }
