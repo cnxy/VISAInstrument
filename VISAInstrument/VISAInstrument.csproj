@@ -43,12 +43,8 @@
       <HintPath>..\packages\Costura.Fody.1.6.2\lib\portable-net+sl+win+wpa+wp\Costura.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Ivi.Visa">
-      <HintPath>D:\Ivi.Visa.dll</HintPath>
-    </Reference>
-    <Reference Include="NationalInstruments.Visa">
-      <HintPath>D:\NationalInstruments.Visa.dll</HintPath>
-    </Reference>
+    <Reference Include="Ivi.Visa, Version=5.8.0.0, Culture=neutral, PublicKeyToken=a128c98f1d7717c1, processorArchitecture=MSIL" />
+    <Reference Include="NationalInstruments.Visa, Version=17.0.0.0, Culture=neutral, PublicKeyToken=2eaa5af0834e221d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
