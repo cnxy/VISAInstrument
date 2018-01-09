@@ -33,8 +33,15 @@ namespace VISAInstrument.Port
             try
             {
                 result = GlobalResourceManager.Find($"{ToStringFromPortType(portType)}?*INSTR");
+            }catch(Exception ex)
+            {
+                if (!(ex is NativeVisaException))
+                {
+                    if (ex.InnerException != null) throw ex.InnerException;
+                    else throw ex;
+                }
             }
-            catch{ }
+
             return result.ToArray().Where(n=>!n.Contains("//")).ToArray();
         }
 
@@ -50,7 +57,7 @@ namespace VISAInstrument.Port
                 }
                 catch
                 {
-                    list.Add("None");
+                    //list.Add("None");
                 }
             }
             return list.ToArray();
@@ -76,10 +83,5 @@ namespace VISAInstrument.Port
         {
            return FindAddresses(PortType.None);
         }
-    }
-
-    class ResultException : Exception
-    {
-        public ResultException(string message) : base(message) { }
     }
 }

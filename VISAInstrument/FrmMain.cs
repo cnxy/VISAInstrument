@@ -253,56 +253,41 @@ namespace VISAInstrument
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            try
+            string title = Text;
+            t = Task.Factory.StartNew(() =>
             {
-                string title = Text;
-                t = Task.Factory.StartNew(() =>
+                InvokeToForm(() => { btnRefresh.Enabled = false; btnOpen.Enabled = false; Text = title + "【正在加载RS232资源中...请稍候...】"; });
+                string[] content1 = PortUltility.FindAddresses(PortType.RS232);
+                string[] content2 = PortUltility.FindRS232Type(content1);
+                List<string> list1 = new List<string>();
+                List<string> list2 = new List<string>();
+                for (int i = 0; i < content2.Length; i++)
                 {
-                    InvokeToForm(() => { btnRefresh.Enabled = false;btnOpen.Enabled = false; Text = title + "【正在加载RS232资源中...请稍候...】"; });
-                    string[] content1 = PortUltility.FindAddresses(PortType.RS232);
-                    string[] content2 = PortUltility.FindRS232Type(content1);
-                    List<string> list1 = new List<string>();
-                    List<string> list2 = new List<string>();
-                    for(int i=0;i<content2.Length;i++)
-                    {
-                        if (content2[i].Contains("LPT")) continue;
-                        list1.Add(content1[i]);
-                        list2.Add(content2[i]);
-                    }
-                    content1 = list1.ToArray();
-                    content2 = list2.ToArray();
-                    InvokeToForm(() => cboRS232.ShowAndDisplay(content1, content2));
-                    InvokeToForm(() => { Text = title + "【正在加载USB资源中...请稍候...】"; });
-                    content1 = PortUltility.FindAddresses(PortType.USB);
-                    InvokeToForm(() => cboUSB.ShowAndDisplay(content1));
-                    InvokeToForm(() => { Text = title + "【正在加载GPIB资源中...请稍候...】"; });
-                    content1 = PortUltility.FindAddresses(PortType.GPIB);
-                    InvokeToForm(() => cboGPIB.ShowAndDisplay(content1));
-                    InvokeToForm(() => { Text = title + "【正在加载LAN资源中...请稍候...】"; });
-                    content1 = PortUltility.FindAddresses(PortType.LAN);
-                    InvokeToForm(() => cboLAN.ShowAndDisplay(content1));
-                    InvokeToForm(() => { btnRefresh.Enabled = true; btnOpen.Enabled = true; Text = title; });
-                });
-            }
-            catch(Exception ex)
+                    if (content2[i].Contains("LPT")) continue;
+                    list1.Add(content1[i]);
+                    list2.Add(content2[i]);
+                }
+                content1 = list1.ToArray();
+                content2 = list2.ToArray();
+                InvokeToForm(() => cboRS232.ShowAndDisplay(content1, content2));
+                InvokeToForm(() => { Text = title + "【正在加载USB资源中...请稍候...】"; });
+                content1 = PortUltility.FindAddresses(PortType.USB);
+                InvokeToForm(() => cboUSB.ShowAndDisplay(content1));
+                InvokeToForm(() => { Text = title + "【正在加载GPIB资源中...请稍候...】"; });
+                content1 = PortUltility.FindAddresses(PortType.GPIB);
+                InvokeToForm(() => cboGPIB.ShowAndDisplay(content1));
+                InvokeToForm(() => { Text = title + "【正在加载LAN资源中...请稍候...】"; });
+                content1 = PortUltility.FindAddresses(PortType.LAN);
+                InvokeToForm(() => cboLAN.ShowAndDisplay(content1));
+                InvokeToForm(() => { btnRefresh.Enabled = true; btnOpen.Enabled = true; Text = title; });
+            }).ContinueWith(x=> 
             {
-                if(ex is ResultException || ex is DllNotFoundException)
-
+                if(x.IsFaulted)
                 {
-                    DialogResult result = MessageBox.Show($"{Resources.VISA32Error}\r\n\r{Resources.VISADownLoad}", Resources.RuntimeError, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                    if (result == DialogResult.Yes)
-                    {
-                        Process.Start(Resources.VISA32URL);
-                    }
                     CancelDisplayForm = true;
+                    InvokeToForm(() => { tableLayoutPanel.Enabled = false; this.Text = Resources.RuntimeError; });
                 }
-                else
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                btnRefresh.Enabled = true;
-                btnOpen.Enabled = true;
-            }
+            });
         }
 
 

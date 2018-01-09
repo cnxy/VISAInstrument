@@ -64,6 +64,13 @@
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.lblCommand = new System.Windows.Forms.Label();
             this.cboCommand = new System.Windows.Forms.ComboBox();
+            this.cmsCommand = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.aSCIIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.全选ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.复制ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.粘贴ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnWrite = new System.Windows.Forms.Button();
             this.btnRead = new System.Windows.Forms.Button();
             this.btnQuery = new System.Windows.Forms.Button();
@@ -73,12 +80,6 @@
             this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
             this.lblIP = new System.Windows.Forms.Label();
             this.txtIPAddress = new System.Windows.Forms.TextBox();
-            this.cmsCommand = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.aSCIIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.复制ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.粘贴ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCheckIP = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,7 +88,6 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.byCNXYToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.时间ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.全选ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -95,9 +95,9 @@
             this.groupBoxDisplay.SuspendLayout();
             this.contextMenuStrip.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
+            this.cmsCommand.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).BeginInit();
             this.flowLayoutPanel5.SuspendLayout();
-            this.cmsCommand.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -484,6 +484,61 @@
             this.cboCommand.Size = new System.Drawing.Size(277, 20);
             this.cboCommand.TabIndex = 1;
             // 
+            // cmsCommand
+            // 
+            this.cmsCommand.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aSCIIToolStripMenuItem,
+            this.hexToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.全选ToolStripMenuItem1,
+            this.复制ToolStripMenuItem1,
+            this.粘贴ToolStripMenuItem});
+            this.cmsCommand.Name = "contextMenuStrip";
+            this.cmsCommand.Size = new System.Drawing.Size(108, 120);
+            this.cmsCommand.Opening += new System.ComponentModel.CancelEventHandler(this.cmsCommand_Opening);
+            // 
+            // aSCIIToolStripMenuItem
+            // 
+            this.aSCIIToolStripMenuItem.Checked = true;
+            this.aSCIIToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.aSCIIToolStripMenuItem.Name = "aSCIIToolStripMenuItem";
+            this.aSCIIToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aSCIIToolStripMenuItem.Text = "ASCII";
+            this.aSCIIToolStripMenuItem.Click += new System.EventHandler(this.aSCIIToolStripMenuItem_Click);
+            // 
+            // hexToolStripMenuItem
+            // 
+            this.hexToolStripMenuItem.Name = "hexToolStripMenuItem";
+            this.hexToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.hexToolStripMenuItem.Text = "Hex";
+            this.hexToolStripMenuItem.Click += new System.EventHandler(this.hexToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(104, 6);
+            // 
+            // 全选ToolStripMenuItem1
+            // 
+            this.全选ToolStripMenuItem1.Name = "全选ToolStripMenuItem1";
+            this.全选ToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
+            this.全选ToolStripMenuItem1.Text = "全选";
+            this.全选ToolStripMenuItem1.Click += new System.EventHandler(this.全选ToolStripMenuItem1_Click);
+            // 
+            // 复制ToolStripMenuItem1
+            // 
+            this.复制ToolStripMenuItem1.Name = "复制ToolStripMenuItem1";
+            this.复制ToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
+            this.复制ToolStripMenuItem1.Text = "复制";
+            this.复制ToolStripMenuItem1.Click += new System.EventHandler(this.复制ToolStripMenuItem1_Click);
+            // 
+            // 粘贴ToolStripMenuItem
+            // 
+            this.粘贴ToolStripMenuItem.Name = "粘贴ToolStripMenuItem";
+            this.粘贴ToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.粘贴ToolStripMenuItem.Text = "粘贴";
+            this.粘贴ToolStripMenuItem.Click += new System.EventHandler(this.粘贴ToolStripMenuItem_Click);
+            // 
             // btnWrite
             // 
             this.btnWrite.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -592,54 +647,6 @@
             this.txtIPAddress.Size = new System.Drawing.Size(277, 21);
             this.txtIPAddress.TabIndex = 1;
             // 
-            // cmsCommand
-            // 
-            this.cmsCommand.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aSCIIToolStripMenuItem,
-            this.hexToolStripMenuItem,
-            this.toolStripMenuItem2,
-            this.全选ToolStripMenuItem1,
-            this.复制ToolStripMenuItem1,
-            this.粘贴ToolStripMenuItem});
-            this.cmsCommand.Name = "contextMenuStrip";
-            this.cmsCommand.Size = new System.Drawing.Size(153, 142);
-            this.cmsCommand.Opening += new System.ComponentModel.CancelEventHandler(this.cmsCommand_Opening);
-            // 
-            // aSCIIToolStripMenuItem
-            // 
-            this.aSCIIToolStripMenuItem.Checked = true;
-            this.aSCIIToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.aSCIIToolStripMenuItem.Name = "aSCIIToolStripMenuItem";
-            this.aSCIIToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.aSCIIToolStripMenuItem.Text = "ASCII";
-            this.aSCIIToolStripMenuItem.Click += new System.EventHandler(this.aSCIIToolStripMenuItem_Click);
-            // 
-            // hexToolStripMenuItem
-            // 
-            this.hexToolStripMenuItem.Name = "hexToolStripMenuItem";
-            this.hexToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.hexToolStripMenuItem.Text = "Hex";
-            this.hexToolStripMenuItem.Click += new System.EventHandler(this.hexToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
-            // 
-            // 复制ToolStripMenuItem1
-            // 
-            this.复制ToolStripMenuItem1.Name = "复制ToolStripMenuItem1";
-            this.复制ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.复制ToolStripMenuItem1.Text = "复制";
-            this.复制ToolStripMenuItem1.Click += new System.EventHandler(this.复制ToolStripMenuItem1_Click);
-            // 
-            // 粘贴ToolStripMenuItem
-            // 
-            this.粘贴ToolStripMenuItem.Name = "粘贴ToolStripMenuItem";
-            this.粘贴ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.粘贴ToolStripMenuItem.Text = "粘贴";
-            this.粘贴ToolStripMenuItem.Click += new System.EventHandler(this.粘贴ToolStripMenuItem_Click);
-            // 
             // btnCheckIP
             // 
             this.btnCheckIP.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -710,13 +717,6 @@
             this.时间ToolStripMenuItem.Text = "时间";
             this.时间ToolStripMenuItem.Click += new System.EventHandler(this.时间ToolStripMenuItem_Click);
             // 
-            // 全选ToolStripMenuItem1
-            // 
-            this.全选ToolStripMenuItem1.Name = "全选ToolStripMenuItem1";
-            this.全选ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.全选ToolStripMenuItem1.Text = "全选";
-            this.全选ToolStripMenuItem1.Click += new System.EventHandler(this.全选ToolStripMenuItem1_Click);
-            // 
             // FrmMain
             // 
             this.AcceptButton = this.btnOpen;
@@ -744,10 +744,10 @@
             this.contextMenuStrip.ResumeLayout(false);
             this.flowLayoutPanel3.ResumeLayout(false);
             this.flowLayoutPanel3.PerformLayout();
+            this.cmsCommand.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).EndInit();
             this.flowLayoutPanel5.ResumeLayout(false);
             this.flowLayoutPanel5.PerformLayout();
-            this.cmsCommand.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
