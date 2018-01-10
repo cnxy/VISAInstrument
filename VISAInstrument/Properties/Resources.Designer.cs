@@ -232,7 +232,7 @@ namespace VISAInstrument.Properties {
         }
         
         /// <summary>
-        ///   查找类似 https://github.com/cnxy/VISAInstrument/releases/download/1.0.0.0/NIVISA1700ruhttps://github.com/cnxy/VISAInstrument/releases/download/1.0.0.0/NIVISA1700runtime.zip 的本地化字符串。
+        ///   查找类似 https://github.com/cnxy/VISAInstrument/releases/download/1.0.0.1/VISAInstrument-1.0.0.1.exe 的本地化字符串。
         /// </summary>
         internal static string VISA32URL {
             get {
