@@ -115,6 +115,51 @@ namespace VISAInstrument.Properties {
         }
         
         /// <summary>
+        ///   查找类似 【正在加载GPIB资源中...请稍候...】 的本地化字符串。
+        /// </summary>
+        internal static string LoadingGPIB {
+            get {
+                return ResourceManager.GetString("LoadingGPIB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 正在加载仪器资源，请等待加载完毕后再关闭此程序！ 的本地化字符串。
+        /// </summary>
+        internal static string LoadingInstrumentResource {
+            get {
+                return ResourceManager.GetString("LoadingInstrumentResource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 【正在加载LAN资源中...请稍候...】 的本地化字符串。
+        /// </summary>
+        internal static string LoadingLAN {
+            get {
+                return ResourceManager.GetString("LoadingLAN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 【正在加载RS232资源中...请稍候...】 的本地化字符串。
+        /// </summary>
+        internal static string LoadingRS232 {
+            get {
+                return ResourceManager.GetString("LoadingRS232", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 【正在加载USB资源中...请稍候...】 的本地化字符串。
+        /// </summary>
+        internal static string LoadingUSB {
+            get {
+                return ResourceManager.GetString("LoadingUSB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 VISAInstrument 的本地化字符串。
         /// </summary>
         internal static string MutexName {
@@ -151,6 +196,15 @@ namespace VISAInstrument.Properties {
         }
         
         /// <summary>
+        ///   查找类似 读取时间超时 的本地化字符串。
+        /// </summary>
+        internal static string ReadTimeout {
+            get {
+                return ResourceManager.GetString("ReadTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 程序已经在运行！ 的本地化字符串。
         /// </summary>
         internal static string Running {
@@ -178,7 +232,7 @@ namespace VISAInstrument.Properties {
         }
         
         /// <summary>
-        ///   查找类似 https://github.com/cnxy/VISAInstrument/releases/download/1.0.0.0/NIVISA1600runtime.exe 的本地化字符串。
+        ///   查找类似 https://github.com/cnxy/VISAInstrument/releases/download/1.0.0.0/NIVISA1700ruhttps://github.com/cnxy/VISAInstrument/releases/download/1.0.0.0/NIVISA1700runtime.zip 的本地化字符串。
         /// </summary>
         internal static string VISA32URL {
             get {

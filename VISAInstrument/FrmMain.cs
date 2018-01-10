@@ -159,7 +159,7 @@ namespace VISAInstrument
             }
             catch(IOTimeoutException)
             {
-                result = "读取时间超时";
+                result = Resources.ReadTimeout;
             }
             catch (Exception ex)
             {
@@ -256,7 +256,7 @@ namespace VISAInstrument
             string title = Text;
             t = Task.Factory.StartNew(() =>
             {
-                InvokeToForm(() => { btnRefresh.Enabled = false; btnOpen.Enabled = false; Text = title + "【正在加载RS232资源中...请稍候...】"; });
+                InvokeToForm(() => { btnRefresh.Enabled = false; btnOpen.Enabled = false; Text = title + Resources.LoadingRS232; });
                 string[] content1 = PortUltility.FindAddresses(PortType.RS232);
                 string[] content2 = PortUltility.FindRS232Type(content1);
                 List<string> list1 = new List<string>();
@@ -270,13 +270,13 @@ namespace VISAInstrument
                 content1 = list1.ToArray();
                 content2 = list2.ToArray();
                 InvokeToForm(() => cboRS232.ShowAndDisplay(content1, content2));
-                InvokeToForm(() => { Text = title + "【正在加载USB资源中...请稍候...】"; });
+                InvokeToForm(() => { Text = title + Resources.LoadingUSB; });
                 content1 = PortUltility.FindAddresses(PortType.USB);
                 InvokeToForm(() => cboUSB.ShowAndDisplay(content1));
-                InvokeToForm(() => { Text = title + "【正在加载GPIB资源中...请稍候...】"; });
+                InvokeToForm(() => { Text = title + Resources.LoadingGPIB; });
                 content1 = PortUltility.FindAddresses(PortType.GPIB);
                 InvokeToForm(() => cboGPIB.ShowAndDisplay(content1));
-                InvokeToForm(() => { Text = title + "【正在加载LAN资源中...请稍候...】"; });
+                InvokeToForm(() => { Text = title + Resources.LoadingLAN; });
                 content1 = PortUltility.FindAddresses(PortType.LAN);
                 InvokeToForm(() => cboLAN.ShowAndDisplay(content1));
                 InvokeToForm(() => { btnRefresh.Enabled = true; btnOpen.Enabled = true; Text = title; });
@@ -380,7 +380,7 @@ namespace VISAInstrument
         {
             if(t != null && !t.IsCompleted)
             {
-                MessageBox.Show("正在加载仪器资源，请等待加载完毕后再关闭此程序！");
+                MessageBox.Show(Resources.LoadingInstrumentResource);
                 e.Cancel = true;
                 return;
             }
