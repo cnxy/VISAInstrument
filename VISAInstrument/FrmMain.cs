@@ -53,11 +53,11 @@ namespace VISAInstrument
             if (rbtLAN.Checked) actionOfRbt[3]();
         }
 
-        int[] baudRate = { 256000, 128000, 115200, 57600, 56000, 43000, 38400, 28800, 19200, 9600, 4800, 2400, 1200, 600, 300, 110 };
-        int[] dataBits = { 8, 7, 6 };
-        string[] asciiCommands = { "*IDN?","*TST?", "*RST", "*CLS", "*ESE", "*ESE?", "*ESR?", "*OPC", "*OPC?", "*PSC", "*PSC?", "*SRE", "*SRE?", "*STB?", "*SAV", "*RCL","*TRG" };
-        string[] hexCommands;
-        bool isAsciiCommand = true;
+        private readonly int[] _baudRate = { 256000, 128000, 115200, 57600, 56000, 43000, 38400, 28800, 19200, 9600, 4800, 2400, 1200, 600, 300, 110 };
+        private readonly int[] _dataBits = { 8, 7, 6 };
+        private string[] _asciiCommands = { "*IDN?","*TST?", "*RST", "*CLS", "*ESE", "*ESE?", "*ESR?", "*OPC", "*OPC?", "*PSC", "*PSC?", "*SRE", "*SRE?", "*STB?", "*SAV", "*RCL","*TRG" };
+        private string[] _hexCommands;
+        private bool _isAsciiCommand = true;
         private void FrmMain_Load(object sender, EventArgs e)
         {
             cts = new CancellationTokenSource();
@@ -66,18 +66,18 @@ namespace VISAInstrument
             rbtRS232.Checked = true;
             btnRefresh.PerformClick();
             btnOpen.Text = Resources.OpenString;
-            cboBaudRate.DataSource = baudRate;
+            cboBaudRate.DataSource = _baudRate;
             cboBaudRate.SelectedIndex = 9;
             cboParity.DataSource = Enum.GetValues(typeof(SerialParity));
             cboStopBits.DataSource = Enum.GetValues(typeof(SerialStopBitsMode));
             cboStopBits.SelectedIndex = 0;
-            cboDataBits.DataSource = dataBits;
+            cboDataBits.DataSource = _dataBits;
             cboFlowControl.DataSource = Enum.GetValues(typeof(SerialFlowControlModes));
             //Ascii
-            asciiCommands = asciiCommands.OrderBy(n => n).ToArray();
-            cboCommand.DataSource = asciiCommands;
+            _asciiCommands = _asciiCommands.OrderBy(n => n).ToArray();
+            cboCommand.DataSource = _asciiCommands;
             //Hex
-            hexCommands = asciiCommands.ToHexString();
+            _hexCommands = _asciiCommands.ToHexString();
             cboCommand.SelectedIndex = 4;
             EnableControl(true);
             if (CancelDisplayForm) Close();
@@ -98,18 +98,18 @@ namespace VISAInstrument
             });
         }
 
-        PortOperatorBase portOperatorBase;
-        bool isWritingError = false;
+        private PortOperatorBase _portOperatorBase;
+        private bool _isWritingError = false;
         private void btnWrite_Click(object sender, EventArgs e)
         {
-            isWritingError = false;
+            _isWritingError = false;
             if (string.IsNullOrEmpty(cboCommand.Text))
             {
                 MessageBox.Show(Resources.CommandNotEmpty);
                 return;
             }
             string content;
-            if(isAsciiCommand)
+            if(_isAsciiCommand)
             {
                 content = cboCommand.Text;
             }
@@ -121,7 +121,7 @@ namespace VISAInstrument
                 }
                 catch(Exception ex)
                 {
-                    isWritingError = true;
+                    _isWritingError = true;
                     MessageBox.Show(ex.Message);
                     return;
                 }
@@ -130,7 +130,7 @@ namespace VISAInstrument
             Stopwatch stopwatch = Stopwatch.StartNew();
             try
             {
-                portOperatorBase.WriteLine(content);
+                _portOperatorBase.WriteLine(content);
                 cboCommand.AddItem(cboCommand.Text);
             }
             catch
@@ -148,14 +148,7 @@ namespace VISAInstrument
             Stopwatch stopwatch = Stopwatch.StartNew();
             try
             {
-                if(isAsciiCommand)
-                {
-                    result = portOperatorBase.ReadLine();
-                }
-                else
-                {
-                    result = portOperatorBase.ReadLine().ToHexString();
-                }
+                result = _isAsciiCommand ? _portOperatorBase.ReadLine() : _portOperatorBase.ReadLine().ToHexString();
             }
             catch(IOTimeoutException)
             {
@@ -171,7 +164,7 @@ namespace VISAInstrument
         private void btnQuery_Click(object sender, EventArgs e)
         {
             btnWrite.PerformClick();
-            if(!isWritingError) btnRead.PerformClick();
+            if(!_isWritingError) btnRead.PerformClick();
         }
 
         private bool NewPortInstance()
@@ -184,7 +177,7 @@ namespace VISAInstrument
                     if (cboRS232.SelectedIndex == -1) return;
                     try
                     {
-                        portOperatorBase = new RS232PortOperator(((Pair<string, string>)cboRS232.SelectedItem).Value.ToString(),
+                        _portOperatorBase = new RS232PortOperator(((Pair<string, string>)cboRS232.SelectedItem).Value.ToString(),
                                                (int)cboBaudRate.SelectedItem, (SerialParity)cboParity.SelectedItem,
                                                (SerialStopBitsMode)cboStopBits.SelectedItem, (int)cboDataBits.SelectedItem);
                         hasAddress = true;
@@ -199,7 +192,7 @@ namespace VISAInstrument
                     if (cboUSB.SelectedIndex == -1) return;
                     try
                     {
-                        portOperatorBase = new USBPortOperator(cboUSB.SelectedItem.ToString());
+                        _portOperatorBase = new USBPortOperator(cboUSB.SelectedItem.ToString());
                         hasAddress = true;
                     }
                     catch
@@ -212,7 +205,7 @@ namespace VISAInstrument
                     if (cboGPIB.SelectedIndex == -1) return;
                     try
                     {
-                        portOperatorBase = new GPIBPortOperator(cboGPIB.SelectedItem.ToString());
+                        _portOperatorBase = new GPIBPortOperator(cboGPIB.SelectedItem.ToString());
                         hasAddress = true;
                     }
                     catch
@@ -225,7 +218,7 @@ namespace VISAInstrument
                     if (cboLAN.SelectedIndex == -1) return;
                     try
                     {
-                        portOperatorBase = new LANPortOperator(cboLAN.SelectedItem.ToString());
+                        _portOperatorBase = new LANPortOperator(cboLAN.SelectedItem.ToString());
                         hasAddress = true;
                     }
                     catch
@@ -233,7 +226,7 @@ namespace VISAInstrument
                         hasException = true;
                     }
                 });
-            if(!hasException) portOperatorBase.Timeout = (int)nudTimeout.Value;
+            if(!hasException) _portOperatorBase.Timeout = (int)nudTimeout.Value;
             return hasAddress;
         }
 
@@ -308,7 +301,7 @@ namespace VISAInstrument
                 {
                     try
                     {
-                        portOperatorBase.Open();
+                        _portOperatorBase.Open();
                         btnOpen.Text = Resources.CloseString;
                         EnableControl(false);
                     }
@@ -319,7 +312,7 @@ namespace VISAInstrument
             {
                 try
                 {
-                    portOperatorBase.Close();
+                    _portOperatorBase.Close();
                 }
                 catch { }
                 btnOpen.Text = Resources.OpenString;
@@ -387,27 +380,24 @@ namespace VISAInstrument
             cts.Cancel();
             try
             {
-                portOperatorBase?.Close();
+                _portOperatorBase?.Close();
             }
             catch { }
         }
-        public const string IPRegex = @"^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$";
+        public const string IpRegex = @"^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$";
         private void btnCheckIP_Click(object sender, EventArgs e)
         {
-            if (!txtIPAddress.Text.IsMatch(IPRegex))
+            if (!txtIPAddress.Text.IsMatch(IpRegex))
             {
                 MessageBox.Show(Resources.NotCorrectIP);
                 txtIPAddress.SetSelect();
                 return;
             }
-            foreach (var item in cboLAN.Items)
+            if (cboLAN.Items.Cast<object>().Any(item => ((string)item).Contains(txtIPAddress.Text)))
             {
-                if (((string)item).Contains(txtIPAddress.Text))
-                {
-                    MessageBox.Show(Resources.LANContainIP);
-                    txtIPAddress.SetSelect();
-                    return;
-                }
+                MessageBox.Show(Resources.LANContainIP);
+                txtIPAddress.SetSelect();
+                return;
             }
             if (!PortUltility.OpenIPAddress(txtIPAddress.Text, out string fullAddress))
             {
@@ -445,26 +435,26 @@ namespace VISAInstrument
             catch { }
         }
 
-        private void enableAsciiOrHexMenuItem(bool isAsciiChecked)
+        private void EnableAsciiOrHexMenuItem(bool isAsciiChecked)
         {
             aSCIIToolStripMenuItem.Checked = isAsciiChecked;
             hexToolStripMenuItem.Checked = !isAsciiChecked;
-            isAsciiCommand = isAsciiChecked;
+            _isAsciiCommand = isAsciiChecked;
         }
 
         //ASCII
         private void aSCIIToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            enableAsciiOrHexMenuItem(true);
-            cboCommand.DataSource = asciiCommands;
+            EnableAsciiOrHexMenuItem(true);
+            cboCommand.DataSource = _asciiCommands;
             cboCommand.SelectedIndex = 4;
             
         }
         //Hex
         private void hexToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            enableAsciiOrHexMenuItem(false);
-            cboCommand.DataSource = hexCommands;
+            EnableAsciiOrHexMenuItem(false);
+            cboCommand.DataSource = _hexCommands;
             cboCommand.SelectedIndex = 4;
         }
 
