@@ -65,12 +65,9 @@ namespace VISAInstrument.Extension
 
         public static void AddItem(this ComboBox comboBox, string content)
         {
-            foreach (var item in comboBox.Items)
+            if (comboBox.Items.Cast<object>().Any(item => (string)item == content))
             {
-                if ((string)item == content)
-                {
-                    return;
-                }
+                return;
             }
             string[] commands = (string[])comboBox.DataSource;
             commands = commands.Concat(new string[] { content }).ToArray();
