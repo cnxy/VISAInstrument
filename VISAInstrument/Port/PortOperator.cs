@@ -182,7 +182,7 @@ namespace VISAInstrument.Port
             Write($"{command}\n");
         }
 
-        public const int READ_BUFFER_COUNT = 1024;
+        //public const int READ_BUFFER_COUNT = 1024;
 
         public virtual string Read()
         {
