@@ -1,6 +1,6 @@
 # VISAInstrument
 基于NI-VISA的仪器编程，支持RS232、USB、GPIB及LAN
-必须安装VISA运行时，下载链接如下（请下载最新版本1700）：
+必须安装VISA运行时，下载链接如下（如版本1700）：
 http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/zhs/pg/1/sn/catnav:du/q/VISA/
 
 或者到
