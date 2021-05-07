@@ -685,26 +685,26 @@
             // githubToolStripMenuItem1
             // 
             this.githubToolStripMenuItem1.Name = "githubToolStripMenuItem1";
-            this.githubToolStripMenuItem1.Size = new System.Drawing.Size(127, 22);
+            this.githubToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.githubToolStripMenuItem1.Text = "Github";
             this.githubToolStripMenuItem1.Click += new System.EventHandler(this.githubToolStripMenuItem1_Click);
             // 
             // blogToolStripMenuItem1
             // 
             this.blogToolStripMenuItem1.Name = "blogToolStripMenuItem1";
-            this.blogToolStripMenuItem1.Size = new System.Drawing.Size(127, 22);
+            this.blogToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.blogToolStripMenuItem1.Text = "Blog";
             this.blogToolStripMenuItem1.Click += new System.EventHandler(this.blogToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(124, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
             // 
             // byCNXYToolStripMenuItem1
             // 
             this.byCNXYToolStripMenuItem1.Name = "byCNXYToolStripMenuItem1";
-            this.byCNXYToolStripMenuItem1.Size = new System.Drawing.Size(127, 22);
+            this.byCNXYToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.byCNXYToolStripMenuItem1.Text = "By CNXY";
             this.byCNXYToolStripMenuItem1.Click += new System.EventHandler(this.byCNXYToolStripMenuItem1_Click);
             // 
@@ -729,7 +729,7 @@
             this.MaximizeBox = false;
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "VISA仪器控制 - For SCPI";
+            this.Text = "NI-VISA仪器控制 - For SCPI";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.tableLayoutPanel.ResumeLayout(false);

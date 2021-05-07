@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VISAInstrument.Ulitity
+namespace VISAInstrument.Utility
 {
     static class StringsEx
     {

@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using VISAInstrument.Ulitity;
+using VISAInstrument.Utility;
 using VISAInstrument.Port;
 using VISAInstrument.Extension;
 using VISAInstrument.Properties;
