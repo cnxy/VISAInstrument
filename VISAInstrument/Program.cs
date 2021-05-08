@@ -28,7 +28,7 @@ namespace VISAInstrument
             }
             if (!IsVisaExisted(out string message, out string[] visaSharedComponent, out string[] niVisaRuntime))
             {
-                if (MessageBox.Show($"{message}\r\n\r{Resources.NeedToDownLoad}", @"错误",
+                if (MessageBox.Show($"{message}\r\n\r\n{Resources.NeedToDownLoad}", @"错误",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes) return;
                 try
                 {
