@@ -177,6 +177,17 @@ namespace VISAInstrument.Port
             Session.RawIO.Write(command);
         }
 
+        public virtual void Write(byte[] command)
+        {
+            Session.RawIO.Write(command);
+        }
+
+        public virtual void WriteLine(byte[] command)
+        {
+            Session.RawIO.Write(command.Concat(new byte[]{ 0x0A} ).ToArray());
+        }
+
+
         public virtual void WriteLine(string command)
         {
             Write($"{command}\n");
@@ -184,12 +195,27 @@ namespace VISAInstrument.Port
 
         //public const int READ_BUFFER_COUNT = 1024;
 
-        public virtual string Read()
+        public byte[] ReadToBytes()
         {
-            return Encoding.UTF8.GetString(Session.RawIO.Read());
+            return Session.RawIO.Read();
         }
 
-        public virtual string ReadLine()
+        public byte[] ReadToBytes(int count)
+        {
+            return Session.RawIO.Read(count);
+        }
+
+        public string Read()
+        {
+            return Encoding.ASCII.GetString(Session.RawIO.Read());
+        }
+
+        public string Read(int count)
+        {
+            return Encoding.ASCII.GetString(Session.RawIO.Read(count));
+        }
+
+        public string ReadLine()
         {
             string result = Read();
             return result.EndsWith("\n") ? result.TrimEnd(new char[] { '\n' }) : result;

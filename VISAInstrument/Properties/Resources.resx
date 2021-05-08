@@ -153,6 +153,9 @@
   <data name="MutexName" xml:space="preserve">
     <value>VISAInstrument</value>
   </data>
+  <data name="NeedToDownLoad" xml:space="preserve">
+    <value>是否需要下载与VISA相关的运行时软件？</value>
+  </data>
   <data name="NotCorrectIP" xml:space="preserve">
     <value>不是正确的IP地址，请重新输入！</value>
   </data>
@@ -175,7 +178,7 @@
     <value>加载VISA32错误，请保证已经安装VISA32运行时！</value>
   </data>
   <data name="VISA32URL" xml:space="preserve">
-    <value>https://github.com/cnxy/VISAInstrument/releases/download/1.0.0.1/VISAInstrument-1.0.0.1.exe</value>
+    <value>https://github.com/cnxy/VISAInstrument/releases/download/1.0.0.0/NIVISA1700runtime.zip</value>
   </data>
   <data name="VISADownLoad" xml:space="preserve">
     <value>点击“是”从弹出的网址进行下载并安装。</value>

@@ -1,31 +1,28 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Diagnostics;
-using System.Threading.Tasks;
-using VISAInstrument.Utility;
-using VISAInstrument.Port;
-using VISAInstrument.Extension;
-using VISAInstrument.Properties;
-using Ivi.Visa;
-using NationalInstruments.Visa;
+using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Ivi.Visa;
+using VISAInstrument.Extension;
+using VISAInstrument.Port;
+using VISAInstrument.Properties;
+using VISAInstrument.Utility;
 
 
 namespace VISAInstrument
 {
     public partial class FrmMain : Form
     {
-        public bool CancelDisplayForm { private set; get; }
         public FrmMain()
         {
             InitializeComponent();
         }
-
+        private bool _cancelDisplayForm;
         private void radioButton_CheckedChanged(object sender, EventArgs e)
         {
             if(rbtRS232 == sender as RadioButton)
@@ -55,14 +52,12 @@ namespace VISAInstrument
 
         private readonly int[] _baudRate = { 256000, 128000, 115200, 57600, 56000, 43000, 38400, 28800, 19200, 9600, 4800, 2400, 1200, 600, 300, 110 };
         private readonly int[] _dataBits = { 8, 7, 6 };
-        private string[] _asciiCommands = { "*IDN?","*TST?", "*RST", "*CLS", "*ESE", "*ESE?", "*ESR?", "*OPC", "*OPC?", "*PSC", "*PSC?", "*SRE", "*SRE?", "*STB?", "*SAV", "*RCL","*TRG" };
-        private string[] _hexCommands;
         private bool _isAsciiCommand = true;
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            cts = new CancellationTokenSource();
+            _cts = new CancellationTokenSource();
             ShowTime();
-            关于ToolStripMenuItem.Text = $"{Application.ProductName}({Application.ProductVersion})";
+            关于ToolStripMenuItem.Text = $@"{Application.ProductName}({Application.ProductVersion})";
             rbtRS232.Checked = true;
             btnRefresh.PerformClick();
             btnOpen.Text = Resources.OpenString;
@@ -73,23 +68,17 @@ namespace VISAInstrument
             cboStopBits.SelectedIndex = 0;
             cboDataBits.DataSource = _dataBits;
             cboFlowControl.DataSource = Enum.GetValues(typeof(SerialFlowControlModes));
-            //Ascii
-            _asciiCommands = _asciiCommands.OrderBy(n => n).ToArray();
-            cboCommand.DataSource = _asciiCommands;
-            //Hex
-            _hexCommands = _asciiCommands.ToHexString();
-            cboCommand.SelectedIndex = 4;
             EnableControl(true);
-            if (CancelDisplayForm) Close();
+            if (_cancelDisplayForm) Close();
         }
 
-        CancellationTokenSource cts;
+        CancellationTokenSource _cts;
         private void ShowTime()
         {
             Task.Factory.StartNew(() => 
             {
                 string now;
-                while(!cts.IsCancellationRequested)
+                while(!_cts.IsCancellationRequested)
                 {
                     now = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}";
                     InvokeToForm(() => 时间ToolStripMenuItem.Text = now);
@@ -103,26 +92,27 @@ namespace VISAInstrument
         private void btnWrite_Click(object sender, EventArgs e)
         {
             _isWritingError = false;
-            if (string.IsNullOrEmpty(cboCommand.Text))
+            if (string.IsNullOrEmpty(txtCommand.Text))
             {
                 MessageBox.Show(Resources.CommandNotEmpty);
                 return;
             }
-            string content;
-            if(_isAsciiCommand)
+            string asciiString = string.Empty;
+            byte[] byteArray = null;
+            if (_isAsciiCommand)
             {
-                content = cboCommand.Text;
+                asciiString = txtCommand.Text;
             }
             else
             {
-                try
+                if(StringEx.TryParseByteStringToByte(txtCommand.Text,out byte[] bytes))
                 {
-                    content = cboCommand.Text.ToAsciiString();
+                    byteArray = bytes;
                 }
-                catch(Exception ex)
+                else
                 {
                     _isWritingError = true;
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(@"转换字节失败，请按照“XX XX XX”格式输入内容");
                     return;
                 }
             }
@@ -130,14 +120,36 @@ namespace VISAInstrument
             Stopwatch stopwatch = Stopwatch.StartNew();
             try
             {
-                _portOperatorBase.WriteLine(content);
-                cboCommand.AddItem(cboCommand.Text);
+                if (_isAsciiCommand)
+                {
+                    if (chkAppendNewLine.Checked)
+                    {
+                        _portOperatorBase.WriteLine(asciiString);
+                    }
+                    else
+                    {
+                        _portOperatorBase.Write(asciiString);
+                    }
+                }
+                else
+                {
+                    if (chkAppendNewLine.Checked)
+                    {
+                        _portOperatorBase.WriteLine(byteArray);
+                    }
+                    else
+                    {
+                        _portOperatorBase.Write(byteArray);
+                    }
+                }
+                
             }
             catch
             {
-                content =  $"写入命令\"{cboCommand.Text}\"失败！";
+                MessageBox.Show($@"写入命令“{txtCommand.Text}”失败！");
+                return;
             }
-            DisplayToTextBox($"[Time:{stopwatch.ElapsedMilliseconds}ms] Write: {cboCommand.Text}");
+            DisplayToTextBox($"[Time:{stopwatch.ElapsedMilliseconds}ms] Write: {txtCommand.Text}");
         }
 
 
@@ -148,9 +160,24 @@ namespace VISAInstrument
             Stopwatch stopwatch = Stopwatch.StartNew();
             try
             {
-                result = _isAsciiCommand ? _portOperatorBase.ReadLine() : _portOperatorBase.ReadLine().ToHexString();
+                if (_isAsciiCommand)
+                {
+                    result = rdoUntilNewLine.Checked ? _portOperatorBase.ReadLine() : _portOperatorBase.Read((int)nudSpecifiedCount.Value);
+                }
+                else
+                {
+                    byte[] bytes = rdoUntilNewLine.Checked ? _portOperatorBase.ReadToBytes() : _portOperatorBase.ReadToBytes((int)nudSpecifiedCount.Value);
+                    if (ByteEx.TryParseByteToByteString(bytes, out string byteString))
+                    {
+                        result = byteString;
+                    }
+                    else
+                    {
+                        throw new InvalidCastException("无法转换从接收缓冲区接收回来的数据");
+                    }
+                }
             }
-            catch(IOTimeoutException)
+            catch (IOTimeoutException)
             {
                 result = Resources.ReadTimeout;
             }
@@ -277,7 +304,7 @@ namespace VISAInstrument
             {
                 if(x.IsFaulted)
                 {
-                    CancelDisplayForm = true;
+                    _cancelDisplayForm = true;
                     InvokeToForm(() => { tableLayoutPanel.Enabled = false; this.Text = Resources.RuntimeError; });
                 }
             });
@@ -326,8 +353,8 @@ namespace VISAInstrument
             flowLayoutPanel2.Enabled = enable;
             btnRefresh.Enabled = enable;
             flowLayoutPanel5.Enabled = enable;
-            lblCommand.Enabled = !enable;
-            cboCommand.Enabled = !enable;
+            flowLayoutPanel7.Enabled = !enable;
+            txtCommand.Enabled = !enable;
             btnWrite.Enabled = !enable;
             btnRead.Enabled = !enable;
             btnQuery.Enabled = !enable;
@@ -343,14 +370,7 @@ namespace VISAInstrument
 
         private void contextMenuStrip_Opening(object sender, CancelEventArgs e)
         {
-            if(txtDisplay.Text.Length != 0 )
-            {
-                EnableContextMenuStrip(true);
-            }
-            else
-            {
-                EnableContextMenuStrip(false);
-            }
+            EnableContextMenuStrip(txtDisplay.Text.Length != 0);
         }
 
         private void EnableContextMenuStrip(bool enable)
@@ -377,14 +397,15 @@ namespace VISAInstrument
                 e.Cancel = true;
                 return;
             }
-            cts.Cancel();
+            _cts.Cancel();
             try
             {
                 _portOperatorBase?.Close();
             }
             catch { }
         }
-        public const string IpRegex = @"^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$";
+
+        private const string IpRegex = @"^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$";
         private void btnCheckIP_Click(object sender, EventArgs e)
         {
             if (!txtIPAddress.Text.IsMatch(IpRegex))
@@ -435,48 +456,25 @@ namespace VISAInstrument
             catch { }
         }
 
-        private void EnableAsciiOrHexMenuItem(bool isAsciiChecked)
-        {
-            aSCIIToolStripMenuItem.Checked = isAsciiChecked;
-            hexToolStripMenuItem.Checked = !isAsciiChecked;
-            _isAsciiCommand = isAsciiChecked;
-        }
-
-        //ASCII
-        private void aSCIIToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            EnableAsciiOrHexMenuItem(true);
-            cboCommand.DataSource = _asciiCommands;
-            cboCommand.SelectedIndex = 4;
-            
-        }
-        //Hex
-        private void hexToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            EnableAsciiOrHexMenuItem(false);
-            cboCommand.DataSource = _hexCommands;
-            cboCommand.SelectedIndex = 4;
-        }
-
         private void 全选ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            cboCommand.SelectAll();
+            txtCommand.SelectAll();
         }
 
         private void 复制ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(cboCommand.SelectedText);
+            Clipboard.SetText(txtCommand.SelectedText);
         }
 
         private void 粘贴ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            cboCommand.Text = Clipboard.GetText();
+            txtCommand.Text = Clipboard.GetText();
             Clipboard.Clear();
         }
 
         private void cmsCommand_Opening(object sender, CancelEventArgs e)
         {
-            if(string.IsNullOrEmpty(cboCommand.Text.Trim()))
+            if(string.IsNullOrEmpty(txtCommand.Text.Trim()))
             {
                 全选ToolStripMenuItem1.Enabled = false;
                 复制ToolStripMenuItem1.Enabled = false;
@@ -484,23 +482,48 @@ namespace VISAInstrument
             else
             {
                 全选ToolStripMenuItem1.Enabled = true;
-                if(string.IsNullOrEmpty(cboCommand.SelectedText))
-                {
-                    复制ToolStripMenuItem1.Enabled = false;
-                }
-                else
-                {
-                    复制ToolStripMenuItem1.Enabled = true;
-                }
+                复制ToolStripMenuItem1.Enabled = !string.IsNullOrEmpty(txtCommand.SelectedText);
             }
-            if(string.IsNullOrEmpty(Clipboard.GetText()))
+
+            粘贴ToolStripMenuItem.Enabled = !string.IsNullOrEmpty(Clipboard.GetText());
+        }
+
+        private void rdoAsciiByte_CheckedChanged(object sender, EventArgs e)
+        {
+            _isAsciiCommand = rdoAscii.Checked;
+            if (sender == rdoAscii && !rdoAscii.Checked) return;
+            if(sender == rdoByte && !rdoByte.Checked) return;
+            if (string.IsNullOrEmpty(txtCommand.Text)) return;
+            bool isSuccessful = false;
+            if (rdoAscii.Checked)
             {
-                粘贴ToolStripMenuItem.Enabled = false;
+                if (StringEx.TryParseByteStringToAsciiString(txtCommand.Text, out string asciiString))
+                {
+                    txtCommand.Text = asciiString;
+                    isSuccessful = true;
+                }
             }
             else
             {
-                粘贴ToolStripMenuItem.Enabled = true;
+
+                if (StringEx.TryParseAsciiStringToByteString(txtCommand.Text, out string byteString))
+                {
+                    txtCommand.Text = byteString;
+                    isSuccessful = true;
+                }
             }
+            if(!isSuccessful) txtCommand.Clear();
+        }
+
+        private void rdoUntilNewLineSpecifiedCount_CheckedChanged(object sender, EventArgs e)
+        {
+            nudSpecifiedCount.Enabled = !rdoUntilNewLine.Checked;
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            string message = Common.VisaSharedComponent.Concat(Common.NiVisaRuntime).Aggregate((x, y) => $"{x}\r\n{y}").TrimEnd('\r', '\n');
+            MessageBox.Show(message);
         }
     }
 }

@@ -20,20 +20,29 @@ namespace VISAInstrument
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            if (!IsVisaExisted(out string message, out _, out _))
-            {
-                MessageBox.Show(message);
-                return;
-            }
-
             Mutex mutex = new Mutex(false, Resources.MutexName, out bool result);
             if(!result)
             {
                 MessageBox.Show(Resources.Running);
                 return;
             }
+            if (!IsVisaExisted(out string message, out string[] visaSharedComponent, out string[] niVisaRuntime))
+            {
+                if (MessageBox.Show($"{message}\r\n\r{Resources.NeedToDownLoad}", @"错误",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes) return;
+                try
+                {
+                    Process.Start(Resources.VISADownLoad);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                return;
+            }
+            Common.VisaSharedComponent = visaSharedComponent;
+            Common.NiVisaRuntime = niVisaRuntime;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-
             Application.Run(new FrmMain());
         }
 

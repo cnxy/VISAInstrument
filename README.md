@@ -1,6 +1,6 @@
 # VISAInstrument
 基于NI-VISA的仪器编程，支持RS232、USB、GPIB及LAN
-必须安装VISA运行时，下载链接如下（如版本1700）：
+必须安装NI-VISA运行时(其他VISA版本不支持，如Keysight VISA等)，下载链接如下（如版本1700）：
 http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/zhs/pg/1/sn/catnav:du/q/VISA/
 
 或者到
@@ -19,7 +19,7 @@ https://github.com/cnxy/VISAInstrument/releases/tag/1.0.0.0
 此处要求安装GPIB卡驱动程序，推荐使用NI-GPIB卡（需要驱动程序，驱动程序可以从NI官方网站下载）
 
 ## LAN
-支持常见的USB接口编程，一般地址类似为“TCPIP0::34465A-01899::inst0::INSTR”或“TCPIP0::192.168.0.26::INSTR”
+支持常见的LAN接口编程，一般地址类似为“TCPIP0::34465A-01899::inst0::INSTR”或“TCPIP0::192.168.0.26::INSTR”
 
 ### 运行界面
 ![image](https://github.com/cnxy/VISAInstrument/blob/master/VISAInstrument/pic.png)
