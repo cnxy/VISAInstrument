@@ -32,7 +32,7 @@ namespace VISAInstrument
                     MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes) return;
                 try
                 {
-                    Process.Start(Resources.VISADownLoad);
+                    Process.Start(Resources.VISA32URL);
                 }
                 catch (Exception ex)
                 {
