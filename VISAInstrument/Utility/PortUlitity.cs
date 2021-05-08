@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Ivi.Visa;
 using NationalInstruments.Visa;
@@ -31,7 +32,8 @@ namespace VISAInstrument.Port
             IEnumerable<string> result = new List<string>();
             try
             {
-                result = GlobalResourceManager.Find($"{ToStringFromPortType(portType)}?*INSTR");
+                ResourceManager manager = new ResourceManager();
+                result = manager.Find($"{ToStringFromPortType(portType)}?*INSTR");
             }catch(Exception ex)
             {
                 if (!(ex is NativeVisaException))
@@ -51,12 +53,13 @@ namespace VISAInstrument.Port
             {
                 try
                 {
-                    GlobalResourceManager.TryParse(addresses[i], out ParseResult result);
+                    ResourceManager manager = new ResourceManager();
+                    ParseResult result = manager.Parse(addresses[i]);
                     list.Add(result.AliasIfExists);
                 }
                 catch
                 {
-                    //list.Add("None");
+                    list.Add(addresses[i]);
                 }
             }
             return list.ToArray();

@@ -253,7 +253,7 @@ namespace VISAInstrument
                         hasException = true;
                     }
                 });
-            if(!hasException) _portOperatorBase.Timeout = (int)nudTimeout.Value;
+            if(!hasException && hasAddress) _portOperatorBase.Timeout = (int)nudTimeout.Value;
             return hasAddress;
         }
 
@@ -306,6 +306,7 @@ namespace VISAInstrument
                 {
                     _cancelDisplayForm = true;
                     InvokeToForm(() => { tableLayoutPanel.Enabled = false; this.Text = Resources.RuntimeError; });
+                    MessageBox.Show(x.Exception.InnerException.Message);
                 }
             });
         }
