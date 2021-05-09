@@ -36,6 +36,7 @@
             this.btnWrite = new System.Windows.Forms.Button();
             this.btnRead = new System.Windows.Forms.Button();
             this.btnQuery = new System.Windows.Forms.Button();
+            this.btnCycle = new System.Windows.Forms.Button();
             this.txtCommand = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel7 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -52,6 +53,17 @@
             this.lblOverTime = new System.Windows.Forms.Label();
             this.nudTimeout = new System.Windows.Forms.NumericUpDown();
             this.lblTimeout = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.flowLayoutPanel9 = new System.Windows.Forms.FlowLayoutPanel();
+            this.chkStartCycle = new System.Windows.Forms.CheckBox();
+            this.flowLayoutPanel10 = new System.Windows.Forms.FlowLayoutPanel();
+            this.rdoSend = new System.Windows.Forms.RadioButton();
+            this.rdoSendRead = new System.Windows.Forms.RadioButton();
+            this.label2 = new System.Windows.Forms.Label();
+            this.nudCycleCount = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.nudInterval = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.rbtRS232 = new System.Windows.Forms.RadioButton();
             this.cboRS232 = new System.Windows.Forms.ComboBox();
@@ -88,6 +100,8 @@
             this.btnCheckIP = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.githubToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.blogToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
@@ -97,8 +111,6 @@
             this.全选ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.复制ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.粘贴ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tableLayoutPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel6.SuspendLayout();
@@ -109,6 +121,11 @@
             this.flowLayoutPanel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudSpecifiedCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            this.flowLayoutPanel9.SuspendLayout();
+            this.flowLayoutPanel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCycleCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudInterval)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
@@ -123,7 +140,7 @@
             // 
             this.tableLayoutPanel.ColumnCount = 2;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 675F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 220F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 223F));
             this.tableLayoutPanel.Controls.Add(this.tableLayoutPanel1, 0, 4);
             this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel1, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel2, 0, 2);
@@ -139,18 +156,18 @@
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 182F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 219F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(894, 558);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(898, 578);
             this.tableLayoutPanel.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel.SetColumnSpan(this.tableLayoutPanel1, 2);
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 92.27324F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7.726764F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.03587F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.96412F));
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel6, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtCommand, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel7, 0, 0);
@@ -158,9 +175,9 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 143);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 62F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 116F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(889, 176);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(892, 213);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
             // flowLayoutPanel6
@@ -168,10 +185,11 @@
             this.flowLayoutPanel6.Controls.Add(this.btnWrite);
             this.flowLayoutPanel6.Controls.Add(this.btnRead);
             this.flowLayoutPanel6.Controls.Add(this.btnQuery);
+            this.flowLayoutPanel6.Controls.Add(this.btnCycle);
             this.flowLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel6.Location = new System.Drawing.Point(823, 65);
+            this.flowLayoutPanel6.Location = new System.Drawing.Point(708, 119);
             this.flowLayoutPanel6.Name = "flowLayoutPanel6";
-            this.flowLayoutPanel6.Size = new System.Drawing.Size(63, 108);
+            this.flowLayoutPanel6.Size = new System.Drawing.Size(181, 91);
             this.flowLayoutPanel6.TabIndex = 9;
             // 
             // btnWrite
@@ -181,14 +199,14 @@
             this.btnWrite.Name = "btnWrite";
             this.btnWrite.Size = new System.Drawing.Size(53, 23);
             this.btnWrite.TabIndex = 2;
-            this.btnWrite.Text = "写入";
+            this.btnWrite.Text = "发送";
             this.btnWrite.UseVisualStyleBackColor = true;
             this.btnWrite.Click += new System.EventHandler(this.btnWrite_Click);
             // 
             // btnRead
             // 
             this.btnRead.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnRead.Location = new System.Drawing.Point(3, 32);
+            this.btnRead.Location = new System.Drawing.Point(62, 3);
             this.btnRead.Name = "btnRead";
             this.btnRead.Size = new System.Drawing.Size(53, 23);
             this.btnRead.TabIndex = 3;
@@ -199,7 +217,7 @@
             // btnQuery
             // 
             this.btnQuery.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnQuery.Location = new System.Drawing.Point(3, 61);
+            this.btnQuery.Location = new System.Drawing.Point(121, 3);
             this.btnQuery.Name = "btnQuery";
             this.btnQuery.Size = new System.Drawing.Size(53, 23);
             this.btnQuery.TabIndex = 4;
@@ -207,15 +225,27 @@
             this.btnQuery.UseVisualStyleBackColor = true;
             this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
             // 
+            // btnCycle
+            // 
+            this.btnCycle.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnCycle.Enabled = false;
+            this.btnCycle.Location = new System.Drawing.Point(3, 32);
+            this.btnCycle.Name = "btnCycle";
+            this.btnCycle.Size = new System.Drawing.Size(174, 23);
+            this.btnCycle.TabIndex = 5;
+            this.btnCycle.Text = "循环发送";
+            this.btnCycle.UseVisualStyleBackColor = true;
+            this.btnCycle.Click += new System.EventHandler(this.btnCycle_Click);
+            // 
             // txtCommand
             // 
             this.txtCommand.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtCommand.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.txtCommand.Location = new System.Drawing.Point(3, 65);
+            this.txtCommand.Location = new System.Drawing.Point(3, 119);
             this.txtCommand.Multiline = true;
             this.txtCommand.Name = "txtCommand";
             this.txtCommand.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtCommand.Size = new System.Drawing.Size(814, 108);
+            this.txtCommand.Size = new System.Drawing.Size(699, 91);
             this.txtCommand.TabIndex = 8;
             // 
             // flowLayoutPanel7
@@ -226,10 +256,11 @@
             this.flowLayoutPanel7.Controls.Add(this.lblOverTime);
             this.flowLayoutPanel7.Controls.Add(this.nudTimeout);
             this.flowLayoutPanel7.Controls.Add(this.lblTimeout);
+            this.flowLayoutPanel7.Controls.Add(this.groupBox3);
             this.flowLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel7.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel7.Name = "flowLayoutPanel7";
-            this.flowLayoutPanel7.Size = new System.Drawing.Size(883, 56);
+            this.flowLayoutPanel7.Size = new System.Drawing.Size(886, 110);
             this.flowLayoutPanel7.TabIndex = 10;
             // 
             // groupBox1
@@ -274,9 +305,9 @@
             this.rdoByte.AutoSize = true;
             this.rdoByte.Location = new System.Drawing.Point(62, 3);
             this.rdoByte.Name = "rdoByte";
-            this.rdoByte.Size = new System.Drawing.Size(47, 16);
+            this.rdoByte.Size = new System.Drawing.Size(41, 16);
             this.rdoByte.TabIndex = 1;
-            this.rdoByte.Text = "Byte";
+            this.rdoByte.Text = "HEX";
             this.rdoByte.UseVisualStyleBackColor = true;
             this.rdoByte.CheckedChanged += new System.EventHandler(this.rdoAsciiByte_CheckedChanged);
             // 
@@ -284,7 +315,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(115, 5);
+            this.label1.Location = new System.Drawing.Point(109, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(11, 12);
             this.label1.TabIndex = 2;
@@ -296,7 +327,7 @@
             this.chkAppendNewLine.AutoSize = true;
             this.chkAppendNewLine.Checked = true;
             this.chkAppendNewLine.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAppendNewLine.Location = new System.Drawing.Point(132, 3);
+            this.chkAppendNewLine.Location = new System.Drawing.Point(126, 3);
             this.chkAppendNewLine.Name = "chkAppendNewLine";
             this.chkAppendNewLine.Size = new System.Drawing.Size(84, 16);
             this.chkAppendNewLine.TabIndex = 3;
@@ -418,6 +449,154 @@
             this.lblTimeout.TabIndex = 7;
             this.lblTimeout.Text = "ms";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.flowLayoutPanel9);
+            this.groupBox3.Location = new System.Drawing.Point(3, 59);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(878, 50);
+            this.groupBox3.TabIndex = 9;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "循环";
+            // 
+            // flowLayoutPanel9
+            // 
+            this.flowLayoutPanel9.Controls.Add(this.chkStartCycle);
+            this.flowLayoutPanel9.Controls.Add(this.flowLayoutPanel10);
+            this.flowLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel9.Location = new System.Drawing.Point(3, 17);
+            this.flowLayoutPanel9.Name = "flowLayoutPanel9";
+            this.flowLayoutPanel9.Size = new System.Drawing.Size(872, 30);
+            this.flowLayoutPanel9.TabIndex = 0;
+            // 
+            // chkStartCycle
+            // 
+            this.chkStartCycle.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.chkStartCycle.AutoSize = true;
+            this.chkStartCycle.Location = new System.Drawing.Point(3, 7);
+            this.chkStartCycle.Name = "chkStartCycle";
+            this.chkStartCycle.Size = new System.Drawing.Size(96, 16);
+            this.chkStartCycle.TabIndex = 4;
+            this.chkStartCycle.Text = "开启循环功能";
+            this.chkStartCycle.UseVisualStyleBackColor = true;
+            this.chkStartCycle.CheckedChanged += new System.EventHandler(this.chkStartCycle_CheckedChanged);
+            // 
+            // flowLayoutPanel10
+            // 
+            this.flowLayoutPanel10.Controls.Add(this.rdoSend);
+            this.flowLayoutPanel10.Controls.Add(this.rdoSendRead);
+            this.flowLayoutPanel10.Controls.Add(this.label2);
+            this.flowLayoutPanel10.Controls.Add(this.nudCycleCount);
+            this.flowLayoutPanel10.Controls.Add(this.label3);
+            this.flowLayoutPanel10.Controls.Add(this.nudInterval);
+            this.flowLayoutPanel10.Controls.Add(this.label4);
+            this.flowLayoutPanel10.Enabled = false;
+            this.flowLayoutPanel10.Location = new System.Drawing.Point(104, 2);
+            this.flowLayoutPanel10.Margin = new System.Windows.Forms.Padding(2);
+            this.flowLayoutPanel10.Name = "flowLayoutPanel10";
+            this.flowLayoutPanel10.Size = new System.Drawing.Size(471, 27);
+            this.flowLayoutPanel10.TabIndex = 5;
+            // 
+            // rdoSend
+            // 
+            this.rdoSend.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.rdoSend.AutoSize = true;
+            this.rdoSend.Checked = true;
+            this.rdoSend.Location = new System.Drawing.Point(3, 4);
+            this.rdoSend.Name = "rdoSend";
+            this.rdoSend.Size = new System.Drawing.Size(71, 16);
+            this.rdoSend.TabIndex = 0;
+            this.rdoSend.TabStop = true;
+            this.rdoSend.Text = "循环发送";
+            this.rdoSend.UseVisualStyleBackColor = true;
+            this.rdoSend.CheckedChanged += new System.EventHandler(this.rdoSend_CheckedChanged);
+            // 
+            // rdoSendRead
+            // 
+            this.rdoSendRead.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.rdoSendRead.AutoSize = true;
+            this.rdoSendRead.Location = new System.Drawing.Point(80, 4);
+            this.rdoSendRead.Name = "rdoSendRead";
+            this.rdoSendRead.Size = new System.Drawing.Size(95, 16);
+            this.rdoSendRead.TabIndex = 1;
+            this.rdoSendRead.Text = "循环发送读取";
+            this.rdoSendRead.UseVisualStyleBackColor = true;
+            this.rdoSendRead.CheckedChanged += new System.EventHandler(this.rdoSendRead_CheckedChanged);
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(181, 6);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(41, 12);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "次数：";
+            // 
+            // nudCycleCount
+            // 
+            this.nudCycleCount.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.nudCycleCount.Location = new System.Drawing.Point(227, 2);
+            this.nudCycleCount.Margin = new System.Windows.Forms.Padding(2);
+            this.nudCycleCount.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudCycleCount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudCycleCount.Name = "nudCycleCount";
+            this.nudCycleCount.Size = new System.Drawing.Size(60, 21);
+            this.nudCycleCount.TabIndex = 2;
+            this.nudCycleCount.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(292, 6);
+            this.label3.Name = "label3";
+            this.label3.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.label3.Size = new System.Drawing.Size(51, 12);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "间隔：";
+            // 
+            // nudInterval
+            // 
+            this.nudInterval.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.nudInterval.Location = new System.Drawing.Point(348, 2);
+            this.nudInterval.Margin = new System.Windows.Forms.Padding(2);
+            this.nudInterval.Maximum = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
+            this.nudInterval.Name = "nudInterval";
+            this.nudInterval.Size = new System.Drawing.Size(60, 21);
+            this.nudInterval.TabIndex = 4;
+            this.nudInterval.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(413, 6);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(17, 12);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "ms";
+            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.rbtRS232);
@@ -538,7 +717,7 @@
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 73);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(889, 29);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(892, 29);
             this.flowLayoutPanel2.TabIndex = 3;
             // 
             // lblBaudRate
@@ -653,7 +832,7 @@
             this.flowLayoutPanel4.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel4.Location = new System.Drawing.Point(678, 13);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(214, 54);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(217, 54);
             this.flowLayoutPanel4.TabIndex = 5;
             // 
             // btnRefresh
@@ -683,9 +862,9 @@
             this.tableLayoutPanel.SetColumnSpan(this.groupBoxDisplay, 2);
             this.groupBoxDisplay.Controls.Add(this.txtDisplay);
             this.groupBoxDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxDisplay.Location = new System.Drawing.Point(3, 325);
+            this.groupBoxDisplay.Location = new System.Drawing.Point(3, 362);
             this.groupBoxDisplay.Name = "groupBoxDisplay";
-            this.groupBoxDisplay.Size = new System.Drawing.Size(889, 205);
+            this.groupBoxDisplay.Size = new System.Drawing.Size(892, 188);
             this.groupBoxDisplay.TabIndex = 2;
             this.groupBoxDisplay.TabStop = false;
             this.groupBoxDisplay.Text = "显示";
@@ -699,11 +878,12 @@
             this.txtDisplay.Name = "txtDisplay";
             this.txtDisplay.ReadOnly = true;
             this.txtDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtDisplay.Size = new System.Drawing.Size(883, 185);
+            this.txtDisplay.Size = new System.Drawing.Size(886, 168);
             this.txtDisplay.TabIndex = 0;
             // 
             // contextMenuStrip
             // 
+            this.contextMenuStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.清除ToolStripMenuItem,
             this.toolStripMenuItem1,
@@ -748,7 +928,7 @@
             this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 108);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(889, 29);
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(892, 29);
             this.flowLayoutPanel5.TabIndex = 6;
             // 
             // lblIP
@@ -783,13 +963,14 @@
             // menuStrip1
             // 
             this.tableLayoutPanel.SetColumnSpan(this.menuStrip1, 2);
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.关于ToolStripMenuItem,
             this.时间ToolStripMenuItem});
             this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.menuStrip1.Location = new System.Drawing.Point(0, 533);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 553);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(895, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(898, 25);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -806,29 +987,41 @@
             this.关于ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.关于ToolStripMenuItem.Text = "关于";
             // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(163, 22);
+            this.toolStripMenuItem2.Text = "已安装VISA信息";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(160, 6);
+            // 
             // githubToolStripMenuItem1
             // 
             this.githubToolStripMenuItem1.Name = "githubToolStripMenuItem1";
-            this.githubToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.githubToolStripMenuItem1.Size = new System.Drawing.Size(163, 22);
             this.githubToolStripMenuItem1.Text = "Github";
             this.githubToolStripMenuItem1.Click += new System.EventHandler(this.githubToolStripMenuItem1_Click);
             // 
             // blogToolStripMenuItem1
             // 
             this.blogToolStripMenuItem1.Name = "blogToolStripMenuItem1";
-            this.blogToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.blogToolStripMenuItem1.Size = new System.Drawing.Size(163, 22);
             this.blogToolStripMenuItem1.Text = "Blog";
             this.blogToolStripMenuItem1.Click += new System.EventHandler(this.blogToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(160, 6);
             // 
             // byCNXYToolStripMenuItem1
             // 
             this.byCNXYToolStripMenuItem1.Name = "byCNXYToolStripMenuItem1";
-            this.byCNXYToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.byCNXYToolStripMenuItem1.Size = new System.Drawing.Size(163, 22);
             this.byCNXYToolStripMenuItem1.Text = "By CNXY";
             this.byCNXYToolStripMenuItem1.Click += new System.EventHandler(this.byCNXYToolStripMenuItem1_Click);
             // 
@@ -843,6 +1036,7 @@
             // 
             // cmsCommand
             // 
+            this.cmsCommand.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.cmsCommand.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.全选ToolStripMenuItem1,
             this.复制ToolStripMenuItem1,
@@ -872,24 +1066,12 @@
             this.粘贴ToolStripMenuItem.Text = "粘贴";
             this.粘贴ToolStripMenuItem.Click += new System.EventHandler(this.粘贴ToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem2.Text = "已安装VISA信息";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
-            // 
             // FrmMain
             // 
             this.AcceptButton = this.btnOpen;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(894, 558);
+            this.ClientSize = new System.Drawing.Size(898, 578);
             this.Controls.Add(this.tableLayoutPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -914,6 +1096,13 @@
             this.flowLayoutPanel8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudSpecifiedCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeout)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.flowLayoutPanel9.ResumeLayout(false);
+            this.flowLayoutPanel9.PerformLayout();
+            this.flowLayoutPanel10.ResumeLayout(false);
+            this.flowLayoutPanel10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCycleCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudInterval)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
@@ -1002,6 +1191,18 @@
         private System.Windows.Forms.NumericUpDown nudSpecifiedCount;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel9;
+        private System.Windows.Forms.RadioButton rdoSend;
+        private System.Windows.Forms.RadioButton rdoSendRead;
+        private System.Windows.Forms.NumericUpDown nudCycleCount;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox chkStartCycle;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel10;
+        private System.Windows.Forms.Button btnCycle;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown nudInterval;
+        private System.Windows.Forms.Label label4;
     }
 }
 

@@ -89,13 +89,14 @@ namespace VISAInstrument
 
         private PortOperatorBase _portOperatorBase;
         private bool _isWritingError = false;
-        private void btnWrite_Click(object sender, EventArgs e)
+
+        private bool Write()
         {
             _isWritingError = false;
             if (string.IsNullOrEmpty(txtCommand.Text))
             {
-                MessageBox.Show(Resources.CommandNotEmpty);
-                return;
+                Invoke(new Action(() => MessageBox.Show(Resources.CommandNotEmpty)));
+                return false;
             }
             string asciiString = string.Empty;
             byte[] byteArray = null;
@@ -105,15 +106,15 @@ namespace VISAInstrument
             }
             else
             {
-                if(StringEx.TryParseByteStringToByte(txtCommand.Text,out byte[] bytes))
+                if (StringEx.TryParseByteStringToByte(txtCommand.Text, out byte[] bytes))
                 {
                     byteArray = bytes;
                 }
                 else
                 {
                     _isWritingError = true;
-                    MessageBox.Show(@"转换字节失败，请按照“XX XX XX”格式输入内容");
-                    return;
+                    Invoke(new Action(() => MessageBox.Show(@"转换字节失败，请按照“XX XX XX”格式输入内容")));
+                    return false;
                 }
             }
 
@@ -142,18 +143,23 @@ namespace VISAInstrument
                         _portOperatorBase.Write(byteArray);
                     }
                 }
-                
+
             }
             catch
             {
-                MessageBox.Show($@"写入命令“{txtCommand.Text}”失败！");
-                return;
+                Invoke(new Action(() => MessageBox.Show($@"写入命令“{txtCommand.Text}”失败！")));
+                return false;
             }
-            DisplayToTextBox($"[Time:{stopwatch.ElapsedMilliseconds}ms] Write: {txtCommand.Text}");
+            Invoke(new Action(() => DisplayToTextBox($"[Time:{stopwatch.ElapsedMilliseconds}ms] Write: {txtCommand.Text}")));
+            return true;
         }
 
+        private void btnWrite_Click(object sender, EventArgs e)
+        {
+            Write();
+        }
 
-        private void btnRead_Click(object sender, EventArgs e)
+        private void Read()
         {
             ClearIfTextBoxOverFlow();
             string result;
@@ -185,13 +191,24 @@ namespace VISAInstrument
             {
                 result = ex.Message;
             }
-            DisplayToTextBox($"[Time:{stopwatch.ElapsedMilliseconds}ms] Read:  {result}");
+            Invoke(new Action(() => DisplayToTextBox($"[Time:{stopwatch.ElapsedMilliseconds}ms] Read:  {result}")));
+        }
+
+        private void btnRead_Click(object sender, EventArgs e)
+        {
+            Read();
+        }
+
+        private bool Query()
+        {
+            bool isSuccessful = Write();
+            if (!_isWritingError) Read();
+            return isSuccessful;
         }
 
         private void btnQuery_Click(object sender, EventArgs e)
         {
-            btnWrite.PerformClick();
-            if(!_isWritingError) btnRead.PerformClick();
+            Query();
         }
 
         private bool NewPortInstance()
@@ -335,9 +352,15 @@ namespace VISAInstrument
                     }
                     catch { }
                 }
+                chkStartCycle_CheckedChanged(null, null);
             }
             else
             {
+                if(CheckCycleEnable("关闭"))
+                {
+                    return;
+                }
+
                 try
                 {
                     _portOperatorBase.Close();
@@ -356,9 +379,14 @@ namespace VISAInstrument
             flowLayoutPanel5.Enabled = enable;
             flowLayoutPanel7.Enabled = !enable;
             txtCommand.Enabled = !enable;
-            btnWrite.Enabled = !enable;
-            btnRead.Enabled = !enable;
-            btnQuery.Enabled = !enable;
+            if(enable)
+            {
+                btnWrite.Enabled = false;
+                btnRead.Enabled = false;
+                btnQuery.Enabled = false;
+                btnCycle.Enabled = false;
+            }
+            
             lblOverTime.Enabled = enable;
             lblTimeout.Enabled = enable;
             nudTimeout.Enabled = enable;
@@ -392,7 +420,13 @@ namespace VISAInstrument
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(t != null && !t.IsCompleted)
+            if (CheckCycleEnable("关闭"))
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            if (t != null && !t.IsCompleted)
             {
                 MessageBox.Show(Resources.LoadingInstrumentResource);
                 e.Cancel = true;
@@ -525,6 +559,90 @@ namespace VISAInstrument
         {
             string message = Common.VisaSharedComponent.Concat(Common.NiVisaRuntime).Aggregate((x, y) => $"{x}\r\n{y}").TrimEnd('\r', '\n');
             MessageBox.Show(message);
+        }
+
+        private void chkStartCycle_CheckedChanged(object sender, EventArgs e)
+        {
+            flowLayoutPanel10.Enabled = chkStartCycle.Checked;
+            btnWrite.Enabled = !chkStartCycle.Checked;
+            btnRead.Enabled = !chkStartCycle.Checked;
+            btnQuery.Enabled = !chkStartCycle.Checked;
+            btnCycle.Enabled = chkStartCycle.Checked;
+        }
+
+        private void rdoSendRead_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoSendRead.Checked)  btnCycle.Text = "循环发送读取";
+        }
+
+        private void rdoSend_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoSend.Checked) btnCycle.Text = "循环发送";
+        }
+
+        private void EnableCycle(bool enabled)
+        {
+            Invoke(new Action(() => flowLayoutPanel9.Enabled = !enabled));
+            cycleEnabled = enabled;
+        }
+
+        bool cycleEnabled;
+        string originalCycleText;
+        const string StopCycleText = "停止"; 
+        private void btnCycle_Click(object sender, EventArgs e)
+        {
+            if(btnCycle.Text == StopCycleText)
+            {
+                EnableCycle(false);
+                btnCycle.Enabled = false;
+                Task.Factory.StartNew(() => 
+                {
+                    while(btnCycle.Text == StopCycleText)
+                    {
+                        Thread.Sleep(100);
+                    }
+                    Invoke(new Action(() => btnCycle.Enabled = true));
+                });
+            }
+            else
+            {
+                EnableCycle(true);
+                originalCycleText = btnCycle.Text;
+                btnCycle.Text = StopCycleText;
+                Task.Factory.StartNew(() =>
+                {
+                    int count = 0;
+                    while (cycleEnabled)
+                    {
+                        if (count >= (int)nudCycleCount.Value)
+                        {
+                            EnableCycle(false);
+                            break;
+                        }
+                        bool isSuccessful;
+                        if (rdoSend.Checked) isSuccessful = Write();
+                        else isSuccessful = Query();
+                        if (!isSuccessful)
+                        {
+                            EnableCycle(false);
+                            break;
+                        }
+                        else Thread.Sleep((int)nudInterval.Value);
+                        count++;
+                    }
+                    Invoke(new Action(() => btnCycle.Text = originalCycleText));
+                });
+            }
+        }
+
+        private bool CheckCycleEnable(string operationName)
+        {
+            bool cycleEnabledTemp = cycleEnabled;
+            if (cycleEnabledTemp)
+            {
+                MessageBox.Show($"请停止循环操作后再执行{operationName}操作");
+            }
+            return cycleEnabledTemp;
         }
     }
 }
