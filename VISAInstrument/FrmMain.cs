@@ -161,6 +161,11 @@ namespace VISAInstrument
 
         private void Read()
         {
+            Read(rdoUntilNewLine.Checked, (int)nudSpecifiedCount.Value);
+        }
+
+        private void Read(bool isUntilNewLine,int specifiedCount)
+        {
             ClearIfTextBoxOverFlow();
             string result;
             Stopwatch stopwatch = Stopwatch.StartNew();
@@ -168,11 +173,11 @@ namespace VISAInstrument
             {
                 if (_isAsciiCommand)
                 {
-                    result = rdoUntilNewLine.Checked ? _portOperatorBase.ReadLine() : _portOperatorBase.Read((int)nudSpecifiedCount.Value);
+                    result = isUntilNewLine ? _portOperatorBase.ReadLine() : _portOperatorBase.Read(specifiedCount);
                 }
                 else
                 {
-                    byte[] bytes = rdoUntilNewLine.Checked ? _portOperatorBase.ReadToBytes() : _portOperatorBase.ReadToBytes((int)nudSpecifiedCount.Value);
+                    byte[] bytes = isUntilNewLine ? _portOperatorBase.ReadToBytes() : _portOperatorBase.ReadToBytes(specifiedCount);
                     if (ByteEx.TryParseByteToByteString(bytes, out string byteString))
                     {
                         result = byteString;
@@ -202,7 +207,7 @@ namespace VISAInstrument
         private bool Query()
         {
             bool isSuccessful = Write();
-            if (!_isWritingError) Read();
+            if (isSuccessful && !_isWritingError) Read();
             return isSuccessful;
         }
 
@@ -348,11 +353,18 @@ namespace VISAInstrument
                     {
                         _portOperatorBase.Open();
                         btnOpen.Text = Resources.CloseString;
+                        if(_portOperatorBase is RS232PortOperator)
+                        {
+                            chkRealTimeReceive.Enabled = true;
+                            BindOrRemoveDataReceivedEvent();
+                        }
+                        else chkRealTimeReceive.Enabled = false;
                         EnableControl(false);
+                        chkStartCycle_CheckedChanged(null, null);
                     }
                     catch { }
                 }
-                chkStartCycle_CheckedChanged(null, null);
+                
             }
             else
             {
@@ -563,11 +575,42 @@ namespace VISAInstrument
 
         private void chkStartCycle_CheckedChanged(object sender, EventArgs e)
         {
-            flowLayoutPanel10.Enabled = chkStartCycle.Checked;
-            btnWrite.Enabled = !chkStartCycle.Checked;
-            btnRead.Enabled = !chkStartCycle.Checked;
-            btnQuery.Enabled = !chkStartCycle.Checked;
-            btnCycle.Enabled = chkStartCycle.Checked;
+            if(!chkRealTimeReceive.Checked)
+            {
+                flowLayoutPanel10.Enabled = chkStartCycle.Checked;
+                btnWrite.Enabled = !chkStartCycle.Checked;
+                btnRead.Enabled = !chkStartCycle.Checked;
+                btnQuery.Enabled = !chkStartCycle.Checked;
+                btnCycle.Enabled = chkStartCycle.Checked;
+                rdoUntilNewLine.Enabled = true;
+                rdoSpecifiedCount.Enabled = true;
+                rdoSendRead.Enabled = true;
+            }
+            else
+            {
+                btnRead.Enabled = false;
+                btnQuery.Enabled = false;
+
+                rdoUntilNewLine.Enabled = false;
+                rdoSendRead.Enabled = false;
+                rdoSpecifiedCount.Enabled = false;
+
+                if (chkStartCycle.Checked)
+                {
+                    rdoSend.Checked = true;
+                    rdoUntilNewLine.Checked = true;
+                    
+                    flowLayoutPanel10.Enabled = true;
+                    btnWrite.Enabled = false;
+                    btnCycle.Enabled = true;
+                }
+                else
+                {
+                    flowLayoutPanel10.Enabled = false;
+                    btnWrite.Enabled = true;
+                    btnCycle.Enabled = false;
+                }
+            }
         }
 
         private void rdoSendRead_CheckedChanged(object sender, EventArgs e)
@@ -643,6 +686,32 @@ namespace VISAInstrument
                 MessageBox.Show($"请停止循环操作后再执行{operationName}操作");
             }
             return cycleEnabledTemp;
+        }
+
+        private void BindOrRemoveDataReceivedEvent()
+        {
+            if (_portOperatorBase is RS232PortOperator portOperator)
+            {
+                if (chkRealTimeReceive.Checked)
+                {
+                    portOperator.DataReceived += PortOperator_DataReceived;
+                }
+                else
+                {
+                    portOperator.DataReceived -= PortOperator_DataReceived;
+                }
+            }
+        }
+
+        private void chkRealTimeReceive_CheckedChanged(object sender, EventArgs e)
+        {
+            chkStartCycle_CheckedChanged(null, null);
+            BindOrRemoveDataReceivedEvent();
+        }
+
+        private void PortOperator_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            if(e.BytesToRead > 0) Read(false, e.BytesToRead);
         }
     }
 }

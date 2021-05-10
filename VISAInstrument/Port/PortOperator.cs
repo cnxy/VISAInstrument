@@ -25,6 +25,33 @@ namespace VISAInstrument.Port
 
         SerialSession serialSession;
 
+
+        private EventHandler<SerialDataReceivedEventArgs> dataReceived;
+
+        public event EventHandler<SerialDataReceivedEventArgs> DataReceived
+        {
+            add
+            {
+                serialSession.AnyCharacterReceived += SerialSession_AnyCharacterReceived;
+                dataReceived += value;
+            }
+            remove
+            {
+                serialSession.AnyCharacterReceived -= SerialSession_AnyCharacterReceived;
+                dataReceived -= value;
+            }
+        }
+
+        private void SerialSession_AnyCharacterReceived(object sender, VisaEventArgs e)
+        {
+            OnDataReceived(new SerialDataReceivedEventArgs(serialSession.BytesAvailable));
+        }
+
+        protected virtual void OnDataReceived(SerialDataReceivedEventArgs e)
+        {
+            dataReceived?.Invoke(this, e);
+        }
+
         public RS232PortOperator(string address,int baudRate,SerialParity parity, SerialStopBitsMode stopBits,int dataBits) : base(new SerialSession(address), address)
         {
             if (!address.ToUpper().Contains("ASRL")) throw new ArgumentException($"该地址不含ASRL字样");

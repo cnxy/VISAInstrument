@@ -50,6 +50,7 @@
             this.rdoUntilNewLine = new System.Windows.Forms.RadioButton();
             this.rdoSpecifiedCount = new System.Windows.Forms.RadioButton();
             this.nudSpecifiedCount = new System.Windows.Forms.NumericUpDown();
+            this.chkRealTimeReceive = new System.Windows.Forms.CheckBox();
             this.lblOverTime = new System.Windows.Forms.Label();
             this.nudTimeout = new System.Windows.Forms.NumericUpDown();
             this.lblTimeout = new System.Windows.Forms.Label();
@@ -111,6 +112,7 @@
             this.全选ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.复制ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.粘贴ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flowLayoutPanel11 = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel6.SuspendLayout();
@@ -134,50 +136,53 @@
             this.flowLayoutPanel5.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.cmsCommand.SuspendLayout();
+            this.flowLayoutPanel11.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel
             // 
             this.tableLayoutPanel.ColumnCount = 2;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 675F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 223F));
-            this.tableLayoutPanel.Controls.Add(this.tableLayoutPanel1, 0, 4);
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel.Controls.Add(this.tableLayoutPanel1, 0, 5);
             this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel1, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel2, 0, 2);
             this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel4, 1, 1);
-            this.tableLayoutPanel.Controls.Add(this.groupBoxDisplay, 0, 5);
+            this.tableLayoutPanel.Controls.Add(this.groupBoxDisplay, 0, 6);
             this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel5, 0, 3);
-            this.tableLayoutPanel.Controls.Add(this.menuStrip1, 0, 6);
+            this.tableLayoutPanel.Controls.Add(this.menuStrip1, 0, 7);
+            this.tableLayoutPanel.Controls.Add(this.flowLayoutPanel11, 0, 4);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
-            this.tableLayoutPanel.RowCount = 7;
+            this.tableLayoutPanel.RowCount = 8;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 219F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 202F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(898, 578);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(780, 621);
             this.tableLayoutPanel.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel.SetColumnSpan(this.tableLayoutPanel1, 2);
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.03587F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.96412F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75.5814F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.4186F));
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel6, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtCommand, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel7, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 143);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 180);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 116F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(892, 213);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(774, 196);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
             // flowLayoutPanel6
@@ -187,9 +192,9 @@
             this.flowLayoutPanel6.Controls.Add(this.btnQuery);
             this.flowLayoutPanel6.Controls.Add(this.btnCycle);
             this.flowLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel6.Location = new System.Drawing.Point(708, 119);
+            this.flowLayoutPanel6.Location = new System.Drawing.Point(588, 119);
             this.flowLayoutPanel6.Name = "flowLayoutPanel6";
-            this.flowLayoutPanel6.Size = new System.Drawing.Size(181, 91);
+            this.flowLayoutPanel6.Size = new System.Drawing.Size(183, 74);
             this.flowLayoutPanel6.TabIndex = 9;
             // 
             // btnWrite
@@ -245,7 +250,7 @@
             this.txtCommand.Multiline = true;
             this.txtCommand.Name = "txtCommand";
             this.txtCommand.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtCommand.Size = new System.Drawing.Size(699, 91);
+            this.txtCommand.Size = new System.Drawing.Size(579, 74);
             this.txtCommand.TabIndex = 8;
             // 
             // flowLayoutPanel7
@@ -253,14 +258,11 @@
             this.tableLayoutPanel1.SetColumnSpan(this.flowLayoutPanel7, 2);
             this.flowLayoutPanel7.Controls.Add(this.groupBox1);
             this.flowLayoutPanel7.Controls.Add(this.groupBox2);
-            this.flowLayoutPanel7.Controls.Add(this.lblOverTime);
-            this.flowLayoutPanel7.Controls.Add(this.nudTimeout);
-            this.flowLayoutPanel7.Controls.Add(this.lblTimeout);
             this.flowLayoutPanel7.Controls.Add(this.groupBox3);
             this.flowLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel7.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel7.Name = "flowLayoutPanel7";
-            this.flowLayoutPanel7.Size = new System.Drawing.Size(886, 110);
+            this.flowLayoutPanel7.Size = new System.Drawing.Size(768, 110);
             this.flowLayoutPanel7.TabIndex = 10;
             // 
             // groupBox1
@@ -339,7 +341,7 @@
             this.groupBox2.Controls.Add(this.flowLayoutPanel8);
             this.groupBox2.Location = new System.Drawing.Point(244, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(390, 50);
+            this.groupBox2.Size = new System.Drawing.Size(458, 50);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "接收";
@@ -349,10 +351,11 @@
             this.flowLayoutPanel8.Controls.Add(this.rdoUntilNewLine);
             this.flowLayoutPanel8.Controls.Add(this.rdoSpecifiedCount);
             this.flowLayoutPanel8.Controls.Add(this.nudSpecifiedCount);
+            this.flowLayoutPanel8.Controls.Add(this.chkRealTimeReceive);
             this.flowLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel8.Location = new System.Drawing.Point(3, 17);
             this.flowLayoutPanel8.Name = "flowLayoutPanel8";
-            this.flowLayoutPanel8.Size = new System.Drawing.Size(384, 30);
+            this.flowLayoutPanel8.Size = new System.Drawing.Size(452, 30);
             this.flowLayoutPanel8.TabIndex = 0;
             // 
             // rdoUntilNewLine
@@ -404,12 +407,26 @@
             0,
             0});
             // 
+            // chkRealTimeReceive
+            // 
+            this.chkRealTimeReceive.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.chkRealTimeReceive.AutoSize = true;
+            this.chkRealTimeReceive.Location = new System.Drawing.Point(339, 5);
+            this.chkRealTimeReceive.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkRealTimeReceive.Name = "chkRealTimeReceive";
+            this.chkRealTimeReceive.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.chkRealTimeReceive.Size = new System.Drawing.Size(92, 16);
+            this.chkRealTimeReceive.TabIndex = 10;
+            this.chkRealTimeReceive.Text = "实时接收";
+            this.chkRealTimeReceive.UseVisualStyleBackColor = true;
+            this.chkRealTimeReceive.CheckedChanged += new System.EventHandler(this.chkRealTimeReceive_CheckedChanged);
+            // 
             // lblOverTime
             // 
             this.lblOverTime.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblOverTime.AutoSize = true;
-            this.lblOverTime.Location = new System.Drawing.Point(640, 22);
-            this.lblOverTime.Margin = new System.Windows.Forms.Padding(3);
+            this.lblOverTime.Location = new System.Drawing.Point(3, 7);
+            this.lblOverTime.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.lblOverTime.Name = "lblOverTime";
             this.lblOverTime.Size = new System.Drawing.Size(29, 12);
             this.lblOverTime.TabIndex = 5;
@@ -423,7 +440,7 @@
             0,
             0,
             0});
-            this.nudTimeout.Location = new System.Drawing.Point(675, 17);
+            this.nudTimeout.Location = new System.Drawing.Point(38, 3);
             this.nudTimeout.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -443,7 +460,7 @@
             // 
             this.lblTimeout.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblTimeout.AutoSize = true;
-            this.lblTimeout.Location = new System.Drawing.Point(756, 22);
+            this.lblTimeout.Location = new System.Drawing.Point(119, 7);
             this.lblTimeout.Name = "lblTimeout";
             this.lblTimeout.Size = new System.Drawing.Size(17, 12);
             this.lblTimeout.TabIndex = 7;
@@ -454,7 +471,7 @@
             this.groupBox3.Controls.Add(this.flowLayoutPanel9);
             this.groupBox3.Location = new System.Drawing.Point(3, 59);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(878, 50);
+            this.groupBox3.Size = new System.Drawing.Size(699, 50);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "循环";
@@ -466,7 +483,7 @@
             this.flowLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel9.Location = new System.Drawing.Point(3, 17);
             this.flowLayoutPanel9.Name = "flowLayoutPanel9";
-            this.flowLayoutPanel9.Size = new System.Drawing.Size(872, 30);
+            this.flowLayoutPanel9.Size = new System.Drawing.Size(693, 30);
             this.flowLayoutPanel9.TabIndex = 0;
             // 
             // chkStartCycle
@@ -492,7 +509,7 @@
             this.flowLayoutPanel10.Controls.Add(this.label4);
             this.flowLayoutPanel10.Enabled = false;
             this.flowLayoutPanel10.Location = new System.Drawing.Point(104, 2);
-            this.flowLayoutPanel10.Margin = new System.Windows.Forms.Padding(2);
+            this.flowLayoutPanel10.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.flowLayoutPanel10.Name = "flowLayoutPanel10";
             this.flowLayoutPanel10.Size = new System.Drawing.Size(471, 27);
             this.flowLayoutPanel10.TabIndex = 5;
@@ -537,7 +554,7 @@
             // 
             this.nudCycleCount.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.nudCycleCount.Location = new System.Drawing.Point(227, 2);
-            this.nudCycleCount.Margin = new System.Windows.Forms.Padding(2);
+            this.nudCycleCount.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.nudCycleCount.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -572,7 +589,7 @@
             // 
             this.nudInterval.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.nudInterval.Location = new System.Drawing.Point(348, 2);
-            this.nudInterval.Margin = new System.Windows.Forms.Padding(2);
+            this.nudInterval.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.nudInterval.Maximum = new decimal(new int[] {
             3000,
             0,
@@ -717,7 +734,7 @@
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 73);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(892, 29);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(774, 29);
             this.flowLayoutPanel2.TabIndex = 3;
             // 
             // lblBaudRate
@@ -832,13 +849,13 @@
             this.flowLayoutPanel4.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel4.Location = new System.Drawing.Point(678, 13);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(217, 54);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(99, 54);
             this.flowLayoutPanel4.TabIndex = 5;
             // 
             // btnRefresh
             // 
             this.btnRefresh.Location = new System.Drawing.Point(2, 2);
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(88, 23);
             this.btnRefresh.TabIndex = 5;
@@ -862,9 +879,9 @@
             this.tableLayoutPanel.SetColumnSpan(this.groupBoxDisplay, 2);
             this.groupBoxDisplay.Controls.Add(this.txtDisplay);
             this.groupBoxDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxDisplay.Location = new System.Drawing.Point(3, 362);
+            this.groupBoxDisplay.Location = new System.Drawing.Point(3, 382);
             this.groupBoxDisplay.Name = "groupBoxDisplay";
-            this.groupBoxDisplay.Size = new System.Drawing.Size(892, 188);
+            this.groupBoxDisplay.Size = new System.Drawing.Size(774, 211);
             this.groupBoxDisplay.TabIndex = 2;
             this.groupBoxDisplay.TabStop = false;
             this.groupBoxDisplay.Text = "显示";
@@ -878,7 +895,7 @@
             this.txtDisplay.Name = "txtDisplay";
             this.txtDisplay.ReadOnly = true;
             this.txtDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtDisplay.Size = new System.Drawing.Size(886, 168);
+            this.txtDisplay.Size = new System.Drawing.Size(768, 191);
             this.txtDisplay.TabIndex = 0;
             // 
             // contextMenuStrip
@@ -928,7 +945,7 @@
             this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 108);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(892, 29);
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(774, 29);
             this.flowLayoutPanel5.TabIndex = 6;
             // 
             // lblIP
@@ -968,9 +985,10 @@
             this.关于ToolStripMenuItem,
             this.时间ToolStripMenuItem});
             this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.menuStrip1.Location = new System.Drawing.Point(0, 553);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 596);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(898, 25);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
+            this.menuStrip1.Size = new System.Drawing.Size(780, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -984,7 +1002,7 @@
             this.toolStripMenuItem3,
             this.byCNXYToolStripMenuItem1});
             this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(44, 22);
             this.关于ToolStripMenuItem.Text = "关于";
             // 
             // toolStripMenuItem2
@@ -1030,7 +1048,7 @@
             this.时间ToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.时间ToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.时间ToolStripMenuItem.Name = "时间ToolStripMenuItem";
-            this.时间ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.时间ToolStripMenuItem.Size = new System.Drawing.Size(44, 22);
             this.时间ToolStripMenuItem.Text = "时间";
             this.时间ToolStripMenuItem.Click += new System.EventHandler(this.时间ToolStripMenuItem_Click);
             // 
@@ -1066,19 +1084,30 @@
             this.粘贴ToolStripMenuItem.Text = "粘贴";
             this.粘贴ToolStripMenuItem.Click += new System.EventHandler(this.粘贴ToolStripMenuItem_Click);
             // 
+            // flowLayoutPanel11
+            // 
+            this.flowLayoutPanel11.Controls.Add(this.lblOverTime);
+            this.flowLayoutPanel11.Controls.Add(this.nudTimeout);
+            this.flowLayoutPanel11.Controls.Add(this.lblTimeout);
+            this.flowLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel11.Location = new System.Drawing.Point(3, 143);
+            this.flowLayoutPanel11.Name = "flowLayoutPanel11";
+            this.flowLayoutPanel11.Size = new System.Drawing.Size(669, 31);
+            this.flowLayoutPanel11.TabIndex = 10;
+            // 
             // FrmMain
             // 
             this.AcceptButton = this.btnOpen;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(898, 578);
+            this.ClientSize = new System.Drawing.Size(780, 621);
             this.Controls.Add(this.tableLayoutPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "NI-VISA仪器控制 - For SCPI";
+            this.Text = "NI-VISA仪器控制调试器";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.tableLayoutPanel.ResumeLayout(false);
@@ -1087,7 +1116,6 @@
             this.tableLayoutPanel1.PerformLayout();
             this.flowLayoutPanel6.ResumeLayout(false);
             this.flowLayoutPanel7.ResumeLayout(false);
-            this.flowLayoutPanel7.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.flowLayoutPanel3.ResumeLayout(false);
             this.flowLayoutPanel3.PerformLayout();
@@ -1116,6 +1144,8 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.cmsCommand.ResumeLayout(false);
+            this.flowLayoutPanel11.ResumeLayout(false);
+            this.flowLayoutPanel11.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1203,6 +1233,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown nudInterval;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox chkRealTimeReceive;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel11;
     }
 }
 

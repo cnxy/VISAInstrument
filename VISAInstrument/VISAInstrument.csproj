@@ -68,6 +68,7 @@
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Port\PortOperator.cs" />
+    <Compile Include="Port\SerialDataReceivedEventArgs.cs" />
     <Compile Include="Utility\ByteUtility.cs" />
     <Compile Include="Utility\UninstallInfoHelper.cs" />
     <Compile Include="Utility\RegexUtility.cs" />
