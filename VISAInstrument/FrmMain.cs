@@ -655,9 +655,11 @@ namespace VISAInstrument
                 Task.Factory.StartNew(() =>
                 {
                     int count = 0;
+                    int cycleCount = (int)nudCycleCount.Value;
+                    int intervalTime = (int)nudInterval.Value;
                     while (cycleEnabled)
                     {
-                        if (count >= (int)nudCycleCount.Value)
+                        if (cycleCount != 0 && count >= cycleCount)
                         {
                             EnableCycle(false);
                             break;
@@ -670,8 +672,8 @@ namespace VISAInstrument
                             EnableCycle(false);
                             break;
                         }
-                        else Thread.Sleep((int)nudInterval.Value);
-                        count++;
+                        else Thread.Sleep(intervalTime);
+                        if(cycleCount != 0) count++;
                     }
                     Invoke(new Action(() => btnCycle.Text = originalCycleText));
                 });
