@@ -72,8 +72,8 @@ namespace VISAInstrument
         {
             const string visaSharedComponentsString = "VISA Shared Components";
             const string niVisaRuntimeString = "NI-VISA .NET Runtime";
-            const string visaSharedComponentsVersion = "5.7.0.0";
-            const string niVisaRuntimeVersion = "5.5.0.0";
+            const string visaSharedComponentsVersion = "5.6.0.0";
+            const string niVisaRuntimeVersion = "15.5.0.0";
             const string noneVersion = "0.0.0.0";
             UninstallInfo[] visaUninstallInfo = UninstallInfoHelper.GetUninstallInfo().Where(x => !string.IsNullOrEmpty(x.DisplayName)).ToArray();
             UninstallInfo[] iviVisaUninstallInfo = visaUninstallInfo.Where(x => x.DisplayName.StartsWith(visaSharedComponentsString)).ToArray();

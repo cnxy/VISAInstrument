@@ -41,13 +41,14 @@ namespace VISAInstrument
             this.tableLayoutPanel.RowStyles[3].Height = 0F;
         }
 
-        private void DoSomethingForRadioButton(params Action[] actionOfRbt)
+        private void DoSomethingForRadioButton(out string message,params Func<string>[] actionOfRbt)
         {
+            message = string.Empty;
             if (actionOfRbt.Length != 4) throw new ArgumentException();
-            if (rbtRS232.Checked) actionOfRbt[0]();
-            if (rbtUSB.Checked) actionOfRbt[1]();
-            if (rbtGPIB.Checked) actionOfRbt[2]();
-            if (rbtLAN.Checked) actionOfRbt[3]();
+            if (rbtRS232.Checked) message = actionOfRbt[0]();
+            if (rbtUSB.Checked)  message = actionOfRbt[1]();
+            if (rbtGPIB.Checked)  message = actionOfRbt[2]();
+            if (rbtLAN.Checked)  message = actionOfRbt[3]();
         }
 
         private readonly int[] _baudRate = { 256000, 128000, 115200, 57600, 56000, 43000, 38400, 28800, 19200, 9600, 4800, 2400, 1200, 600, 300, 110 };
@@ -216,14 +217,15 @@ namespace VISAInstrument
             Query();
         }
 
-        private bool NewPortInstance()
+        private bool NewPortInstance(out string message)
         {
             bool hasAddress = false;
             bool hasException = false;
-            DoSomethingForRadioButton(
+            DoSomethingForRadioButton(out message,
                 () =>
                 {
-                    if (cboRS232.SelectedIndex == -1) return;
+                    string message1 = string.Empty;
+                    if (cboRS232.SelectedIndex == -1) return message1;
                     try
                     {
                         _portOperatorBase = new RS232PortOperator(((Pair<string, string>)cboRS232.SelectedItem).Value.ToString(),
@@ -231,49 +233,62 @@ namespace VISAInstrument
                                                (SerialStopBitsMode)cboStopBits.SelectedItem, (int)cboDataBits.SelectedItem);
                         hasAddress = true;
                     }
-                    catch
+                    catch(Exception e1)
                     {
+                        
                         hasException = true;
+                        message1 =  e1.ToString();
                     }
+
+                    return message1;
                 },
                 () =>
                 {
-                    if (cboUSB.SelectedIndex == -1) return;
+                    string message2 = string.Empty;
+                    if (cboUSB.SelectedIndex == -1) return message2;
                     try
                     {
                         _portOperatorBase = new USBPortOperator(cboUSB.SelectedItem.ToString());
                         hasAddress = true;
                     }
-                    catch
+                    catch(Exception e1)
                     {
                         hasException = true;
+                        message2 =  e1.ToString();
                     }
+                    return message2;
                 },
                 () =>
                 {
-                    if (cboGPIB.SelectedIndex == -1) return;
+                    string message3 = string.Empty;
+                    if (cboGPIB.SelectedIndex == -1) return message3;
                     try
                     {
                         _portOperatorBase = new GPIBPortOperator(cboGPIB.SelectedItem.ToString());
                         hasAddress = true;
                     }
-                    catch
+                    catch(Exception e1)
                     {
                         hasException = true;
+                        message3 =  e1.ToString();
                     }
+                    return message3;
                 },
                 () =>
                 {
-                    if (cboLAN.SelectedIndex == -1) return;
+                    string message4 = string.Empty;
+                    if (cboLAN.SelectedIndex == -1) return message4;
                     try
                     {
                         _portOperatorBase = new LANPortOperator(cboLAN.SelectedItem.ToString());
                         hasAddress = true;
                     }
-                    catch
+                    catch(Exception e1)
                     {
                         hasException = true;
+                        message4 =  e1.ToString();
                     }
+                    return message4;
                 });
             if(!hasException && hasAddress) _portOperatorBase.Timeout = (int)nudTimeout.Value;
             return hasAddress;
@@ -347,24 +362,29 @@ namespace VISAInstrument
         {
             if(btnOpen.Text == Resources.OpenString)
             {
-                if (NewPortInstance())
+                try
                 {
-                    try
+                    if (!NewPortInstance(out string message))
                     {
-                        _portOperatorBase.Open();
-                        btnOpen.Text = Resources.CloseString;
-                        if(_portOperatorBase is RS232PortOperator)
-                        {
-                            chkRealTimeReceive.Enabled = true;
-                            BindOrRemoveDataReceivedEvent();
-                        }
-                        else chkRealTimeReceive.Enabled = false;
-                        EnableControl(false);
-                        chkStartCycle_CheckedChanged(null, null);
+                        MessageBox.Show(this, message);
+                        return;
                     }
-                    catch { }
+                    _portOperatorBase.Open();
+                    btnOpen.Text = Resources.CloseString;
+                    if (_portOperatorBase is RS232PortOperator)
+                    {
+                        chkRealTimeReceive.Enabled = true;
+                        BindOrRemoveDataReceivedEvent();
+                    }
+                    else chkRealTimeReceive.Enabled = false;
+
+                    EnableControl(false);
+                    chkStartCycle_CheckedChanged(null, null);
                 }
-                
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, ex.ToString());
+                }
             }
             else
             {
@@ -570,7 +590,7 @@ namespace VISAInstrument
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             string message = Common.VisaSharedComponent.Concat(Common.NiVisaRuntime).Aggregate((x, y) => $"{x}\r\n{y}").TrimEnd('\r', '\n');
-            MessageBox.Show(message);
+            MessageBox.Show(this,message);
         }
 
         private void chkStartCycle_CheckedChanged(object sender, EventArgs e)
