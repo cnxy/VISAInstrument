@@ -1,12 +1,19 @@
 # VISAInstrument
 基于NI-VISA的仪器编程，支持RS232、USB、GPIB及LAN
-必须安装NI-VISA运行时(其他VISA版本不支持，如Keysight VISA等)，下载链接如下（如版本1700）：
-http://search.ni.com/nisearch/app/main/p/bot/no/ap/tech/lang/zhs/pg/1/sn/catnav:du/q/VISA/
 
-或者到
-https://github.com/cnxy/VISAInstrument/releases/tag/1.0.0.0
-下载"NIVISA1700runtime.exe"以便安装VISA运行时，
-如想安装最新版本，请从第一个链接下载
+## 条件
+运行或开发软件时，必须安装NI-VISA运行时(其他VISA版本不支持，如Keysight VISA等)。
+### Release版本
+运行条件：
+若需运行在XP及以上系统(最高支持Win10系统)，请安装15.5版本的运行时，下载链接如下：
+https://download.ni.com/support/softlib/visa/NI-VISA/15.5/Windows/NIVISA1550runtime.zip
+
+若需运行在Win7及以上系统(最高支持Win10系统)，请安装16.0~18.5版本的运行时，18.5版本的下载链接如下：
+https://download.ni.com/support/softlib/visa/NI-VISA/18.5/Windows/NIVISA1850runtime.zip
+
+### 开发版本
+为了最佳的开发效果，开发时请使用最新的完整版本(截止目前为止，版本为20.0)，下载链接如下：
+https://download.ni.com/support/nipkg/products/ni-v/ni-visa/20.0/offline/ni-visa_20.0.0_offline.iso
 
 ## RS232
 支持常见的RS232串口编程，一般地址为“ASRL1::INSTR”
@@ -21,5 +28,5 @@ https://github.com/cnxy/VISAInstrument/releases/tag/1.0.0.0
 ## LAN
 支持常见的LAN接口编程，一般地址类似为“TCPIP0::34465A-01899::inst0::INSTR”或“TCPIP0::192.168.0.26::INSTR”
 
-### 运行界面
+## 运行界面
 ![image](https://github.com/cnxy/VISAInstrument/blob/master/VISAInstrument/pic.png)
