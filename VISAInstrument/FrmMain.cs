@@ -96,7 +96,7 @@ namespace VISAInstrument
             _isWritingError = false;
             if (string.IsNullOrEmpty(txtCommand.Text))
             {
-                Invoke(new Action(() => MessageBox.Show(Resources.CommandNotEmpty)));
+                Invoke(new Action(() => MessageBox.Show(this,Resources.CommandNotEmpty)));
                 return false;
             }
             string asciiString = string.Empty;
@@ -114,7 +114,7 @@ namespace VISAInstrument
                 else
                 {
                     _isWritingError = true;
-                    Invoke(new Action(() => MessageBox.Show(@"转换字节失败，请按照“XX XX XX”格式输入内容")));
+                    Invoke(new Action(() => MessageBox.Show(this,@"转换字节失败，请按照“XX XX XX”格式输入内容")));
                     return false;
                 }
             }
@@ -144,11 +144,10 @@ namespace VISAInstrument
                         _portOperatorBase.Write(byteArray);
                     }
                 }
-
             }
-            catch
+            catch(Exception ex)
             {
-                Invoke(new Action(() => MessageBox.Show($@"写入命令“{txtCommand.Text}”失败！")));
+                Invoke(new Action(() => MessageBox.Show(this,$@"写入命令“{txtCommand.Text}”失败！\r\n{ex.Message}")));
                 return false;
             }
             Invoke(new Action(() => DisplayToTextBox($"[Time:{stopwatch.ElapsedMilliseconds}ms] Write: {txtCommand.Text}")));
@@ -225,7 +224,7 @@ namespace VISAInstrument
                 () =>
                 {
                     string message1 = string.Empty;
-                    if (cboRS232.SelectedIndex == -1) return message1;
+                    if (cboRS232.SelectedIndex == -1) return "没有串口选中";
                     try
                     {
                         _portOperatorBase = new RS232PortOperator(((Pair<string, string>)cboRS232.SelectedItem).Value.ToString(),
@@ -245,7 +244,7 @@ namespace VISAInstrument
                 () =>
                 {
                     string message2 = string.Empty;
-                    if (cboUSB.SelectedIndex == -1) return message2;
+                    if (cboUSB.SelectedIndex == -1) return "没有USB选中";
                     try
                     {
                         _portOperatorBase = new USBPortOperator(cboUSB.SelectedItem.ToString());
@@ -261,7 +260,7 @@ namespace VISAInstrument
                 () =>
                 {
                     string message3 = string.Empty;
-                    if (cboGPIB.SelectedIndex == -1) return message3;
+                    if (cboGPIB.SelectedIndex == -1) return "没有GPIB选中";
                     try
                     {
                         _portOperatorBase = new GPIBPortOperator(cboGPIB.SelectedItem.ToString());
@@ -277,7 +276,7 @@ namespace VISAInstrument
                 () =>
                 {
                     string message4 = string.Empty;
-                    if (cboLAN.SelectedIndex == -1) return message4;
+                    if (cboLAN.SelectedIndex == -1) return "没有LAN选中";
                     try
                     {
                         _portOperatorBase = new LANPortOperator(cboLAN.SelectedItem.ToString());
@@ -303,7 +302,7 @@ namespace VISAInstrument
 
         private void ClearIfTextBoxOverFlow()
         {
-            if (txtDisplay.Text.Length > 20480) txtDisplay.Clear();
+            if (txtDisplay.Text.Length > 204800) txtDisplay.Clear();
         }
 
         Task t = null;
@@ -460,7 +459,7 @@ namespace VISAInstrument
 
             if (t != null && !t.IsCompleted)
             {
-                MessageBox.Show(Resources.LoadingInstrumentResource);
+                MessageBox.Show(this,Resources.LoadingInstrumentResource);
                 e.Cancel = true;
                 return;
             }
@@ -477,25 +476,25 @@ namespace VISAInstrument
         {
             if (!txtIPAddress.Text.IsMatch(IpRegex))
             {
-                MessageBox.Show(Resources.NotCorrectIP);
+                MessageBox.Show(this,Resources.NotCorrectIP);
                 txtIPAddress.SetSelect();
                 return;
             }
             if (cboLAN.Items.Cast<object>().Any(item => ((string)item).Contains(txtIPAddress.Text)))
             {
-                MessageBox.Show(Resources.LANContainIP);
+                MessageBox.Show(this,Resources.LANContainIP);
                 txtIPAddress.SetSelect();
                 return;
             }
             if (!PortUltility.OpenIPAddress(txtIPAddress.Text, out string fullAddress))
             {
-                MessageBox.Show(Resources.NotDetectIP);
+                MessageBox.Show(this,Resources.NotDetectIP);
                 txtIPAddress.SetSelect();
                 return;
             }
             cboLAN.Items.Add(fullAddress);
             cboLAN.Text = cboLAN.Items[cboLAN.Items.Count-1].ToString();
-            MessageBox.Show(Resources.DetectOK);
+            MessageBox.Show(this,Resources.DetectOK);
         }
 
         private void githubToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -645,7 +644,13 @@ namespace VISAInstrument
 
         private void EnableCycle(bool enabled)
         {
-            Invoke(new Action(() => flowLayoutPanel9.Enabled = !enabled));
+            Invoke(new Action(() =>
+            {
+                flowLayoutPanel9.Enabled = !enabled;
+                groupBox1.Enabled = !enabled;
+                groupBox2.Enabled = !enabled;
+                txtCommand.Enabled = !enabled;
+            }));
             cycleEnabled = enabled;
         }
 
@@ -684,15 +689,13 @@ namespace VISAInstrument
                             EnableCycle(false);
                             break;
                         }
-                        bool isSuccessful;
-                        if (rdoSend.Checked) isSuccessful = Write();
-                        else isSuccessful = Query();
+                        bool isSuccessful = rdoSend.Checked ? Write() : Query();
                         if (!isSuccessful)
                         {
                             EnableCycle(false);
                             break;
                         }
-                        else Thread.Sleep(intervalTime);
+                        Thread.Sleep(intervalTime);
                         if(cycleCount != 0) count++;
                     }
                     Invoke(new Action(() => btnCycle.Text = originalCycleText));
@@ -705,7 +708,7 @@ namespace VISAInstrument
             bool cycleEnabledTemp = cycleEnabled;
             if (cycleEnabledTemp)
             {
-                MessageBox.Show($"请停止循环操作后再执行{operationName}操作");
+                MessageBox.Show(this,$"请停止循环操作后再执行{operationName}操作");
             }
             return cycleEnabledTemp;
         }
