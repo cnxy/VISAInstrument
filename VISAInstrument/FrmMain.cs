@@ -328,7 +328,7 @@ namespace VISAInstrument
                 {
                     _cancelDisplayForm = true;
                     InvokeToForm(() => { tableLayoutPanel.Enabled = false; this.Text = Resources.RuntimeError; });
-                    MessageBox.Show(x.Exception.InnerException.Message);
+                    MessageBox.Show(this,x.Exception.InnerException.Message);
                 }
             });
         }
