@@ -16,7 +16,7 @@ namespace VISAInstrument
         /// 应用程序的主入口点。
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -26,13 +26,18 @@ namespace VISAInstrument
                 MessageBox.Show(Resources.Running);
                 return;
             }
+
             if (!IsVisaExisted(out string message, out string[] visaSharedComponent, out string[] niVisaRuntime))
             {
                 if (MessageBox.Show($"{message}\r\n\r\n{Resources.NeedToDownLoad}", @"错误",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes) return;
                 try
                 {
-                    Process.Start(Resources.VISA32URL);
+                    string url = GetVisaUrl();
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        Process.Start(url);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -46,6 +51,15 @@ namespace VISAInstrument
             Application.Run(new FrmMain());
         }
 
+        private static string GetVisaUrl()
+        {
+            Version version = Environment.OSVersion.Version;
+            if (version.Major == 5)
+            { 
+                return Resources.VISA32URLXP;
+            }
+            return version.Major >= 6 ? Resources.VISA32URLWIN7 : string.Empty;
+        }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
@@ -57,7 +71,12 @@ namespace VISAInstrument
 
                 if (result == DialogResult.Yes)
                 {
-                    Process.Start(Resources.VISA32URL);
+
+                    string url = GetVisaUrl();
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        Process.Start(url);
+                    }
                 }
             }
             else

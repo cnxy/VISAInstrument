@@ -241,11 +241,20 @@ namespace VISAInstrument.Properties {
         }
         
         /// <summary>
-        ///   查找类似 https://github.com/cnxy/VISAInstrument/releases/download/1.0.0.0/NIVISA1700runtime.zip 的本地化字符串。
+        ///   查找类似 https://download.ni.com/support/softlib/visa/NI-VISA/18.5/Windows/NIVISA1850runtime.zip 的本地化字符串。
         /// </summary>
-        internal static string VISA32URL {
+        internal static string VISA32URLWIN7 {
             get {
-                return ResourceManager.GetString("VISA32URL", resourceCulture);
+                return ResourceManager.GetString("VISA32URLWIN7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 https://download.ni.com/support/softlib/visa/NI-VISA/15.5/Windows/NIVISA1550runtime.zip 的本地化字符串。
+        /// </summary>
+        internal static string VISA32URLXP {
+            get {
+                return ResourceManager.GetString("VISA32URLXP", resourceCulture);
             }
         }
         

@@ -15,6 +15,8 @@ https://download.ni.com/support/softlib/visa/NI-VISA/18.5/Windows/NIVISA1850runt
 为了最佳的开发效果，开发时请使用最新的完整版本(截止目前为止，版本为20.0)，下载链接如下：
 https://download.ni.com/support/nipkg/products/ni-v/ni-visa/20.0/offline/ni-visa_20.0.0_offline.iso
 
+注意：安装完整版后开发软件时，可以从GAC中引用完整版对应的Ivi.Visa.dll\NationalInstruments.Common.dll\NationalInstruments.Visa.dll，代替本项目中Library下的库文件。
+
 ## RS232
 支持常见的RS232串口编程，一般地址为“ASRL1::INSTR”
 

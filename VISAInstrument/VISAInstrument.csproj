@@ -108,7 +108,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="VISA下载地址.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
