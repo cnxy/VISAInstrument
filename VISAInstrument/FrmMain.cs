@@ -27,10 +27,13 @@ namespace VISAInstrument
         {
             if(rbtRS232 == sender as RadioButton)
             {
+                rdoSpecifiedCount.Text = "读取指定字节数量";
                 this.tableLayoutPanel.RowStyles[2].Height = 35F;
-                this.tableLayoutPanel.RowStyles[3].Height = 0F;
+                this.tableLayoutPanel.RowStyles[3].Height = 0F; 
+                
                 return;
             }
+            rdoSpecifiedCount.Text = "读取指定字节数量或收到结束符";
             if (rbtLAN == sender as RadioButton)
             {
                 this.tableLayoutPanel.RowStyles[2].Height = 0F;
@@ -375,7 +378,10 @@ namespace VISAInstrument
                         chkRealTimeReceive.Enabled = true;
                         BindOrRemoveDataReceivedEvent();
                     }
-                    else chkRealTimeReceive.Enabled = false;
+                    else
+                    {
+                        chkRealTimeReceive.Enabled = false;
+                    }
 
                     EnableControl(false);
                     chkStartCycle_CheckedChanged(null, null);
@@ -583,6 +589,17 @@ namespace VISAInstrument
 
         private void rdoUntilNewLineSpecifiedCount_CheckedChanged(object sender, EventArgs e)
         {
+            if (_portOperatorBase is RS232PortOperator portOperator)
+            {
+                if (rdoUntilNewLine.Checked)
+                {
+                    portOperator.SetReadTerminationCharacterEnabled(true);
+                }
+                else
+                {
+                    portOperator.SetReadTerminationCharacterEnabled(false);
+                }
+            }
             nudSpecifiedCount.Enabled = !rdoUntilNewLine.Checked;
         }
 

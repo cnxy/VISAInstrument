@@ -341,7 +341,7 @@
             this.groupBox2.Controls.Add(this.flowLayoutPanel8);
             this.groupBox2.Location = new System.Drawing.Point(244, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(458, 50);
+            this.groupBox2.Size = new System.Drawing.Size(502, 50);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "接收";
@@ -355,7 +355,7 @@
             this.flowLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel8.Location = new System.Drawing.Point(3, 17);
             this.flowLayoutPanel8.Name = "flowLayoutPanel8";
-            this.flowLayoutPanel8.Size = new System.Drawing.Size(452, 30);
+            this.flowLayoutPanel8.Size = new System.Drawing.Size(496, 30);
             this.flowLayoutPanel8.TabIndex = 0;
             // 
             // rdoUntilNewLine
@@ -412,7 +412,7 @@
             this.chkRealTimeReceive.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.chkRealTimeReceive.AutoSize = true;
             this.chkRealTimeReceive.Location = new System.Drawing.Point(339, 5);
-            this.chkRealTimeReceive.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkRealTimeReceive.Margin = new System.Windows.Forms.Padding(2);
             this.chkRealTimeReceive.Name = "chkRealTimeReceive";
             this.chkRealTimeReceive.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.chkRealTimeReceive.Size = new System.Drawing.Size(92, 16);
@@ -426,7 +426,7 @@
             this.groupBox3.Controls.Add(this.flowLayoutPanel9);
             this.groupBox3.Location = new System.Drawing.Point(3, 59);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(699, 50);
+            this.groupBox3.Size = new System.Drawing.Size(743, 50);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "循环";
@@ -438,7 +438,7 @@
             this.flowLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel9.Location = new System.Drawing.Point(3, 17);
             this.flowLayoutPanel9.Name = "flowLayoutPanel9";
-            this.flowLayoutPanel9.Size = new System.Drawing.Size(693, 30);
+            this.flowLayoutPanel9.Size = new System.Drawing.Size(737, 30);
             this.flowLayoutPanel9.TabIndex = 0;
             // 
             // chkStartCycle
@@ -464,7 +464,7 @@
             this.flowLayoutPanel10.Controls.Add(this.label4);
             this.flowLayoutPanel10.Enabled = false;
             this.flowLayoutPanel10.Location = new System.Drawing.Point(104, 2);
-            this.flowLayoutPanel10.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.flowLayoutPanel10.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel10.Name = "flowLayoutPanel10";
             this.flowLayoutPanel10.Size = new System.Drawing.Size(471, 27);
             this.flowLayoutPanel10.TabIndex = 5;
@@ -509,7 +509,7 @@
             // 
             this.nudCycleCount.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.nudCycleCount.Location = new System.Drawing.Point(227, 2);
-            this.nudCycleCount.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudCycleCount.Margin = new System.Windows.Forms.Padding(2);
             this.nudCycleCount.Maximum = new decimal(new int[] {
             10000000,
             0,
@@ -534,7 +534,7 @@
             // 
             this.nudInterval.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.nudInterval.Location = new System.Drawing.Point(361, 2);
-            this.nudInterval.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudInterval.Margin = new System.Windows.Forms.Padding(2);
             this.nudInterval.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -800,7 +800,7 @@
             // btnRefresh
             // 
             this.btnRefresh.Location = new System.Drawing.Point(2, 2);
-            this.btnRefresh.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRefresh.Margin = new System.Windows.Forms.Padding(2);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(88, 23);
             this.btnRefresh.TabIndex = 5;
@@ -1013,7 +1013,7 @@
             this.lblOverTime.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblOverTime.AutoSize = true;
             this.lblOverTime.Location = new System.Drawing.Point(3, 7);
-            this.lblOverTime.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.lblOverTime.Margin = new System.Windows.Forms.Padding(3);
             this.lblOverTime.Name = "lblOverTime";
             this.lblOverTime.Size = new System.Drawing.Size(29, 12);
             this.lblOverTime.TabIndex = 5;
@@ -1029,7 +1029,7 @@
             0});
             this.nudTimeout.Location = new System.Drawing.Point(38, 3);
             this.nudTimeout.Maximum = new decimal(new int[] {
-            10000,
+            20000,
             0,
             0,
             0});

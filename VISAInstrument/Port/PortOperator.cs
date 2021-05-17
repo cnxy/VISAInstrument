@@ -63,6 +63,11 @@ namespace VISAInstrument.Port
             serialSession = (SerialSession)Session;
         }
 
+        public void SetReadTerminationCharacterEnabled(bool enabled)
+        {
+            serialSession.ReadTermination = enabled?SerialTerminationMethod.TerminationCharacter: SerialTerminationMethod.None;
+        }
+
         public override void Open()
         {
             base.Open();
