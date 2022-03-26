@@ -5,16 +5,14 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Linq;
 using Ivi.Visa.ConflictManager;
+using VISAInstrument.Configuration;
 using VISAInstrument.Properties;
 using VISAInstrument.Utility;
 
 namespace VISAInstrument
 {
-    static class Program
+    internal static class Program
     {
-        /// <summary>
-        /// 应用程序的主入口点。
-        /// </summary>
         [STAThread]
         private static void Main()
         {
@@ -46,8 +44,8 @@ namespace VISAInstrument
                 }
                 return;
             }
-            Common.VisaSharedComponent = visaSharedComponent;
-            Common.NiVisaRuntime = niVisaRuntime;
+            VisaInformation.VisaSharedComponent = visaSharedComponent;
+            VisaInformation.NiVisaRuntime = niVisaRuntime;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.Run(new FrmMain());
         }

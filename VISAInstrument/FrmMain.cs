@@ -7,9 +7,10 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using VISAInstrument.Utility;
+using VISAInstrument.Configuration;
 using VISAInstrument.Ports;
 using VISAInstrument.Properties;
+using VISAInstrument.Utility;
 using VISAInstrument.Utility.Extension;
 using VISAInstrument.Utility.Extension.UI;
 
@@ -623,7 +624,7 @@ namespace VISAInstrument
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            string message = Common.VisaSharedComponent.Concat(Common.NiVisaRuntime).Aggregate((x, y) => $"{x}{Environment.NewLine}{y}").TrimEnd('\r', '\n');
+            string message = VisaInformation.VisaSharedComponent.Concat(VisaInformation.NiVisaRuntime).Aggregate((x, y) => $"{x}{Environment.NewLine}{y}").TrimEnd('\r', '\n');
             MessageBox.Show(this,message);
         }
 

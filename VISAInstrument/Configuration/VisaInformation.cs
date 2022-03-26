@@ -1,6 +1,6 @@
-﻿namespace VISAInstrument
+﻿namespace VISAInstrument.Configuration
 {
-    internal class Common
+    internal class VisaInformation
     {
         public static string[] VisaSharedComponent { get; set; }
         public static string[] NiVisaRuntime { get; set; }
