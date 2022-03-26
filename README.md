@@ -5,17 +5,15 @@
 运行或开发软件时，必须安装NI-VISA运行时(其他VISA版本不支持，如Keysight VISA等)。
 ### Release版本
 运行条件：
-若需运行在XP及以上系统(最高支持Win10系统)，请安装15.5版本的运行时，下载链接如下：
+若需运行在Win7及以上系统(最高支持Win11系统)，请安装15.5版本或以上的运行时，下载链接如下：
 https://download.ni.com/support/softlib/visa/NI-VISA/15.5/Windows/NIVISA1550runtime.zip
 
-若需运行在Win7及以上系统(最高支持Win10系统)，请安装16.0~18.5版本的运行时，18.5版本的下载链接如下：
+若需运行在Win7及以上系统(最高支持Win11系统)，请安装16.0~21.5版本的运行时，18.5版本的下载链接如下：
 https://download.ni.com/support/softlib/visa/NI-VISA/18.5/Windows/NIVISA1850runtime.zip
 
 ### 开发版本
-为了最佳的开发效果，开发时请使用最新的完整版本(截止目前为止，版本为20.0)，下载链接如下：
-https://download.ni.com/support/nipkg/products/ni-v/ni-visa/20.0/offline/ni-visa_20.0.0_offline.iso
-
-注意：安装完整版后开发软件时，可以从GAC中引用完整版对应的Ivi.Visa.dll\NationalInstruments.Common.dll\NationalInstruments.Visa.dll，代替本项目中Library下的库文件。
+为了最佳的开发效果，开发时请使用本软件的对应的开发版本(21.0.0)[目前最新版本为21.5]，下载链接如下：
+https://download.ni.com/support/nipkg/products/ni-v/ni-visa/21.0/offline/ni-visa_21.0.0_offline.iso
 
 ## RS232
 支持常见的RS232串口编程，一般地址为“ASRL1::INSTR”
