@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace VISAInstrument.Extension
+namespace VISAInstrument.Utility.Extension
 {
     public static class RegexEx
     {

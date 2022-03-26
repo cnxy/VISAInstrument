@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VISAInstrument.Utility
+namespace VISAInstrument.Utility.Extension
 {
     internal static class ByteEx
     {
@@ -18,5 +18,4 @@ namespace VISAInstrument.Utility
             }
         }
     }
-
 }

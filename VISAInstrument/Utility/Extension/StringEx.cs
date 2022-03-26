@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace VISAInstrument.Utility
+namespace VISAInstrument.Utility.Extension
 {
     internal static class StringEx
     {
@@ -49,5 +49,4 @@ namespace VISAInstrument.Utility
             }
         }
     }
-
 }

@@ -695,7 +695,6 @@
             // cboBaudRate
             // 
             this.cboBaudRate.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.cboBaudRate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboBaudRate.FormattingEnabled = true;
             this.cboBaudRate.Location = new System.Drawing.Point(50, 3);
             this.cboBaudRate.Margin = new System.Windows.Forms.Padding(3, 3, 17, 3);

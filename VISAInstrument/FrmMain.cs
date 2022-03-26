@@ -1,18 +1,17 @@
-﻿using System;
+﻿using Ivi.Visa;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Ivi.Visa;
-using VISAInstrument.Extension;
-using VISAInstrument.Port;
-using VISAInstrument.Properties;
 using VISAInstrument.Utility;
-
+using VISAInstrument.Ports;
+using VISAInstrument.Properties;
+using VISAInstrument.Utility.Extension;
+using VISAInstrument.Utility.Extension.UI;
 
 namespace VISAInstrument
 {
@@ -27,13 +26,13 @@ namespace VISAInstrument
         {
             if(rbtRS232 == sender as RadioButton)
             {
-                rdoSpecifiedCount.Text = "读取指定字节数量";
+                rdoSpecifiedCount.Text = @"读取指定字节数量";
                 this.tableLayoutPanel.RowStyles[2].Height = 35F;
                 this.tableLayoutPanel.RowStyles[3].Height = 0F; 
                 
                 return;
             }
-            rdoSpecifiedCount.Text = "读取指定字节数量或收到结束符";
+            rdoSpecifiedCount.Text = @"读取指定字节数量或收到结束符";
             if (rbtLAN == sender as RadioButton)
             {
                 this.tableLayoutPanel.RowStyles[2].Height = 0F;
@@ -76,15 +75,14 @@ namespace VISAInstrument
             if (_cancelDisplayForm) Close();
         }
 
-        CancellationTokenSource _cts;
+        private CancellationTokenSource _cts;
         private void ShowTime()
         {
             Task.Factory.StartNew(() => 
             {
-                string now;
                 while(!_cts.IsCancellationRequested)
                 {
-                    now = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}";
+                    string now = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}";
                     InvokeToForm(() => 时间ToolStripMenuItem.Text = now);
                     Thread.Sleep(500);
                 }
@@ -92,7 +90,7 @@ namespace VISAInstrument
         }
 
         private PortOperatorBase _portOperatorBase;
-        private bool _isWritingError = false;
+        private bool _isWritingError;
 
         private bool Write()
         {
@@ -150,7 +148,7 @@ namespace VISAInstrument
             }
             catch(Exception ex)
             {
-                Invoke(new Action(() => MessageBox.Show(this,$@"写入命令“{txtCommand.Text}”失败！\r\n{ex.Message}")));
+                Invoke(new Action(() => MessageBox.Show(this,$@"写入命令“{txtCommand.Text}”失败！{Environment.NewLine}{ex.Message}")));
                 return false;
             }
             Invoke(new Action(() => DisplayToTextBox($"[Time:{stopwatch.ElapsedMilliseconds}ms] Write: {txtCommand.Text}")));
@@ -230,8 +228,13 @@ namespace VISAInstrument
                     if (cboRS232.SelectedIndex == -1) return "没有串口选中";
                     try
                     {
-                        _portOperatorBase = new RS232PortOperator(((Pair<string, string>)cboRS232.SelectedItem).Value.ToString(),
-                                               (int)cboBaudRate.SelectedItem, (SerialParity)cboParity.SelectedItem,
+                        bool successful = int.TryParse(cboBaudRate.Text.ToString(), out int baudRate);
+                        if (!successful)
+                        {
+                            throw new InvalidOperationException("指定的波特率无效");
+                        } 
+                        _portOperatorBase = new Rs232PortOperator(((Pair<string, string>)cboRS232.SelectedItem).Value,
+                                               baudRate, (SerialParity)cboParity.SelectedItem,
                                                (SerialStopBitsMode)cboStopBits.SelectedItem, (int)cboDataBits.SelectedItem);
                         hasAddress = true;
                     }
@@ -250,7 +253,7 @@ namespace VISAInstrument
                     if (cboUSB.SelectedIndex == -1) return "没有USB选中";
                     try
                     {
-                        _portOperatorBase = new USBPortOperator(cboUSB.SelectedItem.ToString());
+                        _portOperatorBase = new UsbPortOperator(cboUSB.SelectedItem.ToString());
                         hasAddress = true;
                     }
                     catch(Exception e1)
@@ -266,7 +269,7 @@ namespace VISAInstrument
                     if (cboGPIB.SelectedIndex == -1) return "没有GPIB选中";
                     try
                     {
-                        _portOperatorBase = new GPIBPortOperator(cboGPIB.SelectedItem.ToString());
+                        _portOperatorBase = new GpibPortOperator(cboGPIB.SelectedItem.ToString());
                         hasAddress = true;
                     }
                     catch(Exception e1)
@@ -282,7 +285,7 @@ namespace VISAInstrument
                     if (cboLAN.SelectedIndex == -1) return "没有LAN选中";
                     try
                     {
-                        _portOperatorBase = new LANPortOperator(cboLAN.SelectedItem.ToString());
+                        _portOperatorBase = new LanPortOperator(cboLAN.SelectedItem.ToString());
                         hasAddress = true;
                     }
                     catch(Exception e1)
@@ -298,7 +301,7 @@ namespace VISAInstrument
 
         private void DisplayToTextBox(string content)
         {
-            txtDisplay.Text += $"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} {content}\r\n";
+            txtDisplay.Text += $@"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} {content}{Environment.NewLine}";
             txtDisplay.SelectionStart = txtDisplay.Text.Length - 1;
             txtDisplay.ScrollToCaret();
         }
@@ -308,16 +311,16 @@ namespace VISAInstrument
             if (txtDisplay.Text.Length > 204800) txtDisplay.Clear();
         }
 
-        Task t = null;
+        private Task _task;
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             string title = Text;
-            t = Task.Factory.StartNew(() =>
+            _task = Task.Factory.StartNew(() =>
             {
                 InvokeToForm(() => { btnRefresh.Enabled = false; btnOpen.Enabled = false; Text = title + Resources.LoadingRS232; });
-                string[] content1 = PortUltility.FindAddresses(PortType.RS232);
-                string[] content2 = PortUltility.FindRS232Type(content1);
+                string[] content1 = PortHelper.FindAddresses(PortType.Rs232);
+                string[] content2 = PortHelper.FindRs232Type(content1);
                 List<string> list1 = new List<string>();
                 List<string> list2 = new List<string>();
                 for (int i = 0; i < content2.Length; i++)
@@ -328,15 +331,18 @@ namespace VISAInstrument
                 }
                 content1 = list1.ToArray();
                 content2 = list2.ToArray();
-                InvokeToForm(() => cboRS232.ShowAndDisplay(content1, content2));
+                var content3 = content1;
+                InvokeToForm(() => cboRS232.ShowAndDisplay(content3, content2));
                 InvokeToForm(() => { Text = title + Resources.LoadingUSB; });
-                content1 = PortUltility.FindAddresses(PortType.USB);
-                InvokeToForm(() => cboUSB.ShowAndDisplay(content1));
+                content1 = PortHelper.FindAddresses(PortType.Usb);
+                var content4 = content1;
+                InvokeToForm(() => cboUSB.ShowAndDisplay(content4));
                 InvokeToForm(() => { Text = title + Resources.LoadingGPIB; });
-                content1 = PortUltility.FindAddresses(PortType.GPIB);
-                InvokeToForm(() => cboGPIB.ShowAndDisplay(content1));
+                content1 = PortHelper.FindAddresses(PortType.Gpib);
+                var content5 = content1;
+                InvokeToForm(() => cboGPIB.ShowAndDisplay(content5));
                 InvokeToForm(() => { Text = title + Resources.LoadingLAN; });
-                content1 = PortUltility.FindAddresses(PortType.LAN);
+                content1 = PortHelper.FindAddresses(PortType.Lan);
                 InvokeToForm(() => cboLAN.ShowAndDisplay(content1));
                 InvokeToForm(() => { btnRefresh.Enabled = true; btnOpen.Enabled = true; Text = title; });
             }).ContinueWith(x=> 
@@ -345,7 +351,7 @@ namespace VISAInstrument
                 {
                     _cancelDisplayForm = true;
                     InvokeToForm(() => { tableLayoutPanel.Enabled = false; this.Text = Resources.RuntimeError; });
-                    MessageBox.Show(this,x.Exception.InnerException.Message);
+                    if (x.Exception?.InnerException != null) MessageBox.Show(this, x.Exception.InnerException.Message);
                 }
             });
         }
@@ -357,7 +363,10 @@ namespace VISAInstrument
             {
                 this.Invoke(action);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -373,7 +382,7 @@ namespace VISAInstrument
                     }
                     _portOperatorBase.Open();
                     btnOpen.Text = Resources.CloseString;
-                    if (_portOperatorBase is RS232PortOperator)
+                    if (_portOperatorBase is Rs232PortOperator)
                     {
                         chkRealTimeReceive.Enabled = true;
                         BindOrRemoveDataReceivedEvent();
@@ -402,7 +411,10 @@ namespace VISAInstrument
                 {
                     _portOperatorBase.Close();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
                 btnOpen.Text = Resources.OpenString;
                 EnableControl(true);
             }
@@ -463,7 +475,7 @@ namespace VISAInstrument
                 return;
             }
 
-            if (t != null && !t.IsCompleted)
+            if (_task != null && !_task.IsCompleted)
             {
                 MessageBox.Show(this,Resources.LoadingInstrumentResource);
                 e.Cancel = true;
@@ -474,7 +486,10 @@ namespace VISAInstrument
             {
                 _portOperatorBase?.Close();
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
         private const string IpRegex = @"^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$";
@@ -492,7 +507,7 @@ namespace VISAInstrument
                 txtIPAddress.SetSelect();
                 return;
             }
-            if (!PortUltility.OpenIPAddress(txtIPAddress.Text, out string fullAddress))
+            if (!PortHelper.OpenIpAddress(txtIPAddress.Text, out string fullAddress))
             {
                 MessageBox.Show(this,Resources.NotDetectIP);
                 txtIPAddress.SetSelect();
@@ -525,7 +540,10 @@ namespace VISAInstrument
                 string system32 = Environment.GetFolderPath(Environment.SpecialFolder.System);
                 Process.Start($@"{system32}\rundll32.exe", "shell32.dll,Control_RunDLL timedate.cpl,,0");
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
         private void 全选ToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -589,7 +607,7 @@ namespace VISAInstrument
 
         private void rdoUntilNewLineSpecifiedCount_CheckedChanged(object sender, EventArgs e)
         {
-            if (_portOperatorBase is RS232PortOperator portOperator)
+            if (_portOperatorBase is Rs232PortOperator portOperator)
             {
                 if (rdoUntilNewLine.Checked)
                 {
@@ -605,7 +623,7 @@ namespace VISAInstrument
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            string message = Common.VisaSharedComponent.Concat(Common.NiVisaRuntime).Aggregate((x, y) => $"{x}\r\n{y}").TrimEnd('\r', '\n');
+            string message = Common.VisaSharedComponent.Concat(Common.NiVisaRuntime).Aggregate((x, y) => $"{x}{Environment.NewLine}{y}").TrimEnd('\r', '\n');
             MessageBox.Show(this,message);
         }
 
@@ -651,12 +669,12 @@ namespace VISAInstrument
 
         private void rdoSendRead_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdoSendRead.Checked)  btnCycle.Text = "循环发送读取";
+            if (rdoSendRead.Checked)  btnCycle.Text = @"循环发送读取";
         }
 
         private void rdoSend_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdoSend.Checked) btnCycle.Text = "循环发送";
+            if (rdoSend.Checked) btnCycle.Text = @"循环发送";
         }
 
         private void EnableCycle(bool enabled)
@@ -668,12 +686,12 @@ namespace VISAInstrument
                 groupBox2.Enabled = !enabled;
                 txtCommand.Enabled = !enabled;
             }));
-            cycleEnabled = enabled;
+            _cycleEnabled = enabled;
         }
 
-        bool cycleEnabled;
-        string originalCycleText;
-        const string StopCycleText = "停止"; 
+        private bool _cycleEnabled;
+        private string _originalCycleText;
+        private const string StopCycleText = "停止"; 
         private void btnCycle_Click(object sender, EventArgs e)
         {
             if(btnCycle.Text == StopCycleText)
@@ -692,14 +710,14 @@ namespace VISAInstrument
             else
             {
                 EnableCycle(true);
-                originalCycleText = btnCycle.Text;
+                _originalCycleText = btnCycle.Text;
                 btnCycle.Text = StopCycleText;
                 Task.Factory.StartNew(() =>
                 {
                     int count = 0;
                     int cycleCount = (int)nudCycleCount.Value;
                     int intervalTime = (int)nudInterval.Value;
-                    while (cycleEnabled)
+                    while (_cycleEnabled)
                     {
                         if (cycleCount != 0 && count >= cycleCount)
                         {
@@ -715,24 +733,24 @@ namespace VISAInstrument
                         Thread.Sleep(intervalTime);
                         if(cycleCount != 0) count++;
                     }
-                    Invoke(new Action(() => btnCycle.Text = originalCycleText));
+                    Invoke(new Action(() => btnCycle.Text = _originalCycleText));
                 });
             }
         }
 
         private bool CheckCycleEnable(string operationName)
         {
-            bool cycleEnabledTemp = cycleEnabled;
+            bool cycleEnabledTemp = _cycleEnabled;
             if (cycleEnabledTemp)
             {
-                MessageBox.Show(this,$"请停止循环操作后再执行{operationName}操作");
+                MessageBox.Show(this,$@"请停止循环操作后再执行{operationName}操作");
             }
             return cycleEnabledTemp;
         }
 
         private void BindOrRemoveDataReceivedEvent()
         {
-            if (_portOperatorBase is RS232PortOperator portOperator)
+            if (_portOperatorBase is Rs232PortOperator portOperator)
             {
                 if (chkRealTimeReceive.Checked)
                 {

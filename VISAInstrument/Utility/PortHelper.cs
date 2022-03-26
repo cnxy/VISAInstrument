@@ -1,28 +1,23 @@
-﻿using System;
+﻿using Ivi.Visa;
+using NationalInstruments.Visa;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Ivi.Visa;
-using NationalInstruments.Visa;
 
-namespace VISAInstrument.Port
+namespace VISAInstrument.Utility
 {
-    enum PortType
-    {
-        RS232, USB, GPIB, LAN,None
-    }
-
-    class PortUltility
+    internal class PortHelper
     {
         private static string ToStringFromPortType(PortType portType)
         {
             switch (portType)
             {
-                case PortType.USB: return "USB";
-                case PortType.GPIB: return "GPIB";
-                case PortType.LAN: return "TCPIP";
+                case PortType.Usb: return "USB";
+                case PortType.Gpib: return "GPIB";
+                case PortType.Lan: return "TCPIP";
                 case PortType.None:return "";
-                case PortType.RS232:
+                case PortType.Rs232:
                 default: return "ASRL";
             }
         }
@@ -39,45 +34,48 @@ namespace VISAInstrument.Port
                 if (!(ex is NativeVisaException))
                 {
                     if (ex.InnerException != null) throw ex.InnerException;
-                    else throw ex;
+                    throw;
                 }
             }
 
             return result.ToArray().Where(n=>!n.Contains("//")).ToArray();
         }
 
-        public static string[] FindRS232Type(string[] addresses)
+        public static string[] FindRs232Type(string[] addresses)
         {
             List<string> list = new List<string>();
-            for (int i = 0; i < addresses.Length; i++)
+            foreach (var address in addresses)
             {
                 try
                 {
                     ResourceManager manager = new ResourceManager();
-                    ParseResult result = manager.Parse(addresses[i]);
+                    ParseResult result = manager.Parse(address);
                     list.Add(result.AliasIfExists);
                 }
                 catch
                 {
-                    list.Add(addresses[i]);
+                    list.Add(address);
                 }
             }
             return list.ToArray();
         }
 
-        public static bool OpenIPAddress(string address,out string fullAddress)
+        public static bool OpenIpAddress(string address,out string fullAddress)
         {
             bool result = false;
             string addressTemp = $"TCPIP0::{address}::INSTR";
             fullAddress = addressTemp;
             try
             {
-                using (TcpipSession session = new TcpipSession(addressTemp))
+                using (new TcpipSession(addressTemp))
                 {
                     result = true;
                 }
             }
-            catch{ }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
             return result;
         }
 

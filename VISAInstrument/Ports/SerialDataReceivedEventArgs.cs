@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VISAInstrument.Port
+namespace VISAInstrument.Ports
 {
     public class SerialDataReceivedEventArgs:EventArgs
     {

@@ -20,16 +20,17 @@ namespace VISAInstrument
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Mutex mutex = new Mutex(false, Resources.MutexName, out bool result);
-            if(!result)
+            using (new Mutex(false, Resources.MutexName, out bool result))
             {
-                MessageBox.Show(Resources.Running);
-                return;
+                if (!result)
+                {
+                    MessageBox.Show(Resources.Running);
+                    return;
+                }
             }
-
             if (!IsVisaExisted(out string message, out string[] visaSharedComponent, out string[] niVisaRuntime))
             {
-                if (MessageBox.Show($"{message}\r\n\r\n{Resources.NeedToDownLoad}", @"错误",
+                if (MessageBox.Show($@"{message}{Environment.NewLine}{Environment.NewLine}{Resources.NeedToDownLoad}", @"错误",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes) return;
                 try
                 {
@@ -63,11 +64,10 @@ namespace VISAInstrument
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            AppDomain appDomain = sender as AppDomain;
             Exception ex = (Exception)e.ExceptionObject;
             if (ex is DllNotFoundException)
             {
-                DialogResult result = MessageBox.Show($"{Resources.VISA32Error}\r\n\r{Resources.VISADownLoad}", Resources.RuntimeError, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                DialogResult result = MessageBox.Show($@"{Resources.VISA32Error}{Environment.NewLine}{Environment.NewLine}{Resources.VISADownLoad}", Resources.RuntimeError, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                 if (result == DialogResult.Yes)
                 {
@@ -97,7 +97,7 @@ namespace VISAInstrument
             UninstallInfo[] visaUninstallInfo = UninstallInfoHelper.GetUninstallInfo().Where(x => !string.IsNullOrEmpty(x.DisplayName)).ToArray();
             UninstallInfo[] iviVisaUninstallInfo = visaUninstallInfo.Where(x => x.DisplayName.StartsWith(visaSharedComponentsString)).ToArray();
             visaSharedComponent = iviVisaUninstallInfo.Select(x => x.ToString()).ToArray();
-            niVisaRuntime = new string[0];
+            niVisaRuntime = Array.Empty<string>();
             string GetFullVersion(string version)
             {
                 string newVersion = version;
@@ -174,11 +174,6 @@ namespace VISAInstrument
                 message = e.Message;
                 return false;
             }
-        }
-
-        private  static bool IsVisaExisted(out string message)
-        {
-            return IsVisaExisted(out message, out _, out _);
         }
     }
 }
